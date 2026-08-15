@@ -1,8 +1,21 @@
 import mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
+import fs from 'fs';
 import { resolve } from 'path';
 
-dotenv.config({ path: resolve(process.cwd(), '.env.local') });
+// Parse .env.local if exists
+try {
+  const envPath = resolve(process.cwd(), '.env.local');
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf-8');
+    envContent.split('\n').forEach((line) => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#') && trimmed.includes('=')) {
+        const [k, ...v] = trimmed.split('=');
+        process.env[k.trim()] = v.join('=').trim();
+      }
+    });
+  }
+} catch (e) {}
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/innotech_medical';
 
