@@ -24,6 +24,8 @@ const SiteConfigSchema = new mongoose.Schema(
       btn2Text: { type: String, default: 'About us' },
       btn2Link: { type: String, default: '/about' },
       videoUrl: { type: String, default: 'https://www.youtube.com/embed/d8w5SICzzxc' },
+      image: { type: String, default: '/assets/img/banner/banner-01.png' },
+      bannerImage: { type: String, default: '/assets/img/banner/banner-01.png' },
       badge1Text: { type: String, default: '100% Customer Satisfaction' },
       badge2Text: { type: String, default: 'Help and Acess is Our Mission' },
       badge3Text: { type: String, default: '100% Quality Laboratory service' },

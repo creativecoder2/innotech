@@ -54,10 +54,31 @@ const TestimonialSchema = new mongoose.Schema({
   avatar: String,
 });
 
+const SiteConfigSchema = new mongoose.Schema({
+  header: Object,
+  hero: Object,
+  servicesSection: Object,
+  about: Object,
+  counters: Object,
+  gallerySection: Object,
+  whyChooseUs: Object,
+  appointment: Object,
+  teamSection: Object,
+  testimonialSection: Object,
+  brandsSection: Object,
+  ctaSection: Object,
+  blogSection: Object,
+  footer: Object,
+  chatWidget: Object,
+  whatsappWidget: Object,
+  generalSettings: Object,
+}, { timestamps: true });
+
 const Service = mongoose.models.Service || mongoose.model('Service', ServiceSchema);
 const Blog = mongoose.models.Blog || mongoose.model('Blog', BlogSchema);
 const Team = mongoose.models.Team || mongoose.model('Team', TeamSchema);
 const Testimonial = mongoose.models.Testimonial || mongoose.model('Testimonial', TestimonialSchema);
+const SiteConfig = mongoose.models.SiteConfig || mongoose.model('SiteConfig', SiteConfigSchema);
 
 const servicesData = [
   {
@@ -216,6 +237,21 @@ async function seed() {
     await Blog.deleteMany({});
     await Blog.insertMany(blogData);
     console.log(`Inserted ${blogData.length} Blogs.`);
+
+    // Seed SiteConfig (including hero image and all section configs)
+    try {
+      const siteDataPath = resolve(process.cwd(), 'data', 'site-data.json');
+      if (fs.existsSync(siteDataPath)) {
+        const siteData = JSON.parse(fs.readFileSync(siteDataPath, 'utf-8'));
+        if (siteData.config) {
+          await SiteConfig.deleteMany({});
+          await SiteConfig.create(siteData.config);
+          console.log('Inserted SiteConfig (Hero, Header, Services, About, Footer).');
+        }
+      }
+    } catch (cfgErr) {
+      console.warn('SiteConfig seed note:', cfgErr.message);
+    }
 
     console.log('Seeding completed successfully!');
     process.exit(0);

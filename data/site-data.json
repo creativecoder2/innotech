@@ -1,5 +1,6 @@
 {
   "config": {
+    "_id": "6a80ae35648e92c5e3b39642",
     "header": {
       "enabled": true,
       "helpDeskPhone": "+92 331 6699992",
@@ -15,8 +16,6 @@
       "btn2Text": "About us",
       "btn2Link": "/about",
       "videoUrl": "https://youtu.be/41atpHxDJro?si=ZOZ-0mbxs2IUZ7CX",
-      "image": "/assets/img/banner/banner-01.png",
-      "bannerImage": "/assets/img/banner/banner-01.png",
       "badge1Text": "100% Customer Satisfaction",
       "badge2Text": "Help and Acess is Our Mission",
       "badge3Text": "100% Quality Laboratory service"
@@ -170,12 +169,118 @@
     "teamSection": {
       "enabled": true,
       "subTitle": "Our Team",
-      "title": "Meet Specialist"
+      "title": "Meet Specialist",
+      "members": [
+        {
+          "_id": "team-1",
+          "name": "Cameron Williamson",
+          "position": "Genetic Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-01.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        },
+        {
+          "_id": "team-2",
+          "name": "Savannah Nguyen",
+          "position": "Anaesthetist Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-02.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        },
+        {
+          "_id": "team-3",
+          "name": "Darlene Robertson",
+          "position": "Gynaecologist Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-03.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        },
+        {
+          "_id": "team-4",
+          "name": "Jhon Methweu",
+          "position": "Radiologist Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-04.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    "teamPages": {
+      "allTeams": {
+        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+        "bannerTitle": "Meet Specialist",
+        "bannerBreadcrumb": "Our Team",
+        "sectionSubTitle": "OUR TEAM",
+        "sectionTitle": "Our Specialist"
+      },
+      "teamDetails": {
+        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+        "bannerTitle": "Team Details",
+        "bannerBreadcrumb": "Our Team"
+      }
     },
     "testimonialSection": {
       "enabled": true,
       "subTitle": "Testimonial",
-      "title": "Customer Feedback"
+      "title": "Customer Feedback",
+      "items": [
+        {
+          "_id": "testi-1",
+          "name": "Darlene Robertson",
+          "position": "Secretary of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-01.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "testi-2",
+          "name": "Courtney Henry",
+          "position": "CEO of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-02.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "testi-3",
+          "name": "Kathryn Murphy",
+          "position": "Manager of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-03.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "testi-4",
+          "name": "Darlene Robertson",
+          "position": "Programmer of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-07.png",
+          "enabled": true
+        }
+      ]
     },
     "brandsSection": {
       "enabled": true,
@@ -232,7 +337,53 @@
     "blogSection": {
       "enabled": true,
       "subTitle": "Waht’s New",
-      "title": "Blog & Article"
+      "title": "Blog & Article",
+      "items": [
+        {
+          "_id": "blog-1",
+          "title": "Heart Diseases Tests Ordered By Doctors",
+          "slug": "heart-diseases-tests-ordered-by-doctors",
+          "category": "Medicine",
+          "dateDay": "26",
+          "dateMonth": "Dec",
+          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+          "image": "/assets/img/blog/blog-thumb-01.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "blog-2",
+          "title": "Heart Diseases Tests Ordered By Doctors",
+          "slug": "heart-diseases-tests-ordered-by-doctors-2",
+          "category": "Medicine",
+          "dateDay": "26",
+          "dateMonth": "Dec",
+          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+          "image": "/assets/img/blog/blog-thumb-02.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "blog-3",
+          "title": "Identifying bases of disease pathophysio",
+          "slug": "identifying-bases-of-disease-pathophysio",
+          "category": "Medicine",
+          "dateDay": "26",
+          "dateMonth": "Dec",
+          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+          "image": "/assets/img/blog/blog-thumb-03.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "blog-4",
+          "title": "Coronavirus global health emergency",
+          "slug": "coronavirus-global-health-emergency",
+          "category": "Medicine",
+          "dateDay": "26",
+          "dateMonth": "Dec",
+          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+          "image": "/assets/img/blog/blog-thumb-04.jpg",
+          "enabled": true
+        }
+      ]
     },
     "footer": {
       "enabled": true,
@@ -289,24 +440,55 @@
       "defaultMessage": "Hello Innotech Medical, I would like to inquire about your medical equipment and solutions.",
       "tooltipText": "Chat with us on WhatsApp"
     },
-    "_id": "6a80ae35648e92c5e3b39642",
-    "teamPages": {
-      "allTeams": {
-        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
-        "bannerTitle": "Meet Specialist",
-        "bannerBreadcrumb": "Our Team",
-        "sectionSubTitle": "OUR TEAM",
-        "sectionTitle": "Our Specialist"
-      },
-      "teamDetails": {
-        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
-        "bannerTitle": "Team Details",
-        "bannerBreadcrumb": "Our Team"
-      }
-    },
     "createdAt": "2026-08-15T18:21:41.823Z",
     "updatedAt": "2026-08-15T18:21:41.823Z",
-    "__v": 0
+    "__v": 0,
+    "services": [
+      {
+        "_id": "6a80acf1720234975575fc15",
+        "title": "HEMOGLOBIN TEST",
+        "slug": "hemoglobin-test",
+        "iconClass": "flaticon-hemoglobin-test-meter",
+        "iconTheme": "blue",
+        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+        "order": 1,
+        "isActive": true,
+        "__v": 0
+      },
+      {
+        "_id": "6a80acf1720234975575fc16",
+        "title": "BLOOD TESTING",
+        "slug": "blood-testing",
+        "iconClass": "flaticon-blood-test",
+        "iconTheme": "pink",
+        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+        "order": 2,
+        "isActive": true,
+        "__v": 0
+      },
+      {
+        "_id": "6a80acf1720234975575fc17",
+        "title": "BIOCHEMISTRY",
+        "slug": "biochemistry",
+        "iconClass": "flaticon-biochemistry",
+        "iconTheme": "green",
+        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+        "order": 3,
+        "isActive": true,
+        "__v": 0
+      },
+      {
+        "_id": "6a80acf1720234975575fc18",
+        "title": "HISTOPATOLOGY",
+        "slug": "histopatology",
+        "iconClass": "flaticon-dna-1",
+        "iconTheme": "sky",
+        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+        "order": 4,
+        "isActive": true,
+        "__v": 0
+      }
+    ]
   },
   "headerConfig": {
     "enabled": true,
@@ -453,7 +635,8 @@
       "tag": "Radiologists",
       "image": "/assets/img/gallery/gal-thum-01.jpg",
       "link": "/services",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39643"
     },
     {
       "id": 2,
@@ -461,7 +644,8 @@
       "tag": "Anaesthetist",
       "image": "/assets/img/gallery/gal-thum-02.jpg",
       "link": "/services",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39644"
     },
     {
       "id": 3,
@@ -469,7 +653,8 @@
       "tag": "Gynaecologist",
       "image": "/assets/img/gallery/gal-thum-03.jpg",
       "link": "/services",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39645"
     },
     {
       "id": 4,
@@ -477,7 +662,8 @@
       "tag": "Genetics",
       "image": "/assets/img/gallery/gal-thum-04.jpg",
       "link": "/services",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39646"
     },
     {
       "id": 5,
@@ -485,7 +671,8 @@
       "tag": "Forensic",
       "image": "/assets/img/gallery/gal-thum-05.jpg",
       "link": "/services",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39647"
     }
   ],
   "team": [
@@ -582,95 +769,48 @@
   ],
   "blogs": [
     {
-      "_id": "blog-4",
-      "title": "Sterilization Standards & Patient Safety in Modern Operating Rooms",
-      "slug": "sterilization-standards-and-patient-safety-in-operating-rooms",
-      "category": "Surgical Care",
-      "author": "Dr. Tariq Mahmood",
-      "dateDay": "14",
-      "dateMonth": "Aug",
-      "dateYear": "2026",
-      "image": "/assets/img/blog/blog-in-01.jpg",
-      "excerpt": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections.",
-      "content": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections in critical surgical environments across Pakistan.",
-      "tags": [
-        "Surgical",
-        "Sterilization",
-        "Patient Safety"
-      ],
+      "_id": "blog-1",
+      "title": "Heart Diseases Tests Ordered By Doctors",
+      "slug": "heart-diseases-tests-ordered-by-doctors",
+      "category": "Medicine",
+      "dateDay": "26",
+      "dateMonth": "Dec",
+      "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+      "image": "/assets/img/blog/blog-thumb-01.jpg",
       "enabled": true
     },
     {
-      "_id": "blog-1",
-      "slug": "advances-in-biomedical-imaging-and-diagnostics",
-      "title": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
-      "category": "Biomedical Engineering",
-      "author": "Innotech Editorial Team",
-      "dateDay": "12",
-      "dateMonth": "Aug",
-      "dateYear": "2026",
-      "views": 6,
-      "image": "/assets/img/blog/blog-in-01.jpg",
-      "excerpt": "Modern healthcare facilities in Pakistan are rapidly transitioning towards high-resolution digital imaging and automated diagnostics for faster, error-free clinical outcomes.",
-      "content": "Biomedical engineering has undergone revolutionary advancements over the past decade. High-resolution ultrasound systems, advanced digital radiography, and automated clinical analyzers have significantly improved diagnostic speed and precision.\n\nAt Innotech Medical Pvt Ltd, our commitment is to bridge the gap between global medical innovators and healthcare institutions in Pakistan. By delivering state-of-the-art diagnostic instruments, we empower clinicians to make life-saving decisions with confidence.\n\nKey Technological Highlights:\n- Real-time digital signal processing in ultrasound Doppler.\n- Sub-minute blood gas and electrolyte analyzers for critical care units.\n- Turnkey clinical deployment with full OEM calibration and 24/7 engineering backup.",
-      "tags": [
-        "Biomedical",
-        "Diagnostics",
-        "Medical Imaging",
-        "Healthcare"
-      ],
-      "enabled": true,
-      "viewedVisitors": [
-        "user_test_unique_99",
-        "v_ro7pyv5_msrykviz",
-        "v_ro7pyv5_msrykviz",
-        "v_6llncve_msszo1sr",
-        "v_6llncve_msszo1sr"
-      ]
-    },
-    {
       "_id": "blog-2",
-      "slug": "turnkey-hospital-projects-and-icu-equipment",
-      "title": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
-      "category": "Turnkey Healthcare",
-      "author": "Engr. Faisal Malik",
-      "dateDay": "08",
-      "dateMonth": "Aug",
-      "dateYear": "2026",
-      "views": "2,150",
-      "image": "/assets/img/blog/blog-in-02.jpg",
-      "excerpt": "Building modern intensive care units requires seamless coordination between medical gas architecture, patient monitoring networks, and sterile surgical environments.",
-      "content": "Developing a modern hospital or upgrading an Intensive Care Unit (ICU) requires more than just purchasing equipment. It demands holistic architectural engineering, reliable medical gas distribution, uninterruptible power redundancy, and precision calibration.\n\nInnotech Medical specializes in turnkey healthcare projects, handling everything from initial architectural feasibility and equipment selection to physical deployment, site testing, and staff clinical training.",
-      "tags": [
-        "Turnkey ICU",
-        "Engineering",
-        "Hospitals",
-        "Pakistan"
-      ],
+      "title": "Heart Diseases Tests Ordered By Doctors",
+      "slug": "heart-diseases-tests-ordered-by-doctors-2",
+      "category": "Medicine",
+      "dateDay": "26",
+      "dateMonth": "Dec",
+      "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+      "image": "/assets/img/blog/blog-thumb-02.jpg",
       "enabled": true
     },
     {
       "_id": "blog-3",
-      "slug": "preventive-maintenance-and-biomedical-calibration",
-      "title": "Why Preventive Maintenance & Precision Calibration Save Patient Lives",
-      "category": "Technical Support",
-      "author": "Engr. Sarah Ahmed",
-      "dateDay": "02",
-      "dateMonth": "Aug",
-      "dateYear": "2026",
-      "views": 2,
-      "image": "/assets/img/blog/blog-in-03.jpg",
-      "excerpt": "Regular biomedical calibration prevents critical diagnostic drift and ensures zero unexpected downtime in life-support and emergency care equipment.",
-      "content": "In critical healthcare environments, equipment failure is not an option. Routine biomedical calibration and preventive maintenance are essential to ensure patient monitors, ventilators, and surgical systems perform at peak accuracy.\n\nOur dedicated 24/7 technical dispatch team at Innotech Medical provides scheduled servicing, OEM spare parts replacement, and emergency troubleshooting across healthcare facilities nationwide.",
-      "tags": [
-        "Maintenance",
-        "Calibration",
-        "Biomedical Support"
-      ],
-      "enabled": true,
-      "viewedVisitors": [
-        "v_ro7pyv5_msrykviz"
-      ]
+      "title": "Identifying bases of disease pathophysio",
+      "slug": "identifying-bases-of-disease-pathophysio",
+      "category": "Medicine",
+      "dateDay": "26",
+      "dateMonth": "Dec",
+      "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+      "image": "/assets/img/blog/blog-thumb-03.jpg",
+      "enabled": true
+    },
+    {
+      "_id": "blog-4",
+      "title": "Coronavirus global health emergency",
+      "slug": "coronavirus-global-health-emergency",
+      "category": "Medicine",
+      "dateDay": "26",
+      "dateMonth": "Dec",
+      "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+      "image": "/assets/img/blog/blog-thumb-04.jpg",
+      "enabled": true
     }
   ],
   "brands": [
@@ -678,37 +818,43 @@
       "id": 1,
       "image": "/assets/img/brand/brand-01.png",
       "alt": "Brand 1",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b3964c"
     },
     {
       "id": 2,
       "image": "/assets/img/brand/brand-02.png",
       "alt": "Brand 2",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b3964d"
     },
     {
       "id": 3,
       "image": "/assets/img/brand/brand-03.png",
       "alt": "Brand 3",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b3964e"
     },
     {
       "id": 4,
       "image": "/assets/img/brand/brand-04.png",
       "alt": "Brand 4",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b3964f"
     },
     {
       "id": 5,
       "image": "/assets/img/brand/brand-05.png",
       "alt": "Brand 5",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39650"
     },
     {
       "id": 6,
       "image": "/assets/img/brand/brand-04.png",
       "alt": "Brand 6",
-      "enabled": true
+      "enabled": true,
+      "_id": "6a80ae35648e92c5e3b39651"
     }
   ],
   "aboutPage": {
@@ -948,95 +1094,48 @@
     },
     "items": [
       {
-        "_id": "blog-4",
-        "title": "Sterilization Standards & Patient Safety in Modern Operating Rooms",
-        "slug": "sterilization-standards-and-patient-safety-in-operating-rooms",
-        "category": "Surgical Care",
-        "author": "Dr. Tariq Mahmood",
-        "dateDay": "14",
-        "dateMonth": "Aug",
-        "dateYear": "2026",
-        "image": "/assets/img/blog/blog-in-01.jpg",
-        "excerpt": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections.",
-        "content": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections in critical surgical environments across Pakistan.",
-        "tags": [
-          "Surgical",
-          "Sterilization",
-          "Patient Safety"
-        ],
+        "_id": "blog-1",
+        "title": "Heart Diseases Tests Ordered By Doctors",
+        "slug": "heart-diseases-tests-ordered-by-doctors",
+        "category": "Medicine",
+        "dateDay": "26",
+        "dateMonth": "Dec",
+        "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+        "image": "/assets/img/blog/blog-thumb-01.jpg",
         "enabled": true
       },
       {
-        "_id": "blog-1",
-        "slug": "advances-in-biomedical-imaging-and-diagnostics",
-        "title": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
-        "category": "Biomedical Engineering",
-        "author": "Innotech Editorial Team",
-        "dateDay": "12",
-        "dateMonth": "Aug",
-        "dateYear": "2026",
-        "views": 6,
-        "image": "/assets/img/blog/blog-in-01.jpg",
-        "excerpt": "Modern healthcare facilities in Pakistan are rapidly transitioning towards high-resolution digital imaging and automated diagnostics for faster, error-free clinical outcomes.",
-        "content": "Biomedical engineering has undergone revolutionary advancements over the past decade. High-resolution ultrasound systems, advanced digital radiography, and automated clinical analyzers have significantly improved diagnostic speed and precision.\n\nAt Innotech Medical Pvt Ltd, our commitment is to bridge the gap between global medical innovators and healthcare institutions in Pakistan. By delivering state-of-the-art diagnostic instruments, we empower clinicians to make life-saving decisions with confidence.\n\nKey Technological Highlights:\n- Real-time digital signal processing in ultrasound Doppler.\n- Sub-minute blood gas and electrolyte analyzers for critical care units.\n- Turnkey clinical deployment with full OEM calibration and 24/7 engineering backup.",
-        "tags": [
-          "Biomedical",
-          "Diagnostics",
-          "Medical Imaging",
-          "Healthcare"
-        ],
-        "enabled": true,
-        "viewedVisitors": [
-          "user_test_unique_99",
-          "v_ro7pyv5_msrykviz",
-          "v_ro7pyv5_msrykviz",
-          "v_6llncve_msszo1sr",
-          "v_6llncve_msszo1sr"
-        ]
-      },
-      {
         "_id": "blog-2",
-        "slug": "turnkey-hospital-projects-and-icu-equipment",
-        "title": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
-        "category": "Turnkey Healthcare",
-        "author": "Engr. Faisal Malik",
-        "dateDay": "08",
-        "dateMonth": "Aug",
-        "dateYear": "2026",
-        "views": "2,150",
-        "image": "/assets/img/blog/blog-in-02.jpg",
-        "excerpt": "Building modern intensive care units requires seamless coordination between medical gas architecture, patient monitoring networks, and sterile surgical environments.",
-        "content": "Developing a modern hospital or upgrading an Intensive Care Unit (ICU) requires more than just purchasing equipment. It demands holistic architectural engineering, reliable medical gas distribution, uninterruptible power redundancy, and precision calibration.\n\nInnotech Medical specializes in turnkey healthcare projects, handling everything from initial architectural feasibility and equipment selection to physical deployment, site testing, and staff clinical training.",
-        "tags": [
-          "Turnkey ICU",
-          "Engineering",
-          "Hospitals",
-          "Pakistan"
-        ],
+        "title": "Heart Diseases Tests Ordered By Doctors",
+        "slug": "heart-diseases-tests-ordered-by-doctors-2",
+        "category": "Medicine",
+        "dateDay": "26",
+        "dateMonth": "Dec",
+        "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+        "image": "/assets/img/blog/blog-thumb-02.jpg",
         "enabled": true
       },
       {
         "_id": "blog-3",
-        "slug": "preventive-maintenance-and-biomedical-calibration",
-        "title": "Why Preventive Maintenance & Precision Calibration Save Patient Lives",
-        "category": "Technical Support",
-        "author": "Engr. Sarah Ahmed",
-        "dateDay": "02",
-        "dateMonth": "Aug",
-        "dateYear": "2026",
-        "views": 2,
-        "image": "/assets/img/blog/blog-in-03.jpg",
-        "excerpt": "Regular biomedical calibration prevents critical diagnostic drift and ensures zero unexpected downtime in life-support and emergency care equipment.",
-        "content": "In critical healthcare environments, equipment failure is not an option. Routine biomedical calibration and preventive maintenance are essential to ensure patient monitors, ventilators, and surgical systems perform at peak accuracy.\n\nOur dedicated 24/7 technical dispatch team at Innotech Medical provides scheduled servicing, OEM spare parts replacement, and emergency troubleshooting across healthcare facilities nationwide.",
-        "tags": [
-          "Maintenance",
-          "Calibration",
-          "Biomedical Support"
-        ],
-        "enabled": true,
-        "viewedVisitors": [
-          "v_ro7pyv5_msrykviz"
-        ]
+        "title": "Identifying bases of disease pathophysio",
+        "slug": "identifying-bases-of-disease-pathophysio",
+        "category": "Medicine",
+        "dateDay": "26",
+        "dateMonth": "Dec",
+        "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+        "image": "/assets/img/blog/blog-thumb-03.jpg",
+        "enabled": true
+      },
+      {
+        "_id": "blog-4",
+        "title": "Coronavirus global health emergency",
+        "slug": "coronavirus-global-health-emergency",
+        "category": "Medicine",
+        "dateDay": "26",
+        "dateMonth": "Dec",
+        "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+        "image": "/assets/img/blog/blog-thumb-04.jpg",
+        "enabled": true
       }
     ]
   },
@@ -1815,7 +1914,7 @@
         "visitorId": "v_1mzuctr_msuehsgn",
         "path": "/",
         "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
-        "duration": 8977,
+        "duration": 9337,
         "isBlog": false,
         "blogSlug": "",
         "date": "2026-08-15",
