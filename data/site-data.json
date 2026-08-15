@@ -1761,7 +1761,7 @@
       "phone": "03472663843",
       "subject": "asdsa",
       "message": "asdas",
-      "status": "unread",
+      "status": "read",
       "replies": [],
       "createdAt": "2026-08-15T14:24:41.960Z",
       "ipAddress": "::1",
@@ -1789,7 +1789,7 @@
       "phone": "347324234",
       "subject": "Specialist Consultation Inquiry",
       "message": "asdasdsadas",
-      "status": "unread",
+      "status": "read",
       "replies": [],
       "createdAt": "2026-08-14T16:59:29.937Z",
       "ipAddress": "::1",
@@ -2670,7 +2670,7 @@
       "userPhone": "0313354644",
       "userCity": "islamabad",
       "status": "active",
-      "unreadAdminCount": 2,
+      "unreadAdminCount": 0,
       "unreadUserCount": 0,
       "lastMessage": "ok thanks",
       "lastMessageAt": "2026-08-15T12:35:54.737Z",
@@ -2689,7 +2689,7 @@
           "senderName": "Khan",
           "text": "I need your support",
           "timestamp": "2026-08-15T12:35:37.254Z",
-          "read": false
+          "read": true
         },
         {
           "id": "msg_1786797337358_autoreply",
@@ -2705,7 +2705,7 @@
           "senderName": "Khan",
           "text": "ok thanks",
           "timestamp": "2026-08-15T12:35:54.737Z",
-          "read": false
+          "read": true
         }
       ],
       "autoReplySent": true,
