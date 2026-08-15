@@ -1,0 +1,141 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("/assets/fonts/flaticon.woff2") format("woff2"),
+         url("/assets/fonts/flaticon.eot") format("embedded-opentype"),
+         url("../fonts/flaticon.woff2") format("woff2"),
+         url("../fonts/flaticon.eot") format("embedded-opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-shopping-cart:before {
+    content: "\f101";
+}
+.flaticon-list:before {
+    content: "\f102";
+}
+.flaticon-triangle:before {
+    content: "\f103";
+}
+.flaticon-hemoglobin-test-meter:before {
+    content: "\f104";
+}
+.flaticon-blood-test:before {
+    content: "\f105";
+}
+.flaticon-biochemistry:before {
+    content: "\f106";
+}
+.flaticon-bacteria:before {
+    content: "\f107";
+}
+.flaticon-heart:before {
+    content: "\f108";
+}
+.flaticon-dna:before {
+    content: "\f109";
+}
+.flaticon-dna-1:before {
+    content: "\f10a";
+}
+.flaticon-ct-scan:before {
+    content: "\f10b";
+}
+.flaticon-experiment:before {
+    content: "\f10c";
+}
+.flaticon-premium-badge:before {
+    content: "\f10d";
+}
+.flaticon-rating:before {
+    content: "\f10e";
+}
+.flaticon-target:before {
+    content: "\f10f";
+}
+.flaticon-team:before {
+    content: "\f110";
+}
+.flaticon-microscope:before {
+    content: "\f111";
+}
+.flaticon-thinking:before {
+    content: "\f112";
+}
+.flaticon-24-hours-1:before {
+    content: "\f113";
+}
+.flaticon-research:before {
+    content: "\f114";
+}
+.flaticon-microscope-1:before {
+    content: "\f115";
+}
+.flaticon-heart-1:before {
+    content: "\f116";
+}
+.flaticon-quote:before {
+    content: "\f117";
+}
+.flaticon-left-quote:before {
+    content: "\f118";
+}
+.flaticon-bubble-chat:before {
+    content: "\f119";
+}
+.flaticon-bubble-chat-1:before {
+    content: "\f11a";
+}
+.flaticon-lock:before {
+    content: "\f11b";
+}
+.flaticon-padlock:before {
+    content: "\f11c";
+}
+.flaticon-24-hours:before {
+    content: "\f11d";
+}
+.flaticon-support:before {
+    content: "\f11e";
+}
+.flaticon-phone:before {
+    content: "\f11f";
+}
+.flaticon-phone-call:before {
+    content: "\f120";
+}
+.flaticon-phone-call-1:before {
+    content: "\f121";
+}
+.flaticon-calendar:before {
+    content: "\f122";
+}
+.flaticon-calendar-1:before {
+    content: "\f123";
+}
+.flaticon-message:before {
+    content: "\f124";
+}
+.flaticon-email:before {
+    content: "\f125";
+}
+.flaticon-check-mark:before {
+    content: "\f126";
+}
+.flaticon-check:before {
+    content: "\f127";
+}
+.flaticon-star:before {
+    content: "\f128";
+}

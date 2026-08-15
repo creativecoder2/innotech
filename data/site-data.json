@@ -1,0 +1,2907 @@
+{
+  "config": {
+    "header": {
+      "enabled": true,
+      "helpDeskPhone": "+92 331 6699992",
+      "emergencyPhone": "+92 331 6699992",
+      "logo": "/assets/img/logo/logo.png",
+      "menuItems": [
+        {
+          "id": "1",
+          "label": "Home",
+          "link": "/",
+          "enabled": true,
+          "showOnHome": true,
+          "showOnInner": true
+        },
+        {
+          "id": "2",
+          "label": "About",
+          "link": "/about",
+          "enabled": true,
+          "showOnHome": true,
+          "showOnInner": true
+        },
+        {
+          "id": "3",
+          "label": "Services",
+          "link": "/services",
+          "enabled": true,
+          "showOnHome": true,
+          "showOnInner": true,
+          "hasDropdown": true,
+          "subItems": [
+            {
+              "id": "s1",
+              "label": "Medical Equipment & Devices",
+              "link": "/services/medical-equipment-devices",
+              "enabled": true
+            },
+            {
+              "id": "s2",
+              "label": "Diagnostic & Lab Systems",
+              "link": "/services/diagnostic-lab-systems",
+              "enabled": true
+            },
+            {
+              "id": "s3",
+              "label": "Critical Care & ICU",
+              "link": "/services/critical-care-icu",
+              "enabled": true
+            },
+            {
+              "id": "s4",
+              "label": "Surgical Devices & OT",
+              "link": "/services/surgical-devices",
+              "enabled": true
+            },
+            {
+              "id": "s5",
+              "label": "All Products & Services",
+              "link": "/services",
+              "enabled": true
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "label": "Gallery",
+          "link": "/gallery",
+          "enabled": true,
+          "showOnHome": false,
+          "showOnInner": true
+        },
+        {
+          "id": "5",
+          "label": "Specialists",
+          "link": "/allteams",
+          "enabled": true,
+          "showOnHome": false,
+          "showOnInner": true
+        },
+        {
+          "id": "6",
+          "label": "Partners",
+          "link": "/partners",
+          "enabled": true,
+          "showOnHome": true,
+          "showOnInner": true
+        },
+        {
+          "id": "7",
+          "label": "Blog",
+          "link": "/blog",
+          "enabled": true,
+          "showOnHome": true,
+          "showOnInner": true
+        },
+        {
+          "id": "8",
+          "label": "Research",
+          "link": "/research",
+          "enabled": true,
+          "showOnHome": false,
+          "showOnInner": true
+        },
+        {
+          "id": "9",
+          "label": "Contact",
+          "link": "/contact",
+          "enabled": true,
+          "showOnHome": true,
+          "showOnInner": true
+        }
+      ]
+    },
+    "hero": {
+      "enabled": true,
+      "subTitle": "Welcome to Innotech Medical Pvt Ltd",
+      "title": "Innovating Health Care with Advance Technologies",
+      "description": "Innotech Medical Pvt Ltd is Growing distributor of top-quality medical equipment across Pakistan At Innotech Medical, we are dedicated to bridging the gap between world-class medical innovation and Pakistan’s healthcare sector. As a leading provider of advanced biomedical technologies, diagnostic systems, and specialized clinical equipment, we empower healthcare institutions to deliver accurate diagnoses and superior patient care.",
+      "btn1Text": "Contact with Us",
+      "btn1Link": "/contact",
+      "btn2Text": "About us",
+      "btn2Link": "/about",
+      "videoUrl": "https://youtu.be/41atpHxDJro?si=ZOZ-0mbxs2IUZ7CX",
+      "badge1Text": "100% Customer Satisfaction",
+      "badge2Text": "Help and Acess is Our Mission",
+      "badge3Text": "100% Quality Laboratory service"
+    },
+    "servicesSection": {
+      "enabled": true,
+      "subTitle": "our Services",
+      "title": "Service Area",
+      "searchPlaceholder": "What are you looking for?"
+    },
+    "about": {
+      "enabled": true,
+      "experienceYears": "7",
+      "experienceText": "Years of Experience",
+      "subTitle": "Welcome to Innotech Medical Pvt Ltd",
+      "title": "Innovating Healthcare with Advance Technologies",
+      "tagline": "—Empowering hospitals, diagnostic labs, and surgical suites with world-class technology and end-to-end engineering support.",
+      "description": "Innotech Medical Pvt Ltd is Established & Reputable distributor of top-quality medical equipment across Pakistan. From state-of-the-art Medical Devices and Surgical Disposable solutions to comprehensive turnkey hospital projects, our commitment goes beyond equipment distribution. We provide end-to-end technical support, regulatory compliance, and seamless integration, ensuring that healthcare providers across the nation have access to reliable, cutting-edge medical technologies.",
+      "points": [
+        "Critical Care & ICU Equipment",
+        "Advanced Diagnostic & Lab Instruments",
+        "Operating Room & General Medical Solutions",
+        "Turnkey Projects & Technical Support"
+      ],
+      "btn1Text": "Our HIstory",
+      "btn1Link": "/about",
+      "btn2Text": "About us",
+      "btn2Link": "/about"
+    },
+    "counters": {
+      "enabled": true,
+      "item1Number": "1492",
+      "item1Title": "Laboratories in 100+ states",
+      "item2Number": "152",
+      "item2Title": "Laboratory specialists",
+      "item3Number": "1022",
+      "item3Title": "Material collection points",
+      "item4Number": "24332",
+      "item4Title": "Patients diagnosed in 2022"
+    },
+    "gallerySection": {
+      "enabled": true,
+      "subTitle": "Work Gallery",
+      "title": "INNOTECH Gallery",
+      "btnText": "Explore More",
+      "btnLink": "/gallery",
+      "items": [
+        {
+          "id": 1,
+          "title": "COVID ANALYSIS",
+          "tag": "Radiologists",
+          "image": "/assets/img/gallery/gal-thum-01.jpg",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": 2,
+          "title": "Hiv Analysis & Testing",
+          "tag": "Anaesthetist",
+          "image": "/assets/img/gallery/gal-thum-02.jpg",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": 3,
+          "title": "Zyrtec Analysis",
+          "tag": "Gynaecologist",
+          "image": "/assets/img/gallery/gal-thum-03.jpg",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": 4,
+          "title": "Asthma Apply",
+          "tag": "Genetics",
+          "image": "/assets/img/gallery/gal-thum-04.jpg",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": 5,
+          "title": "neurological ANALYSIS",
+          "tag": "Forensic",
+          "image": "/assets/img/gallery/gal-thum-05.jpg",
+          "link": "/services",
+          "enabled": true
+        }
+      ]
+    },
+    "whyChooseUs": {
+      "enabled": true,
+      "subTitle": "Our Specialists",
+      "title": "Why Choose Us",
+      "bottomCtaText": "Scientific Research Laboratories:",
+      "bottomCtaLinkText": "Contact Us",
+      "bottomCtaLink": "/contact",
+      "features": [
+        {
+          "title": "Global Standards & Quality",
+          "description": "Delivering FDA, CE, and ISO certified medical equipment from global principal brands, ensuring maximum clinical accuracy and patient safety.",
+          "iconClass": "flaticon-microscope",
+          "iconTheme": "blue",
+          "enabled": true
+        },
+        {
+          "title": "Swift Turnkey Delivery",
+          "description": "Streamlined procurement and rapid installation, delivering complete healthcare projects with minimal turnaround time and total precision.",
+          "iconClass": "flaticon-thinking",
+          "iconTheme": "pink",
+          "enabled": true
+        },
+        {
+          "title": "24/7 Emergency Support",
+          "description": "Round-the-clock technical coverage and rapid dispatch troubleshooting to eliminate critical equipment downtime in ICUs and OTs.",
+          "iconClass": "flaticon-24-hours-1",
+          "iconTheme": "green",
+          "enabled": true
+        },
+        {
+          "title": "Certified Biomedical Experts",
+          "description": "Backed by OEM-trained engineers executing precision calibration, complex repairs, and proactive maintenance to global standards.",
+          "iconClass": "flaticon-team",
+          "iconTheme": "sky",
+          "enabled": true
+        }
+      ]
+    },
+    "appointment": {
+      "enabled": true,
+      "title": "GET IN TOUCH WITH US",
+      "emergencyText": "24/7 Emergency Service :",
+      "emergencyPhone": "+92 3316699992"
+    },
+    "teamSection": {
+      "enabled": true,
+      "subTitle": "Our Team",
+      "title": "Meet Specialist",
+      "members": [
+        {
+          "_id": "team-1",
+          "name": "Cameron Williamson",
+          "position": "Genetic Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-01.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        },
+        {
+          "_id": "team-2",
+          "name": "Savannah Nguyen",
+          "position": "Anaesthetist Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-02.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        },
+        {
+          "_id": "team-3",
+          "name": "Darlene Robertson",
+          "position": "Gynaecologist Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-03.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        },
+        {
+          "_id": "team-4",
+          "name": "Jhon Methweu",
+          "position": "Radiologist Specialist",
+          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+          "image": "/assets/img/team/team-thumb-04.jpg",
+          "socialLinks": {
+            "youtube": "#",
+            "twitter": "#",
+            "facebook": "#",
+            "skype": "#"
+          },
+          "enabled": true
+        }
+      ]
+    },
+    "testimonialSection": {
+      "enabled": true,
+      "subTitle": "Testimonial",
+      "title": "Customer Feedback",
+      "items": [
+        {
+          "_id": "testi-1",
+          "name": "Darlene Robertson",
+          "position": "Secretary of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-01.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "testi-2",
+          "name": "Courtney Henry",
+          "position": "CEO of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-02.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "testi-3",
+          "name": "Kathryn Murphy",
+          "position": "Manager of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-03.jpg",
+          "enabled": true
+        },
+        {
+          "_id": "testi-4",
+          "name": "Darlene Robertson",
+          "position": "Programmer of (FlaxStudio)",
+          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+          "avatar": "/assets/img/icon/testi-ava-07.png",
+          "enabled": true
+        }
+      ]
+    },
+    "brandsSection": {
+      "enabled": true,
+      "items": [
+        {
+          "id": 1,
+          "image": "/assets/img/brand/brand-01.png",
+          "alt": "Brand 1",
+          "enabled": true
+        },
+        {
+          "id": 2,
+          "image": "/assets/img/brand/brand-02.png",
+          "alt": "Brand 2",
+          "enabled": true
+        },
+        {
+          "id": 3,
+          "image": "/assets/img/brand/brand-03.png",
+          "alt": "Brand 3",
+          "enabled": true
+        },
+        {
+          "id": 4,
+          "image": "/assets/img/brand/brand-04.png",
+          "alt": "Brand 4",
+          "enabled": true
+        },
+        {
+          "id": 5,
+          "image": "/assets/img/brand/brand-05.png",
+          "alt": "Brand 5",
+          "enabled": true
+        },
+        {
+          "id": 6,
+          "image": "/assets/img/brand/brand-04.png",
+          "alt": "Brand 6",
+          "enabled": true
+        }
+      ]
+    },
+    "ctaSection": {
+      "enabled": true,
+      "title": "Looking for a best laboratory Service",
+      "phone": "+92 331 6699992"
+    },
+    "blogSection": {
+      "enabled": true,
+      "subTitle": "Waht’s New",
+      "title": "Blog & Article",
+      "items": [
+        {
+          "_id": "blog-4",
+          "title": "Sterilization Standards & Patient Safety in Modern Operating Rooms",
+          "slug": "sterilization-standards-and-patient-safety-in-operating-rooms",
+          "category": "Surgical Care",
+          "author": "Dr. Tariq Mahmood",
+          "dateDay": "14",
+          "dateMonth": "Aug",
+          "dateYear": "2026",
+          "image": "/assets/img/blog/blog-in-01.jpg",
+          "excerpt": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections.",
+          "content": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections in critical surgical environments across Pakistan.",
+          "tags": [
+            "Surgical",
+            "Sterilization",
+            "Patient Safety"
+          ],
+          "enabled": true
+        },
+        {
+          "_id": "blog-1",
+          "slug": "advances-in-biomedical-imaging-and-diagnostics",
+          "title": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
+          "category": "Biomedical Engineering",
+          "author": "Innotech Editorial Team",
+          "dateDay": "12",
+          "dateMonth": "Aug",
+          "dateYear": "2026",
+          "views": 6,
+          "image": "/assets/img/blog/blog-in-01.jpg",
+          "excerpt": "Modern healthcare facilities in Pakistan are rapidly transitioning towards high-resolution digital imaging and automated diagnostics for faster, error-free clinical outcomes.",
+          "content": "Biomedical engineering has undergone revolutionary advancements over the past decade. High-resolution ultrasound systems, advanced digital radiography, and automated clinical analyzers have significantly improved diagnostic speed and precision.\n\nAt Innotech Medical Pvt Ltd, our commitment is to bridge the gap between global medical innovators and healthcare institutions in Pakistan. By delivering state-of-the-art diagnostic instruments, we empower clinicians to make life-saving decisions with confidence.\n\nKey Technological Highlights:\n- Real-time digital signal processing in ultrasound Doppler.\n- Sub-minute blood gas and electrolyte analyzers for critical care units.\n- Turnkey clinical deployment with full OEM calibration and 24/7 engineering backup.",
+          "tags": [
+            "Biomedical",
+            "Diagnostics",
+            "Medical Imaging",
+            "Healthcare"
+          ],
+          "enabled": true,
+          "viewedVisitors": [
+            "user_test_unique_99",
+            "v_ro7pyv5_msrykviz",
+            "v_ro7pyv5_msrykviz",
+            "v_6llncve_msszo1sr",
+            "v_6llncve_msszo1sr"
+          ]
+        },
+        {
+          "_id": "blog-2",
+          "slug": "turnkey-hospital-projects-and-icu-equipment",
+          "title": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
+          "category": "Turnkey Healthcare",
+          "author": "Engr. Faisal Malik",
+          "dateDay": "08",
+          "dateMonth": "Aug",
+          "dateYear": "2026",
+          "views": "2,150",
+          "image": "/assets/img/blog/blog-in-02.jpg",
+          "excerpt": "Building modern intensive care units requires seamless coordination between medical gas architecture, patient monitoring networks, and sterile surgical environments.",
+          "content": "Developing a modern hospital or upgrading an Intensive Care Unit (ICU) requires more than just purchasing equipment. It demands holistic architectural engineering, reliable medical gas distribution, uninterruptible power redundancy, and precision calibration.\n\nInnotech Medical specializes in turnkey healthcare projects, handling everything from initial architectural feasibility and equipment selection to physical deployment, site testing, and staff clinical training.",
+          "tags": [
+            "Turnkey ICU",
+            "Engineering",
+            "Hospitals",
+            "Pakistan"
+          ],
+          "enabled": true
+        },
+        {
+          "_id": "blog-3",
+          "slug": "preventive-maintenance-and-biomedical-calibration",
+          "title": "Why Preventive Maintenance & Precision Calibration Save Patient Lives",
+          "category": "Technical Support",
+          "author": "Engr. Sarah Ahmed",
+          "dateDay": "02",
+          "dateMonth": "Aug",
+          "dateYear": "2026",
+          "views": 2,
+          "image": "/assets/img/blog/blog-in-03.jpg",
+          "excerpt": "Regular biomedical calibration prevents critical diagnostic drift and ensures zero unexpected downtime in life-support and emergency care equipment.",
+          "content": "In critical healthcare environments, equipment failure is not an option. Routine biomedical calibration and preventive maintenance are essential to ensure patient monitors, ventilators, and surgical systems perform at peak accuracy.\n\nOur dedicated 24/7 technical dispatch team at Innotech Medical provides scheduled servicing, OEM spare parts replacement, and emergency troubleshooting across healthcare facilities nationwide.",
+          "tags": [
+            "Maintenance",
+            "Calibration",
+            "Biomedical Support"
+          ],
+          "enabled": true,
+          "viewedVisitors": [
+            "v_ro7pyv5_msrykviz"
+          ]
+        }
+      ]
+    },
+    "footer": {
+      "enabled": true,
+      "description": "Innotech Medical Pvt Ltd is Growing distributor of top-quality medical equipment across Pakistan At Innotech Medical.",
+      "address": "1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.",
+      "phone": "+92 331 6699992",
+      "email": "info@innotecmedical.org",
+      "officeHours": "10AM - 6PM",
+      "weekendText": "Sat/Sund - Wekend Day",
+      "newsletterTitle": "Subscribe Newslatter",
+      "newsletterDesc": "Stay updated with the latest biomedical innovations, equipment releases, and healthcare technology insights across Pakistan.",
+      "copyrightText": "© Copyright ©2026 - 2027 INNOTECH MEDICAL Pvt Ltd. All Rights Reserved"
+    },
+    "generalSettings": {
+      "siteName": "INNOTECH MEDICAL PVT LTD",
+      "siteTagline": "Innovating Healthcare with Advance Technologies",
+      "mainLogo": "/assets/img/logo/logo.png",
+      "whiteLogo": "/assets/img/logo/white-logo.png",
+      "favicon": "/assets/img/logo/favicon.png",
+      "adminName": "INNOTECH Admin Portal",
+      "adminLogo": "/assets/img/logo/white-logo.png"
+    },
+    "seoSettings": {
+      "metaTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+      "metaDescription": "Innotech Medical Pvt Ltd is a leading distributor of top-quality medical equipment, diagnostic systems, and specialized clinical solutions across Pakistan.",
+      "metaKeywords": "medical equipment, diagnostic systems, laboratory supplies, hospital devices, Innotech Medical, Pakistan healthcare, turnkey hospital projects, biomedical engineering",
+      "metaAuthor": "Innotech Medical Pvt Ltd",
+      "metaImage": "/assets/img/banner/breadcrumb-01.jpg",
+      "canonicalUrl": "https://innotechmedical.org",
+      "googleAnalyticsId": "",
+      "robotsIndex": "index, follow"
+    },
+    "chatWidget": {
+      "enabled": true,
+      "title": "Innotech Live Support",
+      "subtitle": "Typically replies within minutes",
+      "welcomeMessage": "Welcome to Innotech Medical Support! How can we assist you with our medical equipment and services today?",
+      "autoReplyEnabled": true,
+      "autoReplyMessage": "Thank you for reaching out! Our support team has received your message and will respond to you shortly. For urgent assistance, please call +92 331 6699992.",
+      "agentName": "Innotech Support Team",
+      "agentAvatar": "/assets/img/logo/favicon.png"
+    },
+    "whatsappWidget": {
+      "enabled": true,
+      "phoneNumber": "+92 331 6699992",
+      "defaultMessage": "Hello Innotech Medical, I would like to inquire about your medical equipment and solutions.",
+      "tooltipText": "Chat with us on WhatsApp"
+    },
+    "services": [
+      {
+        "_id": "srv-1",
+        "title": "HEMOGLOBIN TEST",
+        "slug": "hemoglobin-test",
+        "iconClass": "flaticon-hemoglobin-test-meter",
+        "iconTheme": "blue",
+        "description": "Precision hemoglobin and hematocrit analysis equipment delivering rapid, lab-accurate diagnostic measurements.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-2",
+        "title": "BLOOD TESTING",
+        "slug": "blood-testing",
+        "iconClass": "flaticon-blood-test",
+        "iconTheme": "pink",
+        "description": "Automated hematology analyzers and testing reagents engineered for high-throughput clinical laboratory workflows.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-3",
+        "title": "BIOCHEMISTRY",
+        "slug": "biochemistry",
+        "iconClass": "flaticon-biochemistry",
+        "iconTheme": "green",
+        "description": "State-of-the-art clinical chemistry analyzers ensuring rigorous biochemical profiling and dependable assay performance.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-4",
+        "title": "HISTOPATOLOGY",
+        "slug": "histopatology",
+        "iconClass": "flaticon-dna-1",
+        "iconTheme": "sky",
+        "description": "Advanced tissue processing, microtomy, and specialized staining systems for meticulous cellular pathology diagnostics.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-5",
+        "title": "CRITICAL CARE & ICU",
+        "slug": "critical-care-icu",
+        "iconClass": "flaticon-dna",
+        "iconTheme": "pink",
+        "description": "Comprehensive ICU patient monitoring systems, advanced ventilators, and critical life-support medical instrumentation.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-6",
+        "title": "DIAGNOSTIC IMAGING",
+        "slug": "diagnostic-imaging",
+        "iconClass": "flaticon-microscope-1",
+        "iconTheme": "blue",
+        "description": "High-resolution ultrasound scanners, digital radiography systems, and precision clinical diagnostic visualization.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-7",
+        "title": "SURGICAL DEVICES",
+        "slug": "surgical-devices",
+        "iconClass": "flaticon-dna-1",
+        "iconTheme": "green",
+        "description": "Ergonomic operating theatre equipment, surgical disposables, electrosurgical units, and sterile surgical technologies.",
+        "enabled": true,
+        "isActive": true
+      },
+      {
+        "_id": "srv-8",
+        "title": "BIOMEDICAL ENGINEERING",
+        "slug": "biomedical-engineering",
+        "iconClass": "flaticon-team",
+        "iconTheme": "sky",
+        "description": "Certified OEM biomedical calibration, preventive maintenance, genuine replacement components, and 24/7 technical dispatch.",
+        "enabled": true,
+        "isActive": true
+      }
+    ]
+  },
+  "headerConfig": {
+    "enabled": true,
+    "helpDeskPhone": "+92 331 6699992",
+    "emergencyPhone": "+92 331 6699992",
+    "logo": "/assets/img/logo/logo.png",
+    "menuItems": [
+      {
+        "id": "1",
+        "label": "Home",
+        "link": "/",
+        "enabled": true
+      },
+      {
+        "id": "2",
+        "label": "About",
+        "link": "/about",
+        "enabled": true
+      },
+      {
+        "id": "3",
+        "label": "Services",
+        "link": "/services",
+        "enabled": true,
+        "hasDropdown": true,
+        "subItems": [
+          {
+            "id": "s1",
+            "label": "Medical Equipment & Devices",
+            "link": "/services/medical-equipment-devices",
+            "enabled": false
+          },
+          {
+            "id": "s2",
+            "label": "Diagnostic & Lab Systems",
+            "link": "/services/diagnostic-lab-systems",
+            "enabled": false
+          },
+          {
+            "id": "s3",
+            "label": "Critical Care & ICU",
+            "link": "/services/critical-care-icu",
+            "enabled": false
+          },
+          {
+            "id": "s4",
+            "label": "Surgical Devices & OT",
+            "link": "/services/surgical-devices",
+            "enabled": false
+          },
+          {
+            "id": "s5",
+            "label": "All Products & Services",
+            "link": "/services",
+            "enabled": false
+          }
+        ],
+        "showOnHome": true
+      },
+      {
+        "id": "4",
+        "label": "Gallery",
+        "link": "/gallery",
+        "enabled": true,
+        "showOnHome": true
+      },
+      {
+        "id": "5",
+        "label": "Specialists",
+        "link": "/allteams",
+        "enabled": true,
+        "showOnHome": false
+      },
+      {
+        "id": "7",
+        "label": "Blogs",
+        "link": "/blog",
+        "enabled": true
+      },
+      {
+        "id": "8",
+        "label": "Research",
+        "link": "/research",
+        "enabled": false
+      },
+      {
+        "id": "9",
+        "label": "Contact",
+        "link": "/contact",
+        "enabled": true
+      }
+    ]
+  },
+  "services": [
+    {
+      "_id": "srv-1",
+      "title": "HEMOGLOBIN TEST",
+      "slug": "hemoglobin-test",
+      "iconClass": "flaticon-hemoglobin-test-meter",
+      "iconTheme": "blue",
+      "description": "Precision hemoglobin and hematocrit analysis equipment delivering rapid, lab-accurate diagnostic measurements.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-2",
+      "title": "BLOOD TESTING",
+      "slug": "blood-testing",
+      "iconClass": "flaticon-blood-test",
+      "iconTheme": "pink",
+      "description": "Automated hematology analyzers and testing reagents engineered for high-throughput clinical laboratory workflows.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-3",
+      "title": "BIOCHEMISTRY",
+      "slug": "biochemistry",
+      "iconClass": "flaticon-biochemistry",
+      "iconTheme": "green",
+      "description": "State-of-the-art clinical chemistry analyzers ensuring rigorous biochemical profiling and dependable assay performance.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-4",
+      "title": "HISTOPATOLOGY",
+      "slug": "histopatology",
+      "iconClass": "flaticon-dna-1",
+      "iconTheme": "sky",
+      "description": "Advanced tissue processing, microtomy, and specialized staining systems for meticulous cellular pathology diagnostics.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-5",
+      "title": "CRITICAL CARE & ICU",
+      "slug": "critical-care-icu",
+      "iconClass": "flaticon-dna",
+      "iconTheme": "pink",
+      "description": "Comprehensive ICU patient monitoring systems, advanced ventilators, and critical life-support medical instrumentation.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-6",
+      "title": "DIAGNOSTIC IMAGING",
+      "slug": "diagnostic-imaging",
+      "iconClass": "flaticon-microscope-1",
+      "iconTheme": "blue",
+      "description": "High-resolution ultrasound scanners, digital radiography systems, and precision clinical diagnostic visualization.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-7",
+      "title": "SURGICAL DEVICES",
+      "slug": "surgical-devices",
+      "iconClass": "flaticon-dna-1",
+      "iconTheme": "green",
+      "description": "Ergonomic operating theatre equipment, surgical disposables, electrosurgical units, and sterile surgical technologies.",
+      "enabled": true,
+      "isActive": true
+    },
+    {
+      "_id": "srv-8",
+      "title": "BIOMEDICAL ENGINEERING",
+      "slug": "biomedical-engineering",
+      "iconClass": "flaticon-team",
+      "iconTheme": "sky",
+      "description": "Certified OEM biomedical calibration, preventive maintenance, genuine replacement components, and 24/7 technical dispatch.",
+      "enabled": true,
+      "isActive": true
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "title": "COVID ANALYSIS",
+      "tag": "Radiologists",
+      "image": "/assets/img/gallery/gal-thum-01.jpg",
+      "link": "/services",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "title": "Hiv Analysis & Testing",
+      "tag": "Anaesthetist",
+      "image": "/assets/img/gallery/gal-thum-02.jpg",
+      "link": "/services",
+      "enabled": true
+    },
+    {
+      "id": 3,
+      "title": "Zyrtec Analysis",
+      "tag": "Gynaecologist",
+      "image": "/assets/img/gallery/gal-thum-03.jpg",
+      "link": "/services",
+      "enabled": true
+    },
+    {
+      "id": 4,
+      "title": "Asthma Apply",
+      "tag": "Genetics",
+      "image": "/assets/img/gallery/gal-thum-04.jpg",
+      "link": "/services",
+      "enabled": true
+    },
+    {
+      "id": 5,
+      "title": "neurological ANALYSIS",
+      "tag": "Forensic",
+      "image": "/assets/img/gallery/gal-thum-05.jpg",
+      "link": "/services",
+      "enabled": true
+    }
+  ],
+  "team": [
+    {
+      "_id": "team-1",
+      "name": "Cameron Williamson",
+      "position": "Genetic Specialist",
+      "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+      "image": "/assets/img/team/team-thumb-01.jpg",
+      "socialLinks": {
+        "youtube": "#",
+        "twitter": "#",
+        "facebook": "#",
+        "skype": "#"
+      },
+      "enabled": true
+    },
+    {
+      "_id": "team-2",
+      "name": "Savannah Nguyen",
+      "position": "Anaesthetist Specialist",
+      "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+      "image": "/assets/img/team/team-thumb-02.jpg",
+      "socialLinks": {
+        "youtube": "#",
+        "twitter": "#",
+        "facebook": "#",
+        "skype": "#"
+      },
+      "enabled": true
+    },
+    {
+      "_id": "team-3",
+      "name": "Darlene Robertson",
+      "position": "Gynaecologist Specialist",
+      "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+      "image": "/assets/img/team/team-thumb-03.jpg",
+      "socialLinks": {
+        "youtube": "#",
+        "twitter": "#",
+        "facebook": "#",
+        "skype": "#"
+      },
+      "enabled": true
+    },
+    {
+      "_id": "team-4",
+      "name": "Jhon Methweu",
+      "position": "Radiologist Specialist",
+      "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+      "image": "/assets/img/team/team-thumb-04.jpg",
+      "socialLinks": {
+        "youtube": "#",
+        "twitter": "#",
+        "facebook": "#",
+        "skype": "#"
+      },
+      "enabled": true
+    }
+  ],
+  "testimonials": [
+    {
+      "_id": "testi-1",
+      "name": "Darlene Robertson",
+      "position": "Secretary of (FlaxStudio)",
+      "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+      "avatar": "/assets/img/icon/testi-ava-01.jpg",
+      "enabled": true
+    },
+    {
+      "_id": "testi-2",
+      "name": "Courtney Henry",
+      "position": "CEO of (FlaxStudio)",
+      "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+      "avatar": "/assets/img/icon/testi-ava-02.jpg",
+      "enabled": true
+    },
+    {
+      "_id": "testi-3",
+      "name": "Kathryn Murphy",
+      "position": "Manager of (FlaxStudio)",
+      "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+      "avatar": "/assets/img/icon/testi-ava-03.jpg",
+      "enabled": true
+    },
+    {
+      "_id": "testi-4",
+      "name": "Darlene Robertson",
+      "position": "Programmer of (FlaxStudio)",
+      "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
+      "avatar": "/assets/img/icon/testi-ava-07.png",
+      "enabled": true
+    }
+  ],
+  "blogs": [
+    {
+      "_id": "blog-4",
+      "title": "Sterilization Standards & Patient Safety in Modern Operating Rooms",
+      "slug": "sterilization-standards-and-patient-safety-in-operating-rooms",
+      "category": "Surgical Care",
+      "author": "Dr. Tariq Mahmood",
+      "dateDay": "14",
+      "dateMonth": "Aug",
+      "dateYear": "2026",
+      "image": "/assets/img/blog/blog-in-01.jpg",
+      "excerpt": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections.",
+      "content": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections in critical surgical environments across Pakistan.",
+      "tags": [
+        "Surgical",
+        "Sterilization",
+        "Patient Safety"
+      ],
+      "enabled": true
+    },
+    {
+      "_id": "blog-1",
+      "slug": "advances-in-biomedical-imaging-and-diagnostics",
+      "title": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
+      "category": "Biomedical Engineering",
+      "author": "Innotech Editorial Team",
+      "dateDay": "12",
+      "dateMonth": "Aug",
+      "dateYear": "2026",
+      "views": 6,
+      "image": "/assets/img/blog/blog-in-01.jpg",
+      "excerpt": "Modern healthcare facilities in Pakistan are rapidly transitioning towards high-resolution digital imaging and automated diagnostics for faster, error-free clinical outcomes.",
+      "content": "Biomedical engineering has undergone revolutionary advancements over the past decade. High-resolution ultrasound systems, advanced digital radiography, and automated clinical analyzers have significantly improved diagnostic speed and precision.\n\nAt Innotech Medical Pvt Ltd, our commitment is to bridge the gap between global medical innovators and healthcare institutions in Pakistan. By delivering state-of-the-art diagnostic instruments, we empower clinicians to make life-saving decisions with confidence.\n\nKey Technological Highlights:\n- Real-time digital signal processing in ultrasound Doppler.\n- Sub-minute blood gas and electrolyte analyzers for critical care units.\n- Turnkey clinical deployment with full OEM calibration and 24/7 engineering backup.",
+      "tags": [
+        "Biomedical",
+        "Diagnostics",
+        "Medical Imaging",
+        "Healthcare"
+      ],
+      "enabled": true,
+      "viewedVisitors": [
+        "user_test_unique_99",
+        "v_ro7pyv5_msrykviz",
+        "v_ro7pyv5_msrykviz",
+        "v_6llncve_msszo1sr",
+        "v_6llncve_msszo1sr"
+      ]
+    },
+    {
+      "_id": "blog-2",
+      "slug": "turnkey-hospital-projects-and-icu-equipment",
+      "title": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
+      "category": "Turnkey Healthcare",
+      "author": "Engr. Faisal Malik",
+      "dateDay": "08",
+      "dateMonth": "Aug",
+      "dateYear": "2026",
+      "views": "2,150",
+      "image": "/assets/img/blog/blog-in-02.jpg",
+      "excerpt": "Building modern intensive care units requires seamless coordination between medical gas architecture, patient monitoring networks, and sterile surgical environments.",
+      "content": "Developing a modern hospital or upgrading an Intensive Care Unit (ICU) requires more than just purchasing equipment. It demands holistic architectural engineering, reliable medical gas distribution, uninterruptible power redundancy, and precision calibration.\n\nInnotech Medical specializes in turnkey healthcare projects, handling everything from initial architectural feasibility and equipment selection to physical deployment, site testing, and staff clinical training.",
+      "tags": [
+        "Turnkey ICU",
+        "Engineering",
+        "Hospitals",
+        "Pakistan"
+      ],
+      "enabled": true
+    },
+    {
+      "_id": "blog-3",
+      "slug": "preventive-maintenance-and-biomedical-calibration",
+      "title": "Why Preventive Maintenance & Precision Calibration Save Patient Lives",
+      "category": "Technical Support",
+      "author": "Engr. Sarah Ahmed",
+      "dateDay": "02",
+      "dateMonth": "Aug",
+      "dateYear": "2026",
+      "views": 2,
+      "image": "/assets/img/blog/blog-in-03.jpg",
+      "excerpt": "Regular biomedical calibration prevents critical diagnostic drift and ensures zero unexpected downtime in life-support and emergency care equipment.",
+      "content": "In critical healthcare environments, equipment failure is not an option. Routine biomedical calibration and preventive maintenance are essential to ensure patient monitors, ventilators, and surgical systems perform at peak accuracy.\n\nOur dedicated 24/7 technical dispatch team at Innotech Medical provides scheduled servicing, OEM spare parts replacement, and emergency troubleshooting across healthcare facilities nationwide.",
+      "tags": [
+        "Maintenance",
+        "Calibration",
+        "Biomedical Support"
+      ],
+      "enabled": true,
+      "viewedVisitors": [
+        "v_ro7pyv5_msrykviz"
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "id": 1,
+      "image": "/assets/img/brand/brand-01.png",
+      "alt": "Brand 1",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "image": "/assets/img/brand/brand-02.png",
+      "alt": "Brand 2",
+      "enabled": true
+    },
+    {
+      "id": 3,
+      "image": "/assets/img/brand/brand-03.png",
+      "alt": "Brand 3",
+      "enabled": true
+    },
+    {
+      "id": 4,
+      "image": "/assets/img/brand/brand-04.png",
+      "alt": "Brand 4",
+      "enabled": true
+    },
+    {
+      "id": 5,
+      "image": "/assets/img/brand/brand-05.png",
+      "alt": "Brand 5",
+      "enabled": true
+    },
+    {
+      "id": 6,
+      "image": "/assets/img/brand/brand-04.png",
+      "alt": "Brand 6",
+      "enabled": true
+    }
+  ],
+  "aboutPage": {
+    "banner": {
+      "enabled": true,
+      "title": "About Us",
+      "subTitle": "Empowering Healthcare Across Pakistan",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "missionVision": {
+      "enabled": true,
+      "missionTitle": "Our Mission",
+      "missionDesc": "To provide world-class medical equipment, cutting-edge diagnostic instruments, and turnkey biomedical engineering support that empowers healthcare providers across Pakistan with total clinical precision and reliability.",
+      "visionTitle": "Our Vision",
+      "visionDesc": "To be the most trusted and progressive healthcare technology distributor and service provider in Pakistan, bridging global biomedical innovations with local clinical needs.",
+      "valuesTitle": "Core Values",
+      "valuesDesc": "Precision & Accuracy, Uncompromising Clinical Quality, 24/7 Rapid Emergency Engineering, and Integrity in all healthcare partnerships."
+    },
+    "about": {
+      "enabled": true,
+      "experienceYears": "7",
+      "experienceText": "Years of Experience",
+      "subTitle": "Welcome to Innotech Medical Pvt Ltd",
+      "title": "Innovating Healthcare with Advance Technologies",
+      "tagline": "—Empowering hospitals, diagnostic labs, and surgical suites with world-class technology and end-to-end engineering support.",
+      "description": "Innotech Medical Pvt Ltd is Established & Reputable distributor of top-quality medical equipment across Pakistan. From state-of-the-art Medical Devices and Surgical Disposable solutions to comprehensive turnkey hospital projects, our commitment goes beyond equipment distribution. We provide end-to-end technical support, regulatory compliance, and seamless integration, ensuring that healthcare providers across the nation have access to reliable, cutting-edge medical technologies.",
+      "points": [
+        "Critical Care & ICU Equipment",
+        "Advanced Diagnostic & Lab Instruments",
+        "Operating Room & General Medical Solutions",
+        "Turnkey Projects & Technical Support"
+      ],
+      "btn1Text": "Our HIstory",
+      "btn1Link": "/about",
+      "btn2Text": "About us",
+      "btn2Link": "/about"
+    },
+    "counters": {
+      "enabled": true,
+      "item1Number": "1492",
+      "item1Title": "Laboratories in 100+ states",
+      "item2Number": "152",
+      "item2Title": "Laboratory specialists",
+      "item3Number": "1022",
+      "item3Title": "Material collection points",
+      "item4Number": "24332",
+      "item4Title": "Patients diagnosed in 2022"
+    },
+    "whyChooseUs": {
+      "enabled": true,
+      "subTitle": "Our Specialists",
+      "title": "Why Choose Us",
+      "bottomCtaText": "Scientific Research Laboratories:",
+      "bottomCtaLinkText": "Contact Us",
+      "bottomCtaLink": "/contact",
+      "features": [
+        {
+          "title": "Global Standards & Quality",
+          "description": "Delivering FDA, CE, and ISO certified medical equipment from global principal brands, ensuring maximum clinical accuracy and patient safety.",
+          "iconClass": "flaticon-microscope",
+          "iconTheme": "blue",
+          "enabled": true
+        },
+        {
+          "title": "Swift Turnkey Delivery",
+          "description": "Streamlined procurement and rapid installation, delivering complete healthcare projects with minimal turnaround time and total precision.",
+          "iconClass": "flaticon-thinking",
+          "iconTheme": "pink",
+          "enabled": true
+        },
+        {
+          "title": "24/7 Emergency Support",
+          "description": "Round-the-clock technical coverage and rapid dispatch troubleshooting to eliminate critical equipment downtime in ICUs and OTs.",
+          "iconClass": "flaticon-24-hours-1",
+          "iconTheme": "green",
+          "enabled": true
+        },
+        {
+          "title": "Certified Biomedical Experts",
+          "description": "Backed by OEM-trained engineers executing precision calibration, complex repairs, and proactive maintenance to global standards.",
+          "iconClass": "flaticon-team",
+          "iconTheme": "sky",
+          "enabled": true
+        }
+      ]
+    },
+    "teamSection": {
+      "enabled": true,
+      "subTitle": "Specialists Team",
+      "title": "Meet Our Biomedical Engineers & Healthcare Experts"
+    },
+    "testimonialSection": {
+      "enabled": true,
+      "subTitle": "Client Testimonials",
+      "title": "Trusted by Premier Hospitals, OTs & Labs"
+    },
+    "brandsSection": {
+      "enabled": true,
+      "items": [
+        {
+          "id": 1,
+          "image": "/assets/img/brand/brand-01.png",
+          "alt": "Brand 1",
+          "enabled": true
+        },
+        {
+          "id": 2,
+          "image": "/assets/img/brand/brand-02.png",
+          "alt": "Brand 2",
+          "enabled": true
+        },
+        {
+          "id": 3,
+          "image": "/assets/img/brand/brand-03.png",
+          "alt": "Brand 3",
+          "enabled": true
+        },
+        {
+          "id": 4,
+          "image": "/assets/img/brand/brand-04.png",
+          "alt": "Brand 4",
+          "enabled": true
+        },
+        {
+          "id": 5,
+          "image": "/assets/img/brand/brand-05.png",
+          "alt": "Brand 5",
+          "enabled": true
+        },
+        {
+          "id": 6,
+          "image": "/assets/img/brand/brand-04.png",
+          "alt": "Brand 6",
+          "enabled": true
+        }
+      ]
+    }
+  },
+  "contactPage": {
+    "banner": {
+      "enabled": true,
+      "title": "Contact Us",
+      "subTitle": "Get in Touch with Innotech Medical Pvt Ltd",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "info": {
+      "enabled": true,
+      "phoneTitle": "24/7 Emergency Line",
+      "phone": "+92 331 6699992",
+      "phoneSub": "Rapid Technical & Clinical Dispatch",
+      "emailTitle": "Official Email",
+      "email": "info@innotecmedical.org",
+      "emailSub": "Quick Response within 24 Hours",
+      "addressTitle": "Head Office Address",
+      "address": "1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.",
+      "officeHoursTitle": "Working Hours",
+      "officeHours": "Monday - Saturday: 10:00 AM - 6:00 PM",
+      "weekendText": "Sunday: Emergency On-Call Technical Support"
+    },
+    "formSection": {
+      "enabled": true,
+      "subTitle": "SEND US AN INQUIRY",
+      "title": "Ready to Upgrade Your Hospital or Laboratory?",
+      "description": "Leave your project requirements, equipment inquiries, or technical support requests below. Our biomedical specialists will assist you immediately.",
+      "emergencyText": "24/7 Direct Line :",
+      "emergencyPhone": "+92 331 6699992"
+    },
+    "map": {
+      "enabled": true,
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.398687235284!2d67.09458927599554!3d24.91849894292107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f32486715f5%3A0xc39eb9f886fdf40!2sGulshan-e-Iqbal%2C%20Karachi!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
+    }
+  },
+  "researchPage": {
+    "banner": {
+      "enabled": true,
+      "title": "Biomedical Research & Projects",
+      "subTitle": "Advancing Clinical Science and Healthcare Innovations",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "items": [
+      {
+        "id": 1,
+        "title": "Biomedical Diagnostic Accuracy in Critical Care",
+        "category": "Diagnostic Systems",
+        "description": "Evaluating advanced ultrasound doppler and clinical monitoring in high-acuity ICUs across Pakistan.",
+        "image": "/assets/img/research/research-thumb-01.jpg",
+        "enabled": true
+      },
+      {
+        "id": 2,
+        "title": "Operating Room Precision & Surgical Disposable Safety",
+        "category": "Surgical Solutions",
+        "description": "Ensuring zero-contamination and clinical reliability in laparoscopic surgical procedures.",
+        "image": "/assets/img/research/research-thumb-02.jpg",
+        "enabled": true
+      },
+      {
+        "id": 3,
+        "title": "Next-Generation Hemoglobin & Blood Gas Diagnostics",
+        "category": "Hematology & Lab",
+        "description": "High-throughput automated laboratory diagnostics delivering sub-minute clinical reports.",
+        "image": "/assets/img/research/research-thumb-03.jpg",
+        "enabled": true
+      },
+      {
+        "id": 4,
+        "title": "Hospital Turnkey Engineering & Cleanroom Standards",
+        "category": "Turnkey Solutions",
+        "description": "Complete site architecture, HVAC filtration, and medical gas pipeline deployment for hospitals.",
+        "image": "/assets/img/research/research-thumb-04.jpg",
+        "enabled": true
+      },
+      {
+        "id": 5,
+        "title": "AI-Enhanced Medical Imaging & Radiodiagnostics",
+        "category": "Radiology",
+        "description": "Integrating digital radiography and high-resolution imaging for early disease detection.",
+        "image": "/assets/img/research/research-thumb-05.jpg",
+        "enabled": true
+      },
+      {
+        "id": 6,
+        "title": "Advanced Neonatal Care & Biosafety Incubators",
+        "category": "Pediatric Care",
+        "description": "Micro-climate controlled neonatal incubators engineered for preterm infant stability.",
+        "image": "/assets/img/research/research-thumb-06.jpg",
+        "enabled": true
+      }
+    ]
+  },
+  "blogPage": {
+    "banner": {
+      "enabled": true,
+      "title": "Articles, News & Clinical Insights",
+      "subTitle": "Stay Updated with Latest Trends in Medical Technology",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "items": [
+      {
+        "_id": "blog-4",
+        "title": "Sterilization Standards & Patient Safety in Modern Operating Rooms",
+        "slug": "sterilization-standards-and-patient-safety-in-operating-rooms",
+        "category": "Surgical Care",
+        "author": "Dr. Tariq Mahmood",
+        "dateDay": "14",
+        "dateMonth": "Aug",
+        "dateYear": "2026",
+        "image": "/assets/img/blog/blog-in-01.jpg",
+        "excerpt": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections.",
+        "content": "Adhering to high-level clinical sterilization standards and automated decontamination prevents hospital-acquired infections in critical surgical environments across Pakistan.",
+        "tags": [
+          "Surgical",
+          "Sterilization",
+          "Patient Safety"
+        ],
+        "enabled": true
+      },
+      {
+        "_id": "blog-1",
+        "slug": "advances-in-biomedical-imaging-and-diagnostics",
+        "title": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
+        "category": "Biomedical Engineering",
+        "author": "Innotech Editorial Team",
+        "dateDay": "12",
+        "dateMonth": "Aug",
+        "dateYear": "2026",
+        "views": 6,
+        "image": "/assets/img/blog/blog-in-01.jpg",
+        "excerpt": "Modern healthcare facilities in Pakistan are rapidly transitioning towards high-resolution digital imaging and automated diagnostics for faster, error-free clinical outcomes.",
+        "content": "Biomedical engineering has undergone revolutionary advancements over the past decade. High-resolution ultrasound systems, advanced digital radiography, and automated clinical analyzers have significantly improved diagnostic speed and precision.\n\nAt Innotech Medical Pvt Ltd, our commitment is to bridge the gap between global medical innovators and healthcare institutions in Pakistan. By delivering state-of-the-art diagnostic instruments, we empower clinicians to make life-saving decisions with confidence.\n\nKey Technological Highlights:\n- Real-time digital signal processing in ultrasound Doppler.\n- Sub-minute blood gas and electrolyte analyzers for critical care units.\n- Turnkey clinical deployment with full OEM calibration and 24/7 engineering backup.",
+        "tags": [
+          "Biomedical",
+          "Diagnostics",
+          "Medical Imaging",
+          "Healthcare"
+        ],
+        "enabled": true,
+        "viewedVisitors": [
+          "user_test_unique_99",
+          "v_ro7pyv5_msrykviz",
+          "v_ro7pyv5_msrykviz",
+          "v_6llncve_msszo1sr",
+          "v_6llncve_msszo1sr"
+        ]
+      },
+      {
+        "_id": "blog-2",
+        "slug": "turnkey-hospital-projects-and-icu-equipment",
+        "title": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
+        "category": "Turnkey Healthcare",
+        "author": "Engr. Faisal Malik",
+        "dateDay": "08",
+        "dateMonth": "Aug",
+        "dateYear": "2026",
+        "views": "2,150",
+        "image": "/assets/img/blog/blog-in-02.jpg",
+        "excerpt": "Building modern intensive care units requires seamless coordination between medical gas architecture, patient monitoring networks, and sterile surgical environments.",
+        "content": "Developing a modern hospital or upgrading an Intensive Care Unit (ICU) requires more than just purchasing equipment. It demands holistic architectural engineering, reliable medical gas distribution, uninterruptible power redundancy, and precision calibration.\n\nInnotech Medical specializes in turnkey healthcare projects, handling everything from initial architectural feasibility and equipment selection to physical deployment, site testing, and staff clinical training.",
+        "tags": [
+          "Turnkey ICU",
+          "Engineering",
+          "Hospitals",
+          "Pakistan"
+        ],
+        "enabled": true
+      },
+      {
+        "_id": "blog-3",
+        "slug": "preventive-maintenance-and-biomedical-calibration",
+        "title": "Why Preventive Maintenance & Precision Calibration Save Patient Lives",
+        "category": "Technical Support",
+        "author": "Engr. Sarah Ahmed",
+        "dateDay": "02",
+        "dateMonth": "Aug",
+        "dateYear": "2026",
+        "views": 2,
+        "image": "/assets/img/blog/blog-in-03.jpg",
+        "excerpt": "Regular biomedical calibration prevents critical diagnostic drift and ensures zero unexpected downtime in life-support and emergency care equipment.",
+        "content": "In critical healthcare environments, equipment failure is not an option. Routine biomedical calibration and preventive maintenance are essential to ensure patient monitors, ventilators, and surgical systems perform at peak accuracy.\n\nOur dedicated 24/7 technical dispatch team at Innotech Medical provides scheduled servicing, OEM spare parts replacement, and emergency troubleshooting across healthcare facilities nationwide.",
+        "tags": [
+          "Maintenance",
+          "Calibration",
+          "Biomedical Support"
+        ],
+        "enabled": true,
+        "viewedVisitors": [
+          "v_ro7pyv5_msrykviz"
+        ]
+      }
+    ]
+  },
+  "servicesPage": {
+    "banner": {
+      "enabled": true,
+      "title": "Services- 01",
+      "subTitle": "Bioxlab : Services",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "servicesSection": {
+      "enabled": true,
+      "subTitle": "our Services",
+      "title": "Service Area",
+      "bgImage": "/assets/img/shape/shape-bg-01.png",
+      "items": [
+        {
+          "id": "srv-1",
+          "title": "Hemoglobin Test",
+          "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+          "iconClass": "flaticon-hemoglobin-test-meter",
+          "iconTheme": "default",
+          "btnText": "Read More",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": "srv-2",
+          "title": "Blood Testing",
+          "slug": "blood-testing",
+          "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+          "iconClass": "flaticon-blood-test",
+          "iconTheme": "pink",
+          "btnText": "Read More",
+          "link": "/services/blood-testing",
+          "enabled": true,
+          "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+          "bannerSubTitle": "Automated Clinical Blood Analysis & Laboratory Diagnostics",
+          "image1": "/assets/img/services/services-thumb-07.jpg",
+          "image2": "/assets/img/services/services-thumb-08.jpg",
+          "showcaseBanner": "/assets/img/services/services-thumb-09.jpg",
+          "processTitle": "Blood Testing Process",
+          "processText": "Must explain to you how all this mistaken idea of denouncing works pleasure and praising its pain was born and I will gives you a itself completed account of the system, and sed expounds the actual teachings of that greater truth.",
+          "processText2": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
+          "processPoints": [
+            "Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.",
+            "Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.",
+            "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis.",
+            "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet."
+          ],
+          "stepsTitle": "4 Simple Steps",
+          "stepsText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+          "stepsCol1": [
+            "Extramural Funding",
+            "Bacteria Markers",
+            "Nam nec mi euismod",
+            "In aliquet dui nec lectus"
+          ],
+          "stepsCol2": [
+            "Sample Preparation",
+            "Optical Detection",
+            "Quality Control Verification",
+            "Automated Calibration"
+          ],
+          "stepsCol3": [
+            "LIS Data Sync",
+            "Report Validation",
+            "Digital Archiving",
+            "Preventive Maintenance"
+          ],
+          "researchTitle": "Our Research",
+          "researchText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+          "bottomLinkText": "Our Project",
+          "bottomLink": "/contact",
+          "processPointsText": "Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.\nPerspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.\nUt enim ad minima veniam, quis nostrum exercitationem ullam corporis.\nNeque porro quisquam est, qui dolorem ipsum quia dolor sit amet.",
+          "stepsCol1Text": "Extramural Funding\nBacteria Markers\nNam nec mi euismod\nIn aliquet dui nec lectus",
+          "stepsCol2Text": "Sample Preparation\nOptical Detection\nQuality Control Verification\nAutomated Calibration",
+          "stepsCol3Text": "LIS Data Sync\nReport Validation\nDigital Archiving\nPreventive Maintenance"
+        },
+        {
+          "id": "srv-3",
+          "title": "Biochemistry",
+          "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+          "iconClass": "flaticon-biochemistry",
+          "iconTheme": "green",
+          "btnText": "Read More",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": "srv-4",
+          "title": "Histopatology",
+          "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+          "iconClass": "flaticon-dna-1",
+          "iconTheme": "sky",
+          "btnText": "Read More",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": "srv-5",
+          "title": "Microbioogy",
+          "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+          "iconClass": "flaticon-bacteria",
+          "iconTheme": "default",
+          "btnText": "Read More",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": "srv-6",
+          "title": "Genetics",
+          "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+          "iconClass": "flaticon-dna",
+          "iconTheme": "pink",
+          "btnText": "Read More",
+          "link": "/services",
+          "enabled": true
+        },
+        {
+          "id": "srv-1786804895775",
+          "title": "New Clinical Service",
+          "slug": "new-service-1786804895775",
+          "description": "Comprehensive biomedical diagnostic and clinical laboratory testing solutions.",
+          "iconClass": "flaticon-biochemistry",
+          "iconTheme": "default",
+          "btnText": "Read More",
+          "link": "/services/new-service-1786804895775",
+          "enabled": true,
+          "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+          "bannerSubTitle": "Specialized Biomedical & Clinical Solutions",
+          "image1": "/assets/img/services/services-thumb-07.jpg",
+          "image2": "/assets/img/services/services-thumb-08.jpg",
+          "showcaseBanner": "/assets/img/services/services-thumb-09.jpg",
+          "processTitle": "Clinical Diagnostic & Analytical Process",
+          "processText": "Must explain to you how all this mistaken idea of denouncing works pleasure and praising its pain was born.",
+          "processText2": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+          "processPoints": [
+            "Consectetur, adipisci velit, sed quia non numquam eius modi",
+            "Perspiciatis unde omnis iste natus error sit voluptatem",
+            "Ut enim ad minima veniam, quis nostrum exercitationem"
+          ],
+          "stepsTitle": "4 Simple Steps",
+          "stepsText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+          "stepsCol1": [
+            "Extramural Funding",
+            "Bacteria Markers",
+            "Nam nec mi euismod"
+          ],
+          "stepsCol2": [
+            "Sample Preparation",
+            "Optical Detection",
+            "Quality Control Verification"
+          ],
+          "stepsCol3": [
+            "LIS Data Sync",
+            "Report Validation",
+            "Digital Archiving"
+          ],
+          "researchTitle": "Our Research",
+          "researchText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+          "bottomLinkText": "Our Project",
+          "bottomLink": "/contact"
+        },
+        {
+          "id": "srv-1786805341290",
+          "title": "Service #8",
+          "slug": "clinical-service-8",
+          "description": "Comprehensive biomedical diagnostic and clinical laboratory testing solutions.",
+          "btnText": "Read More",
+          "link": "/services/clinical-service-8",
+          "enabled": true,
+          "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+          "bannerSubTitle": "Specialized Biomedical & Clinical Solutions",
+          "image1": "/assets/img/services/services-thumb-07.jpg",
+          "image2": "/assets/img/services/services-thumb-08.jpg",
+          "showcaseBanner": "/assets/img/services/services-thumb-09.jpg",
+          "processTitle": "Clinical Diagnostic Process",
+          "processText": "Must explain to you how all this mistaken idea of denouncing works pleasure and praising its pain was born and I will gives you a complete account of the system.",
+          "processText2": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.",
+          "processPoints": [
+            "Consectetur, adipisci velit, sed quia non numquam eius modi",
+            "Perspiciatis unde omnis iste natus error sit voluptatem",
+            "Ut enim ad minima veniam, quis nostrum exercitationem"
+          ],
+          "stepsTitle": "4 Simple Steps",
+          "stepsText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+          "stepsCol1": [
+            "Extramural Funding",
+            "Bacteria Markers",
+            "Nam nec mi euismod"
+          ],
+          "stepsCol2": [
+            "Sample Preparation",
+            "Optical Detection",
+            "Quality Control Verification"
+          ],
+          "stepsCol3": [
+            "LIS Data Sync",
+            "Report Validation",
+            "Digital Archiving"
+          ],
+          "researchTitle": "Our Research",
+          "researchText": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
+          "bottomLinkText": "Our Project",
+          "bottomLink": "/contact"
+        }
+      ]
+    },
+    "chooseSection": {
+      "enabled": true,
+      "subTitle": "Our Specialists",
+      "title": "Why Choose Us",
+      "items": [
+        {
+          "id": "ch-1",
+          "title": "High Quality <br>Services",
+          "description": "Nam eget dui vel quam sodales <br>semper quis porttitor tortor.",
+          "iconClass": "flaticon-microscope",
+          "iconTheme": "default",
+          "delay": ".2s",
+          "mlClass": "ml-15"
+        },
+        {
+          "id": "ch-2",
+          "title": "Fast Working <br>Process",
+          "description": "Nam eget dui vel quam sodales <br>semper quis porttitor tortor.",
+          "iconClass": "flaticon-thinking",
+          "iconTheme": "pink",
+          "delay": ".4s",
+          "mlClass": "ml-35"
+        },
+        {
+          "id": "ch-3",
+          "title": "24/7 Customer <br> Support",
+          "description": "Nam eget dui vel quam sodales <br>semper quis porttitor tortor.",
+          "iconClass": "flaticon-24-hours-1",
+          "iconTheme": "green",
+          "delay": ".6s",
+          "mlClass": "ml-55"
+        },
+        {
+          "id": "ch-4",
+          "title": "We have <br> Expert Team",
+          "description": "Nam eget dui vel quam sodales <br>semper quis porttitor tortor.",
+          "iconClass": "flaticon-team",
+          "iconTheme": "sky",
+          "delay": ".8s",
+          "mlClass": "ml-75"
+        }
+      ],
+      "bottomText": "Laboratories Used For Scientific Research :",
+      "bottomLinkText": "Take Many Forms",
+      "bottomLink": "/contact"
+    },
+    "supportSection": {
+      "enabled": true,
+      "subTitle": "Get in touch",
+      "title": "Need Any Help",
+      "tagline": "Derect Contact with us",
+      "btnText": "Send Massage"
+    }
+  },
+  "termsPage": {
+    "banner": {
+      "enabled": true,
+      "title": "Terms & Conditions",
+      "subTitle": "Legal Terms & Healthcare Equipment Procurement Agreement",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "lastUpdated": "August 15, 2026",
+    "companyName": "Innotech Medical Pvt Ltd",
+    "introduction": "Welcome to Innotech Medical Pvt Ltd. By accessing our website, purchasing our biomedical equipment, utilizing our clinical engineering services, or entering into distribution agreements with us, you agree to comply with and be bound by the following terms and conditions.",
+    "sections": [
+      {
+        "id": "acceptance",
+        "title": "1. Acceptance of Terms",
+        "content": "By accessing this website, requesting quotes, or procuring medical machinery, diagnostic systems, surgical disposables, and turnkey engineering solutions from Innotech Medical Pvt Ltd, you acknowledge that you have read, understood, and agreed to these Terms and Conditions in full compliance with relevant Pakistani healthcare regulations and DRAP (Drug Regulatory Authority of Pakistan) guidelines."
+      },
+      {
+        "id": "equipment-quotes",
+        "title": "2. Equipment Quotations & Orders",
+        "content": "All formal quotations issued for medical equipment, laboratory diagnostic analyzers, and surgical disposables are subject to principal availability, currency fluctuation adjustments, and official written confirmation. Purchase orders placed by hospitals, clinical laboratories, or distribution partners become binding upon written confirmation from Innotech Medical Pvt Ltd."
+      },
+      {
+        "id": "installation-warranty",
+        "title": "3. Turnkey Installation, Warranty & Calibration",
+        "content": "All biomedical devices distributed by Innotech Medical Pvt Ltd are installed, tested, and calibrated by qualified biomedical engineers. Warranty coverage covers manufacturer defects as stipulated in the formal contract. Unauthorized repairs, tampering by uncertified personnel, or improper electrical/environmental site conditions shall void the warranty coverage."
+      },
+      {
+        "id": "maintenance-sla",
+        "title": "4. Service Level Agreements & 24/7 Emergency Support",
+        "content": "Emergency technical support, scheduled preventive maintenance, and spare parts supply are provided according to the executed Service Level Agreement (SLA). Emergency dispatch turnaround times apply to designated critical care units, ICUs, and surgical suites under active service contracts."
+      },
+      {
+        "id": "limitation-liability",
+        "title": "5. Limitation of Clinical Liability",
+        "content": "Innotech Medical Pvt Ltd shall not be liable for any indirect, incidental, or consequential damages resulting from improper equipment operation, unapproved clinical application, or failure to follow operator training instructions provided during official equipment handover."
+      },
+      {
+        "id": "governing-law",
+        "title": "6. Governing Law & Jurisdiction",
+        "content": "These terms and conditions are governed by and construed in accordance with the laws of the Islamic Republic of Pakistan. Any legal disputes arising in connection with these terms shall be subject to the exclusive jurisdiction of the competent courts in Karachi, Sindh, Pakistan."
+      }
+    ],
+    "contactEmail": "info@innotecmedical.org",
+    "contactPhone": "+92 331 6699992",
+    "contactAddress": "1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan."
+  },
+  "privacyPage": {
+    "banner": {
+      "enabled": true,
+      "title": "Privacy Policy",
+      "subTitle": "Your Data Protection & Confidentiality at Innotech Medical",
+      "bgImage": "/assets/img/banner/breadcrumb-01.jpg"
+    },
+    "lastUpdated": "August 15, 2026",
+    "companyName": "Innotech Medical Pvt Ltd",
+    "introduction": "Innotech Medical Pvt Ltd (\"we\", \"our\", or \"us\") is dedicated to protecting the privacy, confidentiality, and security of our healthcare partners, client hospitals, laboratories, clinicians, and website visitors across Pakistan.",
+    "sections": [
+      {
+        "id": "collection",
+        "title": "1. Information We Collect",
+        "content": "We collect institutional and contact information necessary to provide biomedical equipment distribution, technical maintenance, customer support, and clinical newsletter updates. This includes names, hospital/laboratory affiliations, professional email addresses, telephone numbers, shipping addresses, and equipment inquiry details."
+      },
+      {
+        "id": "use-of-info",
+        "title": "2. How We Use Your Information",
+        "content": "Your information is used strictly to process equipment procurement orders, dispatch biomedical engineers for on-site calibration, coordinate emergency maintenance, provide regulatory compliance documents, respond to live support inquiries, and send critical product updates."
+      },
+      {
+        "id": "data-protection",
+        "title": "3. Data Security & Confidentiality",
+        "content": "We implement industry-standard technical and organizational security protocols, including encrypted communications and secure server storage, to prevent unauthorized access, disclosure, alteration, or destruction of your institutional and personal information."
+      },
+      {
+        "id": "third-party",
+        "title": "4. Third-Party Sharing & Compliance",
+        "content": "Innotech Medical Pvt Ltd does not sell, lease, or trade your information to third parties. We share information only with authorized logistics providers, OEM principal manufacturers for warranty registrations, or regulatory authorities when mandated by Pakistani healthcare law."
+      },
+      {
+        "id": "cookies",
+        "title": "5. Cookies & Analytics",
+        "content": "Our website uses analytical cookies solely to monitor website traffic, enhance user browsing experience, and optimize our medical catalog presentation. You can manage or disable cookie preferences through your web browser settings."
+      },
+      {
+        "id": "your-rights",
+        "title": "6. Your Rights & Contact Information",
+        "content": "You have the right to request access to the personal data we hold about your facility, request corrections or updates, or request removal from our promotional and newsletter mailing lists at any time by contacting our support team."
+      }
+    ],
+    "contactEmail": "info@innotecmedical.org",
+    "contactPhone": "+92 331 6699992",
+    "contactAddress": "1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan."
+  },
+  "inquiries": [
+    {
+      "_id": "inq-1786803881960-m8jq2",
+      "source": "Services Page Contact Form",
+      "name": "Muhammad Usama hameed",
+      "email": "creativecoder93@gmail.com",
+      "phone": "03472663843",
+      "subject": "asdsa",
+      "message": "asdas",
+      "status": "unread",
+      "replies": [],
+      "createdAt": "2026-08-15T14:24:41.960Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "_id": "inq-1786728160705-robzr",
+      "source": "All Specialists Page",
+      "name": "Muhammad Usama hameed",
+      "email": "creativecoder93@gmail.com",
+      "phone": "347324234",
+      "subject": "Arabic translation",
+      "message": "sddfdfgfgsd",
+      "status": "read",
+      "replies": [],
+      "createdAt": "2026-08-14T17:22:40.705Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "_id": "inq-1786726769937-l60bi",
+      "source": "All Specialists Page",
+      "name": "Muhammad Usama hameed",
+      "email": "creativecoder93@gmail.com",
+      "phone": "347324234",
+      "subject": "Specialist Consultation Inquiry",
+      "message": "asdasdsadas",
+      "status": "unread",
+      "replies": [],
+      "createdAt": "2026-08-14T16:59:29.937Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "_id": "inq-1786649677230-e220r",
+      "source": "Home Page Consultation",
+      "name": "hello world",
+      "email": "v@v.com",
+      "phone": "93132324222",
+      "subject": "Home Page Consultation / Booking",
+      "message": "General consultation request from home page.",
+      "status": "replied",
+      "replies": [],
+      "createdAt": "2026-08-13T19:34:37.230Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "_id": "inq-1786649497975-kdk9z",
+      "source": "Home Page Consultation",
+      "name": "Hospital Director",
+      "email": "director@medical.org",
+      "phone": "+923214455667",
+      "subject": "Hospital Turnkey Solutions",
+      "message": "Need complete equipment planning and quotation.",
+      "status": "replied",
+      "replies": [],
+      "createdAt": "2026-08-13T19:31:37.975Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.19041.6456"
+    },
+    {
+      "_id": "inq-1786649317776-62b07",
+      "source": "Home Page Consultation",
+      "name": "Test Doctor",
+      "email": "test@doctor.pk",
+      "phone": "+923001234567",
+      "subject": "Turnkey ICU Equipment",
+      "message": "Testing home and contact inquiry sync.",
+      "status": "read",
+      "replies": [],
+      "createdAt": "2026-08-13T19:28:37.776Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.19041.6456"
+    },
+    {
+      "_id": "inq-1786648946273-o4doh",
+      "source": "Contact Page",
+      "name": "Muhammad Usama hameed",
+      "email": "creativecoder93@gmail.com",
+      "phone": "03132325644",
+      "subject": "Arabic translation",
+      "message": "test test",
+      "status": "archived",
+      "replies": [
+        {
+          "id": "rep-1786648970415-zxx",
+          "subject": "Re: Arabic translation",
+          "message": "Dear Muhammad Usama hameed,\n\nThank you for reaching out to Innotech Medical Pvt Ltd regarding your inquiry.\n\n",
+          "sentBy": "Innotech Engineering Desk",
+          "sentTo": "creativecoder93@gmail.com",
+          "sentAt": "2026-08-13T19:22:50.415Z"
+        }
+      ],
+      "createdAt": "2026-08-13T19:22:26.273Z",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "_id": "inq-101",
+      "source": "Contact Page",
+      "name": "Dr. Tariq Mahmood",
+      "email": "tariq.mahmood@shifa-hospital.pk",
+      "phone": "+92 300 8549120",
+      "subject": "ICU Ventilators & Monitoring System Quotation",
+      "message": "We are upgrading our 12-bed surgical ICU ward in Islamabad and require a formal quotation and compliance specification sheet for your high-frequency ventilators and multi-parameter monitors.",
+      "status": "replied",
+      "replies": [
+        {
+          "id": "rep-1786647949839-5ln",
+          "subject": "Re: ICU Ventilators & Monitoring System Quotation",
+          "message": "Dear Dr. Tariq Mahmood,\n\nThank you for reaching out to Innotech Medical Pvt Ltd regarding your inquiry.\n\n",
+          "sentBy": "Innotech Engineering Desk",
+          "sentTo": "tariq.mahmood@shifa-hospital.pk",
+          "sentAt": "2026-08-13T19:05:49.839Z"
+        }
+      ],
+      "createdAt": "2026-08-13T18:42:46.541Z"
+    },
+    {
+      "_id": "inq-102",
+      "source": "Home Page Consultation",
+      "name": "Ayesha Siddiqui (Procurement Lead)",
+      "email": "procurement@al-shifa-diagnostics.com",
+      "phone": "+92 333 4210987",
+      "subject": "Automated Clinical Chemistry Analyzer",
+      "message": "Looking for turnkey installation of automated blood biochemistry analyzers and annual maintenance contract details.",
+      "status": "replied",
+      "replies": [],
+      "createdAt": "2026-08-12T18:42:46.541Z"
+    },
+    {
+      "_id": "inq-103",
+      "source": "Contact Page",
+      "name": "Engr. Salman Raza",
+      "email": "salman.raza@khi-medtech.org",
+      "phone": "+92 321 9988771",
+      "subject": "Ultrasound Machine Calibration & Repair Service",
+      "message": "Need urgent on-site calibration and probe replacement for color Doppler ultrasound unit in Karachi.",
+      "status": "replied",
+      "replies": [
+        {
+          "id": "rep-1",
+          "subject": "Re: Ultrasound Machine Calibration & Repair Service",
+          "message": "Dear Engr. Salman, our biomedical field engineer has been dispatched to your facility. Please find technician contact details attached.",
+          "sentBy": "Innotech Engineering Desk",
+          "sentTo": "salman.raza@khi-medtech.org",
+          "sentAt": "2026-08-13T06:42:46.541Z"
+        }
+      ],
+      "createdAt": "2026-08-11T18:42:46.541Z"
+    }
+  ],
+  "comments": [
+    {
+      "_id": "com-1786650731104-j1x1",
+      "blogSlug": "advances-in-biomedical-imaging-and-diagnostics",
+      "blogTitle": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
+      "name": "Dr. Haris Mehmood",
+      "email": "haris.m@jinnah-hospital.pk",
+      "comment": "Are the ultrasound calibration certificates renewal done on-site or at your Karachi workshop?",
+      "status": "approved",
+      "createdAt": "2026-08-13T19:52:11.104Z"
+    },
+    {
+      "_id": "com-1786650636236-7lmb",
+      "blogSlug": "preventive-maintenance-and-biomedical-calibration",
+      "blogTitle": "Why Preventive Maintenance & Precision Calibration Save Patient Lives",
+      "name": "usama",
+      "email": "creativecoder93@gmail.com",
+      "comment": "test test test",
+      "status": "approved",
+      "createdAt": "2026-08-13T19:50:36.236Z"
+    },
+    {
+      "_id": "com-101",
+      "blogSlug": "advances-in-biomedical-imaging-and-diagnostics",
+      "blogTitle": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
+      "name": "Dr. Zeeshan Ali",
+      "email": "zeeshan.ali@cardio-centre.pk",
+      "comment": "Very informative overview. Digital imaging upgrades and precision ultrasound calibration are indeed critical for early diagnosis in emergency cardiac care.",
+      "status": "approved",
+      "createdAt": "2026-08-12T19:43:02.580Z"
+    },
+    {
+      "_id": "com-102",
+      "blogSlug": "turnkey-hospital-projects-and-icu-equipment",
+      "blogTitle": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
+      "name": "Engr. Kamran Siddiqui",
+      "email": "kamran.engr@healthtech.com",
+      "comment": "Turnkey solutions save hospital management months of vendor coordination. Excellent points on medical gas pipeline calibration and HVAC cleanrooms.",
+      "status": "approved",
+      "createdAt": "2026-08-11T19:43:02.580Z"
+    }
+  ],
+  "subscribers": [
+    {
+      "_id": "sub-1786651889686-objn",
+      "email": "creativecoderasd93@gmail.com",
+      "source": "Footer Newsletter",
+      "status": "active",
+      "createdAt": "2026-08-13T20:11:29.686Z",
+      "viewed": true,
+      "isNew": false,
+      "read": true
+    },
+    {
+      "_id": "sub-1786651025925-v9hw",
+      "email": "creativecoder92@gmail.com",
+      "source": "Footer Newsletter",
+      "status": "active",
+      "createdAt": "2026-08-13T19:57:05.925Z",
+      "viewed": true,
+      "isNew": false,
+      "read": true
+    },
+    {
+      "_id": "sub-1786650338345-7uum",
+      "email": "creativecoder93@gmail.com",
+      "source": "Footer Newsletter",
+      "status": "active",
+      "createdAt": "2026-08-13T19:45:38.345Z",
+      "viewed": true,
+      "isNew": false,
+      "read": true
+    },
+    {
+      "_id": "sub-1",
+      "email": "procurement@shifa-hospital.pk",
+      "source": "Footer Newsletter",
+      "status": "active",
+      "createdAt": "2026-08-12T19:43:02.580Z",
+      "viewed": true,
+      "isNew": false,
+      "read": true
+    },
+    {
+      "_id": "sub-2",
+      "email": "biomedical.lead@dow-health.org",
+      "source": "Header Sidebar",
+      "status": "active",
+      "createdAt": "2026-08-11T19:43:02.581Z",
+      "viewed": true,
+      "isNew": false,
+      "read": true
+    },
+    {
+      "_id": "sub-3",
+      "email": "tariq.mahmood@khi-medtech.org",
+      "source": "Footer Newsletter",
+      "status": "active",
+      "createdAt": "2026-08-10T19:43:02.581Z",
+      "viewed": true,
+      "isNew": false,
+      "read": true
+    }
+  ],
+  "analytics": {
+    "pageViews": [
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/contact",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 5,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T15:56:29.446Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/research",
+        "pageTitle": "Research & Clinical Innovations - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 16,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T15:56:22.123Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/reasearch",
+        "pageTitle": "404: This page could not be found.",
+        "duration": 15,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T15:56:05.919Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/services/biomedical-engineering",
+        "pageTitle": "/services/biomedical-engineering",
+        "duration": 254,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T15:12:11.723Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 92,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T15:02:08.305Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/allteams",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 213,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T14:57:02.397Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/services/blood-testing",
+        "pageTitle": "Blood Testing - Services Details | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 112,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T14:54:31.814Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/services/hemoglobin-test",
+        "pageTitle": "Hemoglobin Test - Services Details | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 729,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T14:39:31.029Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/services/histopatology",
+        "pageTitle": "HISTOPATOLOGY - Services Details | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 759,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T14:29:19.216Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/services-details",
+        "pageTitle": "404: This page could not be found.",
+        "duration": 5,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T14:28:38.560Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/services/hemoglobin-test",
+        "pageTitle": "HEMOGLOBIN TEST - Services Details | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 558,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T14:11:01.736Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/services",
+        "pageTitle": "Services - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 651,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:46:43.750Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/privacy",
+        "pageTitle": "Privacy Policy - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 98,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:36:27.255Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/terms",
+        "pageTitle": "Terms and Conditions - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 53,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:35:36.014Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/services",
+        "pageTitle": "Products & Services - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 903,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:31:36.373Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 805,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:18:11.244Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/gallery",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 10,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:18:02.617Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/about",
+        "pageTitle": "/about",
+        "duration": 35,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T13:17:30.385Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/services",
+        "pageTitle": "Products & Services - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 5,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T12:14:09.656Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/contact",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 33,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:56:45.805Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/allteams",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 70,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:55:34.397Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/services/medical-equipment-devices",
+        "pageTitle": "MEDICAL EQUIPMENT & DEVICES - Products & Services | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 28,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:54:57.868Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/about",
+        "pageTitle": "About Us - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 166,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:52:11.420Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog/sterilization-standards-and-patient-safety-in-operating-rooms",
+        "pageTitle": "Sterilization Standards & Patient Safety in Modern Operating Rooms - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 33,
+        "isBlog": true,
+        "blogSlug": "sterilization-standards-and-patient-safety-in-operating-rooms",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:51:37.967Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog",
+        "pageTitle": "Blog & Clinical Insights - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 29,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:51:07.830Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/gallery",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 172,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:44:24.330Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/",
+        "pageTitle": "/",
+        "duration": 51321,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-15",
+        "createdAt": "2026-08-15T11:36:16.684Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/services/critical-care-icu",
+        "pageTitle": "CRITICAL CARE & ICU - Products & Services | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 25,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T21:20:39.246Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/services/medical-equipment-devices",
+        "pageTitle": "MEDICAL EQUIPMENT & DEVICES - Products & Services | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 9,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T21:20:14.982Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blogs",
+        "pageTitle": "404: This page could not be found.",
+        "duration": 5,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T20:34:22.488Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/gallery",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 1440,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T20:32:37.522Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/services/blood-testing",
+        "pageTitle": "BLOOD TESTING - Products & Services | INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 126,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T19:20:12.921Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/gallery",
+        "pageTitle": "404: This page could not be found.",
+        "duration": 835,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T18:47:53.894Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/team/team-1",
+        "pageTitle": "Cameron Williamson - Genetic Specialist | INNOTECH MEDICAL PVT LTD",
+        "duration": 405,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T17:10:21.657Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/about",
+        "pageTitle": "About Us - INNOTECH MEDICAL PVT LTD",
+        "duration": 23,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T17:01:41.253Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/allteams",
+        "pageTitle": "404: This page could not be found.",
+        "duration": 444,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T16:51:45.254Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/contact",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 13,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T16:41:35.119Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/team/team-4",
+        "pageTitle": "Jhon Methweu - Radiologist Specialist | INNOTECH MEDICAL PVT LTD",
+        "duration": 132,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T16:41:18.139Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/team/team-3",
+        "pageTitle": "Darlene Robertson - Gynaecologist Specialist | INNOTECH MEDICAL PVT LTD",
+        "duration": 13,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T16:40:59.140Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/team/team-2",
+        "pageTitle": "Savannah Nguyen - Anaesthetist Specialist | INNOTECH MEDICAL PVT LTD",
+        "duration": 10,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T16:40:32.498Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/team/team-1",
+        "pageTitle": "Cameron Williamson - Genetic Specialist | INNOTECH MEDICAL PVT LTD",
+        "duration": 315,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T14:48:47.570Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "pageTitle": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "duration": 799,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T14:22:52.531Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog/preventive-maintenance-and-biomedical-calibration",
+        "pageTitle": "Why Preventive Maintenance & Precision Calibration Save Patient Lives - INNOTECH MEDICAL PVT LTD",
+        "duration": 9,
+        "isBlog": true,
+        "blogSlug": "preventive-maintenance-and-biomedical-calibration",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T14:19:56.829Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/services",
+        "pageTitle": "Products & Services - INNOTECH MEDICAL PVT LTD",
+        "duration": 15,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T14:07:15.096Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "pageTitle": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan - INNOTECH MEDICAL PVT LTD",
+        "duration": 300,
+        "isBlog": true,
+        "blogSlug": "advances-in-biomedical-imaging-and-diagnostics",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T14:03:12.582Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/partners",
+        "pageTitle": "Our Partners - INNOTECH MEDICAL PVT LTD",
+        "duration": 8,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T14:01:39.551Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/blog",
+        "pageTitle": "Blog & Clinical Insights - INNOTECH MEDICAL PVT LTD",
+        "duration": 163,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T13:39:27.098Z"
+      },
+      {
+        "visitorId": "v_6llncve_msszo1sr",
+        "path": "/",
+        "pageTitle": "/",
+        "duration": 515,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T13:34:52.708Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog/turnkey-hospital-projects-and-icu-equipment",
+        "pageTitle": "Key Considerations for Turnkey Hospital & ICU Equipment Integration - INNOTECH MEDICAL PVT LTD",
+        "duration": 358,
+        "isBlog": true,
+        "blogSlug": "turnkey-hospital-projects-and-icu-equipment",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T13:33:35.834Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog",
+        "pageTitle": "Blog & Clinical Insights - INNOTECH MEDICAL PVT LTD",
+        "duration": 1142,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T13:04:44.929Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/",
+        "pageTitle": "/",
+        "duration": 55917,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-14",
+        "createdAt": "2026-08-14T13:02:58.998Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/about",
+        "pageTitle": "About Us - INNOTECH MEDICAL PVT LTD",
+        "duration": 5,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T21:13:30.777Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "pageTitle": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan - INNOTECH MEDICAL PVT LTD",
+        "duration": 5,
+        "isBlog": true,
+        "blogSlug": "advances-in-biomedical-imaging-and-diagnostics",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T21:11:48.144Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog/preventive-maintenance-and-biomedical-calibration",
+        "pageTitle": "Why Preventive Maintenance & Precision Calibration Save Patient Lives - INNOTECH MEDICAL PVT LTD",
+        "duration": 55,
+        "isBlog": true,
+        "blogSlug": "preventive-maintenance-and-biomedical-calibration",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T21:11:20.481Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/blog",
+        "pageTitle": "Blog & Clinical Insights - INNOTECH MEDICAL PVT LTD",
+        "duration": 13,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T21:11:08.416Z"
+      },
+      {
+        "visitorId": "user_test_unique_99",
+        "path": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "pageTitle": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "duration": 180,
+        "isBlog": true,
+        "blogSlug": "advances-in-biomedical-imaging-and-diagnostics",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T20:17:26.611Z"
+      },
+      {
+        "visitorId": "v_ro7pyv5_msrykviz",
+        "path": "/",
+        "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+        "duration": 3283,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T20:16:24.080Z"
+      },
+      {
+        "visitorId": "v_user_1",
+        "path": "/",
+        "pageTitle": "Home - Innotech Medical Systems",
+        "duration": 165,
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T19:46:24.069Z"
+      },
+      {
+        "visitorId": "v_user_2",
+        "path": "/blog/advances-in-biomedical-imaging-and-diagnostics",
+        "pageTitle": "Advances in Biomedical Imaging & Precision Diagnostics in Pakistan",
+        "duration": 240,
+        "isBlog": true,
+        "blogSlug": "advances-in-biomedical-imaging-and-diagnostics",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T19:16:24.069Z"
+      },
+      {
+        "visitorId": "v_user_3",
+        "path": "/services",
+        "pageTitle": "Turnkey Hospital & Biomedical Services",
+        "duration": 195,
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T18:46:24.069Z"
+      },
+      {
+        "visitorId": "v_user_4",
+        "path": "/contact",
+        "pageTitle": "Contact Us - Clinical Equipment Support",
+        "duration": 120,
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T18:16:24.069Z"
+      },
+      {
+        "visitorId": "v_user_5",
+        "path": "/about",
+        "pageTitle": "About Innotech Medical Pvt Ltd",
+        "duration": 150,
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T17:46:24.069Z"
+      },
+      {
+        "visitorId": "v_user_6",
+        "path": "/blog/turnkey-hospital-projects-and-icu-equipment",
+        "pageTitle": "Key Considerations for Turnkey Hospital & ICU Equipment Integration",
+        "duration": 215,
+        "isBlog": true,
+        "blogSlug": "turnkey-hospital-projects-and-icu-equipment",
+        "date": "2026-08-13",
+        "createdAt": "2026-08-13T17:16:24.069Z"
+      }
+    ],
+    "uniqueBlogViews": {
+      "advances-in-biomedical-imaging-and-diagnostics": [
+        "v_user_2",
+        "user_test_unique_99",
+        "v_ro7pyv5_msrykviz",
+        "v_6llncve_msszo1sr"
+      ],
+      "turnkey-hospital-projects-and-icu-equipment": [
+        "v_user_6",
+        "v_ro7pyv5_msrykviz"
+      ],
+      "preventive-maintenance-and-biomedical-calibration": [
+        "v_ro7pyv5_msrykviz"
+      ],
+      "sterilization-standards-and-patient-safety-in-operating-rooms": [
+        "v_ro7pyv5_msrykviz"
+      ]
+    }
+  },
+  "chatSessions": [
+    {
+      "sessionId": "chat_1786797323238_39p6wy",
+      "userName": "Khan",
+      "userPhone": "0313354644",
+      "userCity": "islamabad",
+      "status": "active",
+      "unreadAdminCount": 2,
+      "unreadUserCount": 0,
+      "lastMessage": "ok thanks",
+      "lastMessageAt": "2026-08-15T12:35:54.737Z",
+      "messages": [
+        {
+          "id": "msg_1786797323243_welcome",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Welcome to Innotech Medical Support! How can we assist you with our medical equipment and services today?",
+          "timestamp": "2026-08-15T12:35:23.243Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797337254_348u9",
+          "sender": "user",
+          "senderName": "Khan",
+          "text": "I need your support",
+          "timestamp": "2026-08-15T12:35:37.254Z",
+          "read": false
+        },
+        {
+          "id": "msg_1786797337358_autoreply",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Thank you for reaching out! Our support team has received your message and will respond to you shortly. For urgent assistance, please call +92 331 6699992.",
+          "timestamp": "2026-08-15T12:35:37.358Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797354737_8r30m",
+          "sender": "user",
+          "senderName": "Khan",
+          "text": "ok thanks",
+          "timestamp": "2026-08-15T12:35:54.737Z",
+          "read": false
+        }
+      ],
+      "autoReplySent": true,
+      "createdAt": "2026-08-15T12:35:23.243Z",
+      "updatedAt": "2026-08-15T12:35:54.737Z"
+    },
+    {
+      "sessionId": "chat_1786797256167_ajslfe",
+      "userName": "Dr salman khan",
+      "userPhone": "0313365754",
+      "userCity": "lahore",
+      "status": "closed",
+      "unreadAdminCount": 0,
+      "unreadUserCount": 0,
+      "lastMessage": "ok sure",
+      "lastMessageAt": "2026-08-15T12:34:57.235Z",
+      "messages": [
+        {
+          "id": "msg_1786797256171_welcome",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Welcome to Innotech Medical Support! How can we assist you with our medical equipment and services today?",
+          "timestamp": "2026-08-15T12:34:16.170Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797256172_user",
+          "sender": "user",
+          "senderName": "Dr salman khan",
+          "text": "hello this is test meesage",
+          "timestamp": "2026-08-15T12:34:16.271Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797256371_autoreply",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Thank you for reaching out! Our support team has received your message and will respond to you shortly. For urgent assistance, please call +92 331 6699992.",
+          "timestamp": "2026-08-15T12:34:16.371Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797269303_wzi0a",
+          "sender": "user",
+          "senderName": "Dr salman khan",
+          "text": "ok thanks",
+          "timestamp": "2026-08-15T12:34:29.303Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797292399_pdrh7",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Our team has noted your contact information. Is there any specific hospital or clinic this is for?",
+          "timestamp": "2026-08-15T12:34:52.399Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797297235_z4ug3",
+          "sender": "user",
+          "senderName": "Dr salman khan",
+          "text": "ok sure",
+          "timestamp": "2026-08-15T12:34:57.235Z",
+          "read": false
+        }
+      ],
+      "autoReplySent": true,
+      "createdAt": "2026-08-15T12:34:16.170Z",
+      "updatedAt": "2026-08-15T12:35:08.478Z"
+    },
+    {
+      "sessionId": "chat_1786795604186_24s5t9",
+      "userName": "Usama hameed",
+      "userPhone": "03472663843",
+      "userCity": "karachi",
+      "status": "closed",
+      "unreadAdminCount": 0,
+      "unreadUserCount": 0,
+      "lastMessage": "hyyy",
+      "lastMessageAt": "2026-08-15T12:31:33.900Z",
+      "messages": [
+        {
+          "id": "msg_1786795604191_welcome",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Welcome to Innotech Medical Support! How can we assist you with our medical equipment and services today?",
+          "timestamp": "2026-08-15T12:06:44.191Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786795604192_user",
+          "sender": "user",
+          "senderName": "Usama hameed",
+          "text": "hello this is test message",
+          "timestamp": "2026-08-15T12:06:44.291Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786795842077_0q3bj",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Thank you for contacting us. Our senior product specialist will review your request and call you shortly.",
+          "timestamp": "2026-08-15T12:10:42.077Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797089492_i6g67",
+          "sender": "user",
+          "senderName": "Usama hameed",
+          "text": "hello",
+          "timestamp": "2026-08-15T12:31:29.492Z",
+          "read": false
+        },
+        {
+          "id": "msg_1786797089596_autoreply",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Thank you for reaching out! Our support team has received your message and will respond to you shortly. For urgent assistance, please call +92 331 6699992.",
+          "timestamp": "2026-08-15T12:31:29.596Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786797093900_wd3ch",
+          "sender": "user",
+          "senderName": "Usama hameed",
+          "text": "hyyy",
+          "timestamp": "2026-08-15T12:31:33.900Z",
+          "read": false
+        }
+      ],
+      "createdAt": "2026-08-15T12:06:44.191Z",
+      "updatedAt": "2026-08-15T12:33:50.390Z",
+      "autoReplySent": true
+    },
+    {
+      "sessionId": "chat_1786736149230_e3m4ee",
+      "userName": "Usama",
+      "userPhone": "03132426056",
+      "userCity": "karachi",
+      "status": "resolved",
+      "unreadAdminCount": 0,
+      "unreadUserCount": 0,
+      "lastMessage": "Thank you for contacting us. Our senior product specialist will review your request and call you shortly.",
+      "lastMessageAt": "2026-08-14T19:39:58.314Z",
+      "messages": [
+        {
+          "id": "msg_1786736149233_welcome",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Welcome to Innotech Medical Support! How can we assist you with our medical equipment and services today?",
+          "timestamp": "2026-08-14T19:35:49.233Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786736149235_user",
+          "sender": "user",
+          "senderName": "Usama",
+          "text": "test",
+          "timestamp": "2026-08-14T19:35:49.334Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786736187163_n7h9m",
+          "sender": "user",
+          "senderName": "Usama",
+          "text": "test",
+          "timestamp": "2026-08-14T19:36:27.163Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786736371680_9uf6q",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "hy",
+          "timestamp": "2026-08-14T19:39:31.680Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786736378559_0rcmo",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Welcome to Innotech Medical! How can we assist you with our diagnostic and surgical equipment today?",
+          "timestamp": "2026-08-14T19:39:38.559Z",
+          "read": true
+        },
+        {
+          "id": "msg_1786736398314_gvt8w",
+          "sender": "admin",
+          "senderName": "Innotech Support Team",
+          "text": "Thank you for contacting us. Our senior product specialist will review your request and call you shortly.",
+          "timestamp": "2026-08-14T19:39:58.314Z",
+          "read": true
+        }
+      ],
+      "createdAt": "2026-08-14T19:35:49.233Z",
+      "updatedAt": "2026-08-14T19:48:57.545Z"
+    }
+  ]
+}
