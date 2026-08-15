@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { getLocalStore, updateLocalStore } from '@/lib/storage';
-import nodemailer from 'nodemailer';
 
 // Helper to generate rich responsive HTML for selected VIP templates
 function generateEmailHtml({
@@ -345,6 +344,8 @@ export async function POST(req) {
 
     if (hasSmtpConfig) {
       try {
+        const nodemailerModule = await import('nodemailer');
+        const nodemailer = nodemailerModule.default || nodemailerModule;
         const transporter = nodemailer.createTransport({
           host: process.env.SMTP_HOST,
           port: parseInt(process.env.SMTP_PORT || '587', 10),

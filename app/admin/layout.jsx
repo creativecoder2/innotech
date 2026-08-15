@@ -35,6 +35,8 @@ export default function AdminLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Mobile drawer
   const [isCollapsed, setIsCollapsed] = useState(false); // Desktop collapse
   const [isAuth, setIsAuth] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false); // Screen transition loader
+  const [targetPageName, setTargetPageName] = useState('');
   const [openDropdowns, setOpenDropdowns] = useState({ services: true });
   const [adminUser, setAdminUser] = useState({ name: 'Admin', email: 'admin@innotech.com' });
   const [adminBranding, setAdminBranding] = useState({
@@ -54,6 +56,22 @@ export default function AdminLayout({ children }) {
       [id]: !prev[id],
     }));
   };
+
+  const handleNavTransition = (href, name) => {
+    setSidebarOpen(false);
+    if (href && href !== pathname) {
+      setTargetPageName(name || 'Page');
+      setIsNavigating(true);
+    }
+  };
+
+  // Hide loader smoothly when route changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsNavigating(false);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   const fetchBranding = async () => {
     try {
@@ -152,6 +170,8 @@ export default function AdminLayout({ children }) {
 
   const handleLogout = async () => {
     try {
+      setIsNavigating(true);
+      setTargetPageName('Sign Out');
       await fetch('/api/auth/logout', { method: 'POST' });
       router.push('/admin/login');
     } catch (e) {
@@ -274,6 +294,86 @@ export default function AdminLayout({ children }) {
         fontFamily: "'Archivo', sans-serif",
       }}
     >
+      {/* ── TOP ANIMATED PROGRESS BAR ── */}
+      {isNavigating && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '3px',
+            background: 'linear-gradient(90deg, #0E63FF 0%, #10D0A1 50%, #F72A75 100%)',
+            zIndex: 100000,
+            animation: 'progressBarAnim 1s ease-in-out infinite',
+          }}
+        />
+      )}
+
+      {/* ── CENTER SCREEN NAVIGATION LOADER OVERLAY ── */}
+      {isNavigating && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(23, 17, 81, 0.45)',
+            backdropFilter: 'blur(5px)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            animation: 'fadeInLoader 0.15s ease',
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#ffffff',
+              borderRadius: '16px',
+              padding: '28px 36px',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.25)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              border: '1px solid rgba(14, 99, 255, 0.15)',
+              minWidth: '240px',
+            }}
+          >
+            {/* Glowing Dual Ring Circular Spinner */}
+            <div style={{ position: 'relative', width: '52px', height: '52px', marginBottom: '16px' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: '50%',
+                  border: '4px solid #E2E8F0',
+                  borderTopColor: '#0E63FF',
+                  animation: 'spinLoader 0.75s linear infinite',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: '6px',
+                  borderRadius: '50%',
+                  border: '3px solid transparent',
+                  borderTopColor: '#10D0A1',
+                  animation: 'spinLoader 1.1s linear infinite reverse',
+                }}
+              />
+            </div>
+
+            <div style={{ fontSize: '15px', fontWeight: 800, color: '#171151', marginBottom: '3px' }}>
+              Loading {targetPageName || 'Page'}...
+            </div>
+            <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 500 }}>
+              Innotech Medical Admin
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Mobile Backdrop Overlay */}
       {sidebarOpen && (
         <div
@@ -321,7 +421,11 @@ export default function AdminLayout({ children }) {
           }}
         >
           {!isCollapsed ? (
-            <Link href="/admin" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <Link
+              href="/admin"
+              onClick={() => handleNavTransition('/admin', 'Dashboard')}
+              style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
+            >
               <img
                 src={adminBranding.adminLogo || '/assets/img/logo/white-logo.png'}
                 alt={adminBranding.adminName || 'Innotech Admin'}
@@ -329,7 +433,12 @@ export default function AdminLayout({ children }) {
               />
             </Link>
           ) : (
-            <Link href="/admin" style={{ textDecoration: 'none', display: 'flex', justifyContent: 'center' }} title="Innotech Admin">
+            <Link
+              href="/admin"
+              onClick={() => handleNavTransition('/admin', 'Dashboard')}
+              style={{ textDecoration: 'none', display: 'flex', justifyContent: 'center' }}
+              title="Innotech Admin"
+            >
               <img
                 src="/assets/img/logo/favicon.png"
                 alt="Logo"
@@ -504,7 +613,7 @@ export default function AdminLayout({ children }) {
                                 <li key={sub.name}>
                                   <Link
                                     href={sub.href}
-                                    onClick={() => setSidebarOpen(false)}
+                                    onClick={() => handleNavTransition(sub.href, sub.name)}
                                     style={{
                                       display: 'flex',
                                       alignItems: 'center',
@@ -536,7 +645,7 @@ export default function AdminLayout({ children }) {
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        onClick={() => setSidebarOpen(false)}
+                        onClick={() => handleNavTransition(item.href, item.name)}
                         title={isCollapsed ? item.name : undefined}
                         style={{
                           display: 'flex',
@@ -795,6 +904,35 @@ export default function AdminLayout({ children }) {
         .admin-root,
         .admin-root * {
           font-family: 'Archivo', sans-serif !important;
+        }
+        @keyframes spinLoader {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes fadeInLoader {
+          from {
+            opacity: 0;
+            transform: scale(0.96);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes progressBarAnim {
+          0% {
+            transform: translateX(-100%);
+          }
+          50% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(100%);
+          }
         }
         @media (max-width: 1199px) {
           .admin-sidebar {
