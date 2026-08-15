@@ -10,12 +10,14 @@
       "enabled": true,
       "subTitle": "Welcome to Innotech Medical Pvt Ltdssss",
       "title": "Innovating Health Care with Advance Technologies",
-      "description": "Innotech Medical Pvt Ltd is Growing distributor of top-quality medical equipment across Pakistan At Innotech Medical, we are dedicated to bridging the gap between world-class medical innovation and Pakistan’s healthcare sector. As a leading provider of advanced biomedical technologies, diagnostic systems, and specialized clinical equipment, we empower healthcare institutions to deliver accurate diagnoses and superior patient care.",
+      "description": "Innotech Medical Pvt Ltd is Growing distributor of top-quality medical equipment across Pakistan At Innotech Medical, we are dedicated to bridging the gap between world-class medical innovation and Pakistan’s healthcare sector. As a leading provider of advanced biomedical technologies, diagnostic systems, and specialized clinical equipment, we empower healthcare institutions to deliver accurate diagnoses and superior patient care. testing",
       "btn1Text": "Contact with Us",
       "btn1Link": "/contact",
       "btn2Text": "About us",
       "btn2Link": "/about",
       "videoUrl": "https://youtu.be/41atpHxDJro?si=ZOZ-0mbxs2IUZ7CX",
+      "image": "/assets/img/banner/banner-01.png",
+      "bannerImage": "/assets/img/banner/banner-01.png",
       "badge1Text": "100% Customer Satisfaction",
       "badge2Text": "Help and Acess is Our Mission",
       "badge3Text": "100% Quality Laboratory service"
@@ -60,8 +62,16 @@
       "enabled": true,
       "subTitle": "Work Gallery",
       "title": "INNOTECH Gallery",
+      "description": "Explore our advanced medical equipment installations, diagnostic technologies, and turnkey hospital projects across Pakistan.",
       "btnText": "Explore More",
       "btnLink": "/gallery",
+      "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+      "bannerTitle": "INNOTECH Gallery",
+      "bannerSubTitle": "Explore our advanced medical equipment installations, diagnostic technologies, and turnkey hospital projects across Pakistan.",
+      "bannerBreadcrumb": "Gallery",
+      "pageSectionSubTitle": "WORK GALLERY",
+      "pageSectionTitle": "Precision Medical & Laboratory Works",
+      "pageDescription": "Discover our portfolio of FDA, CE, and ISO certified biomedical device deployments, hospital turnkey setups, and laboratory automation.",
       "items": [
         {
           "id": 1,
@@ -108,15 +118,7 @@
           "enabled": true,
           "_id": "6a80ae35648e92c5e3b39647"
         }
-      ],
-      "description": "Explore our advanced medical equipment installations, diagnostic technologies, and turnkey hospital projects across Pakistan.",
-      "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
-      "bannerTitle": "INNOTECH Gallery",
-      "bannerSubTitle": "Explore our advanced medical equipment installations, diagnostic technologies, and turnkey hospital projects across Pakistan.",
-      "bannerBreadcrumb": "Gallery",
-      "pageSectionSubTitle": "WORK GALLERY",
-      "pageSectionTitle": "Precision Medical & Laboratory Works",
-      "pageDescription": "Discover our portfolio of FDA, CE, and ISO certified biomedical device deployments, hospital turnkey setups, and laboratory automation."
+      ]
     },
     "whyChooseUs": {
       "enabled": true,
@@ -169,118 +171,12 @@
     "teamSection": {
       "enabled": true,
       "subTitle": "Our Team",
-      "title": "Meet Specialist",
-      "members": [
-        {
-          "_id": "team-1",
-          "name": "Cameron Williamson",
-          "position": "Genetic Specialist",
-          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
-          "image": "/assets/img/team/team-thumb-01.jpg",
-          "socialLinks": {
-            "youtube": "#",
-            "twitter": "#",
-            "facebook": "#",
-            "skype": "#"
-          },
-          "enabled": true
-        },
-        {
-          "_id": "team-2",
-          "name": "Savannah Nguyen",
-          "position": "Anaesthetist Specialist",
-          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
-          "image": "/assets/img/team/team-thumb-02.jpg",
-          "socialLinks": {
-            "youtube": "#",
-            "twitter": "#",
-            "facebook": "#",
-            "skype": "#"
-          },
-          "enabled": true
-        },
-        {
-          "_id": "team-3",
-          "name": "Darlene Robertson",
-          "position": "Gynaecologist Specialist",
-          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
-          "image": "/assets/img/team/team-thumb-03.jpg",
-          "socialLinks": {
-            "youtube": "#",
-            "twitter": "#",
-            "facebook": "#",
-            "skype": "#"
-          },
-          "enabled": true
-        },
-        {
-          "_id": "team-4",
-          "name": "Jhon Methweu",
-          "position": "Radiologist Specialist",
-          "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
-          "image": "/assets/img/team/team-thumb-04.jpg",
-          "socialLinks": {
-            "youtube": "#",
-            "twitter": "#",
-            "facebook": "#",
-            "skype": "#"
-          },
-          "enabled": true
-        }
-      ]
-    },
-    "teamPages": {
-      "allTeams": {
-        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
-        "bannerTitle": "Meet Specialist",
-        "bannerBreadcrumb": "Our Team",
-        "sectionSubTitle": "OUR TEAM",
-        "sectionTitle": "Our Specialist"
-      },
-      "teamDetails": {
-        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
-        "bannerTitle": "Team Details",
-        "bannerBreadcrumb": "Our Team"
-      }
+      "title": "Meet Specialist"
     },
     "testimonialSection": {
       "enabled": true,
       "subTitle": "Testimonial",
-      "title": "Customer Feedback",
-      "items": [
-        {
-          "_id": "testi-1",
-          "name": "Darlene Robertson",
-          "position": "Secretary of (FlaxStudio)",
-          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
-          "avatar": "/assets/img/icon/testi-ava-01.jpg",
-          "enabled": true
-        },
-        {
-          "_id": "testi-2",
-          "name": "Courtney Henry",
-          "position": "CEO of (FlaxStudio)",
-          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
-          "avatar": "/assets/img/icon/testi-ava-02.jpg",
-          "enabled": true
-        },
-        {
-          "_id": "testi-3",
-          "name": "Kathryn Murphy",
-          "position": "Manager of (FlaxStudio)",
-          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
-          "avatar": "/assets/img/icon/testi-ava-03.jpg",
-          "enabled": true
-        },
-        {
-          "_id": "testi-4",
-          "name": "Darlene Robertson",
-          "position": "Programmer of (FlaxStudio)",
-          "review": "BIoxlab is another theme that is beautiful and professinally constructed by the Developers. The price for the template is checp but not qualityh of product.what a bargain , This theme works for many types of web sites and seems to be durble dows nt break and it.",
-          "avatar": "/assets/img/icon/testi-ava-07.png",
-          "enabled": true
-        }
-      ]
+      "title": "Customer Feedback"
     },
     "brandsSection": {
       "enabled": true,
@@ -290,42 +186,42 @@
           "image": "/assets/img/brand/brand-01.png",
           "alt": "Brand 1",
           "enabled": true,
-          "_id": "6a80ae35648e92c5e3b3964c"
+          "_id": "6a80b9009fc20142386473e7"
         },
         {
           "id": 2,
           "image": "/assets/img/brand/brand-02.png",
           "alt": "Brand 2",
           "enabled": true,
-          "_id": "6a80ae35648e92c5e3b3964d"
+          "_id": "6a80b9009fc20142386473e8"
         },
         {
           "id": 3,
           "image": "/assets/img/brand/brand-03.png",
           "alt": "Brand 3",
           "enabled": true,
-          "_id": "6a80ae35648e92c5e3b3964e"
+          "_id": "6a80b9009fc20142386473e9"
         },
         {
           "id": 4,
           "image": "/assets/img/brand/brand-04.png",
           "alt": "Brand 4",
           "enabled": true,
-          "_id": "6a80ae35648e92c5e3b3964f"
+          "_id": "6a80b9009fc20142386473ea"
         },
         {
           "id": 5,
           "image": "/assets/img/brand/brand-05.png",
           "alt": "Brand 5",
           "enabled": true,
-          "_id": "6a80ae35648e92c5e3b39650"
+          "_id": "6a80b9009fc20142386473eb"
         },
         {
           "id": 6,
           "image": "/assets/img/brand/brand-04.png",
           "alt": "Brand 6",
           "enabled": true,
-          "_id": "6a80ae35648e92c5e3b39651"
+          "_id": "6a80b9009fc20142386473ec"
         }
       ]
     },
@@ -337,53 +233,7 @@
     "blogSection": {
       "enabled": true,
       "subTitle": "Waht’s New",
-      "title": "Blog & Article",
-      "items": [
-        {
-          "_id": "blog-1",
-          "title": "Heart Diseases Tests Ordered By Doctors",
-          "slug": "heart-diseases-tests-ordered-by-doctors",
-          "category": "Medicine",
-          "dateDay": "26",
-          "dateMonth": "Dec",
-          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
-          "image": "/assets/img/blog/blog-thumb-01.jpg",
-          "enabled": true
-        },
-        {
-          "_id": "blog-2",
-          "title": "Heart Diseases Tests Ordered By Doctors",
-          "slug": "heart-diseases-tests-ordered-by-doctors-2",
-          "category": "Medicine",
-          "dateDay": "26",
-          "dateMonth": "Dec",
-          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
-          "image": "/assets/img/blog/blog-thumb-02.jpg",
-          "enabled": true
-        },
-        {
-          "_id": "blog-3",
-          "title": "Identifying bases of disease pathophysio",
-          "slug": "identifying-bases-of-disease-pathophysio",
-          "category": "Medicine",
-          "dateDay": "26",
-          "dateMonth": "Dec",
-          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
-          "image": "/assets/img/blog/blog-thumb-03.jpg",
-          "enabled": true
-        },
-        {
-          "_id": "blog-4",
-          "title": "Coronavirus global health emergency",
-          "slug": "coronavirus-global-health-emergency",
-          "category": "Medicine",
-          "dateDay": "26",
-          "dateMonth": "Dec",
-          "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
-          "image": "/assets/img/blog/blog-thumb-04.jpg",
-          "enabled": true
-        }
-      ]
+      "title": "Blog & Article"
     },
     "footer": {
       "enabled": true,
@@ -405,25 +255,6 @@
         "skype": ""
       }
     },
-    "generalSettings": {
-      "siteName": "INNOTECH MEDICAL PVT LTD",
-      "siteTagline": "Innovating Healthcare with Advance Technologies",
-      "mainLogo": "/assets/img/logo/logo.png",
-      "whiteLogo": "/assets/img/logo/white-logo.png",
-      "favicon": "/assets/img/logo/favicon.png",
-      "adminName": "INNOTECH Admin Portal",
-      "adminLogo": "/assets/img/logo/white-logo.png"
-    },
-    "seoSettings": {
-      "metaTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
-      "metaDescription": "Innotech Medical Pvt Ltd is a leading distributor of top-quality medical equipment, diagnostic systems, and specialized clinical solutions across Pakistan.",
-      "metaKeywords": "medical equipment, diagnostic systems, laboratory supplies, hospital devices, Innotech Medical, Pakistan healthcare, turnkey hospital projects, biomedical engineering",
-      "metaAuthor": "Innotech Medical Pvt Ltd",
-      "metaImage": "/assets/img/banner/breadcrumb-01.jpg",
-      "canonicalUrl": "https://innotechmedical.org",
-      "googleAnalyticsId": "",
-      "robotsIndex": "index, follow"
-    },
     "chatWidget": {
       "enabled": true,
       "title": "Innotech Live Support",
@@ -440,55 +271,42 @@
       "defaultMessage": "Hello Innotech Medical, I would like to inquire about your medical equipment and solutions.",
       "tooltipText": "Chat with us on WhatsApp"
     },
+    "generalSettings": {
+      "siteName": "INNOTECH MEDICAL PVT LTD",
+      "siteTagline": "Innovating Healthcare with Advance Technologies",
+      "mainLogo": "/assets/img/logo/logo.png",
+      "whiteLogo": "/assets/img/logo/white-logo.png",
+      "favicon": "/assets/img/logo/favicon.png",
+      "adminName": "INNOTECH Admin Portal",
+      "adminLogo": "/assets/img/logo/white-logo.png"
+    },
     "createdAt": "2026-08-15T18:21:41.823Z",
-    "updatedAt": "2026-08-15T18:21:41.823Z",
+    "updatedAt": "2026-08-15T19:14:13.440Z",
     "__v": 0,
-    "services": [
-      {
-        "_id": "6a80acf1720234975575fc15",
-        "title": "HEMOGLOBIN TEST",
-        "slug": "hemoglobin-test",
-        "iconClass": "flaticon-hemoglobin-test-meter",
-        "iconTheme": "blue",
-        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
-        "order": 1,
-        "isActive": true,
-        "__v": 0
+    "seoSettings": {
+      "metaTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+      "metaDescription": "Innotech Medical Pvt Ltd is a leading distributor of top-quality medical equipment, diagnostic systems, and specialized clinical solutions across Pakistan.",
+      "metaKeywords": "medical equipment, diagnostic systems, laboratory supplies, hospital devices, Innotech Medical, Pakistan healthcare, turnkey hospital projects, biomedical engineering",
+      "metaAuthor": "Innotech Medical Pvt Ltd",
+      "metaImage": "/assets/img/banner/breadcrumb-01.jpg",
+      "canonicalUrl": "https://innotechmedical.org",
+      "googleAnalyticsId": "",
+      "robotsIndex": "index, follow"
+    },
+    "teamPages": {
+      "allTeams": {
+        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+        "bannerTitle": "Meet Specialist",
+        "bannerBreadcrumb": "Our Team",
+        "sectionSubTitle": "OUR TEAM",
+        "sectionTitle": "Our Specialist"
       },
-      {
-        "_id": "6a80acf1720234975575fc16",
-        "title": "BLOOD TESTING",
-        "slug": "blood-testing",
-        "iconClass": "flaticon-blood-test",
-        "iconTheme": "pink",
-        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
-        "order": 2,
-        "isActive": true,
-        "__v": 0
-      },
-      {
-        "_id": "6a80acf1720234975575fc17",
-        "title": "BIOCHEMISTRY",
-        "slug": "biochemistry",
-        "iconClass": "flaticon-biochemistry",
-        "iconTheme": "green",
-        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
-        "order": 3,
-        "isActive": true,
-        "__v": 0
-      },
-      {
-        "_id": "6a80acf1720234975575fc18",
-        "title": "HISTOPATOLOGY",
-        "slug": "histopatology",
-        "iconClass": "flaticon-dna-1",
-        "iconTheme": "sky",
-        "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
-        "order": 4,
-        "isActive": true,
-        "__v": 0
+      "teamDetails": {
+        "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
+        "bannerTitle": "Team Details",
+        "bannerBreadcrumb": "Our Team"
       }
-    ]
+    }
   },
   "headerConfig": {
     "enabled": true,
@@ -500,85 +318,98 @@
         "id": "1",
         "label": "Home",
         "link": "/",
-        "enabled": true
+        "enabled": true,
+        "showOnHome": true,
+        "showOnInner": true
       },
       {
         "id": "2",
         "label": "About",
         "link": "/about",
-        "enabled": true
+        "enabled": true,
+        "showOnHome": true,
+        "showOnInner": true
       },
       {
         "id": "3",
         "label": "Services",
         "link": "/services",
         "enabled": true,
+        "showOnHome": true,
+        "showOnInner": true,
         "hasDropdown": true,
         "subItems": [
           {
             "id": "s1",
             "label": "Medical Equipment & Devices",
             "link": "/services/medical-equipment-devices",
-            "enabled": false
+            "enabled": true
           },
           {
             "id": "s2",
             "label": "Diagnostic & Lab Systems",
             "link": "/services/diagnostic-lab-systems",
-            "enabled": false
+            "enabled": true
           },
           {
             "id": "s3",
             "label": "Critical Care & ICU",
             "link": "/services/critical-care-icu",
-            "enabled": false
+            "enabled": true
           },
           {
             "id": "s4",
             "label": "Surgical Devices & OT",
             "link": "/services/surgical-devices",
-            "enabled": false
+            "enabled": true
           },
           {
             "id": "s5",
             "label": "All Products & Services",
             "link": "/services",
-            "enabled": false
+            "enabled": true
           }
-        ],
-        "showOnHome": true
+        ]
       },
       {
         "id": "4",
         "label": "Gallery",
         "link": "/gallery",
         "enabled": true,
-        "showOnHome": true
+        "showOnHome": true,
+        "showOnInner": true
       },
       {
         "id": "5",
         "label": "Specialists",
         "link": "/allteams",
         "enabled": true,
-        "showOnHome": false
+        "showOnHome": false,
+        "showOnInner": true
       },
       {
         "id": "7",
         "label": "Blogs",
         "link": "/blog",
-        "enabled": true
+        "enabled": true,
+        "showOnHome": true,
+        "showOnInner": true
       },
       {
         "id": "8",
         "label": "Research",
         "link": "/research",
-        "enabled": false
+        "enabled": false,
+        "showOnHome": false,
+        "showOnInner": true
       },
       {
         "id": "9",
         "label": "Contact",
         "link": "/contact",
-        "enabled": true
+        "enabled": true,
+        "showOnHome": true,
+        "showOnInner": true
       }
     ]
   },
@@ -855,6 +686,18 @@
       "alt": "Brand 6",
       "enabled": true,
       "_id": "6a80ae35648e92c5e3b39651"
+    },
+    {
+      "image": "/assets/img/brand/brand-01.png",
+      "alt": "Partner Brand",
+      "enabled": true,
+      "id": 1786820357621
+    },
+    {
+      "image": "/uploads/art-03329_7days_swiss-roll_55g-x-6_auto-duplex_cocoa_v11_3d--1--1786820358296.png",
+      "alt": "Partner Brand",
+      "enabled": true,
+      "id": 1786820363894
     }
   ],
   "aboutPage": {
@@ -1914,7 +1757,7 @@
         "visitorId": "v_1mzuctr_msuehsgn",
         "path": "/",
         "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
-        "duration": 9337,
+        "duration": 10122,
         "isBlog": false,
         "blogSlug": "",
         "date": "2026-08-15",
