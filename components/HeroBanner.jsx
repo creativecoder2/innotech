@@ -19,6 +19,7 @@ export default function HeroBanner({ config = {} }) {
   const badge1Text = hero.badge1Text || '100% Customer Satisfaction';
   const badge2Text = hero.badge2Text || 'Help and Acess is Our Mission';
   const badge3Text = hero.badge3Text || '100% Quality Laboratory service';
+  const heroImage = hero.image || hero.bannerImage || '/assets/img/banner/banner-01.png';
 
   const rawVideoUrl = hero.videoUrl || 'https://www.youtube.com/embed/d8w5SICzzxc';
 
@@ -125,7 +126,7 @@ export default function HeroBanner({ config = {} }) {
         </div>
 
         <div className="banner__shape d-none d-lg-block">
-          <img src="/assets/img/banner/banner-01.png" alt="banner-img" />
+          <img src={heroImage} alt="banner-img" />
           <div className="banner__video-btn">
             <button
               type="button"

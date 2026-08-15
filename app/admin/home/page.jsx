@@ -1052,6 +1052,23 @@ export default function AdminHomePageManager() {
               />
             </div>
 
+            {/* Hero Banner Graphic / Illustration Image Upload */}
+            <div style={{ gridColumn: '1 / -1', border: '1px solid #ECEEF3', padding: '18px', borderRadius: '10px', backgroundColor: '#F8FAFC' }}>
+              <FileUploadField
+                label="Hero Banner Image (Main Graphic / Illustration on Right Side)"
+                value={config.hero?.image || config.hero?.bannerImage || '/assets/img/banner/banner-01.png'}
+                onChange={(url) => {
+                  handleConfigChange('hero', 'image', url);
+                  handleConfigChange('hero', 'bannerImage', url);
+                }}
+                accept="image/*"
+                placeholder="Enter image URL or click Upload Image (e.g. /assets/img/banner/banner-01.png)"
+              />
+              <span style={{ display: 'block', marginTop: '6px', fontSize: '12px', color: '#64748B' }}>
+                💡 Tip: Upload high-resolution PNG or JPG image for the hero section right side illustration.
+              </span>
+            </div>
+
             {/* Video File / YouTube Picker for Hero Banner */}
             <div style={{ gridColumn: '1 / -1', border: '1px solid #ECEEF3', padding: '18px', borderRadius: '10px', backgroundColor: '#F8FAFC' }}>
               <FileUploadField
