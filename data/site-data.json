@@ -2903,5 +2903,42 @@
       "createdAt": "2026-08-14T19:35:49.233Z",
       "updatedAt": "2026-08-14T19:48:57.545Z"
     }
+  ],
+  "emailCampaigns": [
+    {
+      "id": "camp_1786811151227",
+      "subject": "Urgent Equipment Maintenance & Calibration Advisory",
+      "templateId": "custom",
+      "senderName": "Innotech Medical Support",
+      "senderEmail": "info@innotechmedical.org",
+      "recipientsCount": 1,
+      "sampleRecipients": [
+        "admin@innotechmedical.org"
+      ],
+      "ctaText": "Schedule Service Dispatch",
+      "ctaUrl": "https://innotechmedical.org/contact",
+      "status": "Sent",
+      "error": null,
+      "isTest": true,
+      "sentAt": "2026-08-15T16:25:51.228Z"
+    },
+    {
+      "id": "camp_1786811157412",
+      "subject": "Urgent Equipment Maintenance & Calibration Advisory",
+      "templateId": "custom",
+      "senderName": "Innotech Medical Support",
+      "senderEmail": "info@innotechmedical.org",
+      "recipientsCount": 2,
+      "sampleRecipients": [
+        "creativecoder93@gmail.com",
+        "khurramgfx@gmail.com"
+      ],
+      "ctaText": "Schedule Service Dispatch",
+      "ctaUrl": "https://innotechmedical.org/contact",
+      "status": "Sent",
+      "error": null,
+      "isTest": false,
+      "sentAt": "2026-08-15T16:25:57.412Z"
+    }
   ]
 }
