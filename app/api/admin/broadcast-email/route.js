@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getLocalStore, updateLocalStore } from '@/lib/storage';
+import { getLocalStore, saveLocalStore } from '@/lib/storage';
 
 // Helper to generate rich responsive HTML for selected VIP templates
 function generateEmailHtml({
@@ -407,7 +407,7 @@ export async function POST(req) {
     };
 
     store.emailCampaigns.push(newCampaign);
-    updateLocalStore(store);
+    saveLocalStore({ emailCampaigns: store.emailCampaigns });
 
     return NextResponse.json({
       success: true,
