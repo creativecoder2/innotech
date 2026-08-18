@@ -151,6 +151,8 @@ const SiteConfigSchema = new mongoose.Schema(
       title: { type: String, default: 'GET IN TOUCH WITH US' },
       emergencyText: { type: String, default: '24/7 Emergency Service :' },
       emergencyPhone: { type: String, default: '+92 3316699992' },
+      imageMain: { type: String, default: '/assets/img/banner/appoinment-01.jpg' },
+      image: { type: String, default: '/assets/img/banner/appoinment-01.jpg' },
     },
 
     // 9. Team Section

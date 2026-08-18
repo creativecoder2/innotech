@@ -18,6 +18,7 @@ export default function AppointmentForm({ config = {} }) {
   const formTitle = apptConfig.title || 'GET IN TOUCH WITH US';
   const emergencyText = apptConfig.emergencyText || '24/7 Emergency Service :';
   const emergencyPhone = apptConfig.emergencyPhone || '+92 3316699992';
+  const imageMain = apptConfig.imageMain || apptConfig.image || '/assets/img/banner/appoinment-01.jpg';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,7 +91,7 @@ export default function AppointmentForm({ config = {} }) {
         <div className="row">
           <div className="col-xxl-6 col-xl-5 col-lg-12 col-md-12 p-0">
             <div className="appoinment-thumb">
-              <img src="/assets/img/banner/appoinment-01.jpg" alt="appoinment-img" />
+              <img src={imageMain} alt={formTitle || "Appointment Inquiry Showcase"} />
             </div>
           </div>
           <div className="col-xxl-6 col-xl-7 col-lg-12 col-md-12 p-0">

@@ -1987,6 +1987,17 @@ export default function AdminHomePageManager() {
                 style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #D1D6E0', boxSizing: 'border-box' }}
               />
             </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <FileUploadField
+                label="Appointment Form Left Side Showcase Image (Scientist / Laboratory Image)"
+                value={config.appointment?.imageMain || config.appointment?.image || '/assets/img/banner/appoinment-01.jpg'}
+                onChange={(val) => {
+                  handleConfigChange('appointment', 'imageMain', val);
+                  handleConfigChange('appointment', 'image', val);
+                }}
+                placeholder="Upload appointment section image or enter path..."
+              />
+            </div>
           </div>
         </div>
       )}
