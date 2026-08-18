@@ -12,6 +12,8 @@ export default function AboutSection({ config = {} }) {
   const description =
     about.description ||
     'Innotech Medical Pvt Ltd is Established & Reputable distributor of top-quality medical equipment across Pakistan. From state-of-the-art Medical Devices and Surgical Disposable solutions to comprehensive turnkey hospital projects, our commitment goes beyond equipment distribution. We provide end-to-end technical support, regulatory compliance, and seamless integration, ensuring that healthcare providers across the nation have access to reliable, cutting-edge medical technologies.';
+  const imageMain =
+    about.imageMain || about.image || '/assets/img/about/about-bg-01.png';
   const points = about.points || [
     'Critical Care & ICU Equipment',
     'Advanced Diagnostic & Lab Instruments',
@@ -26,7 +28,7 @@ export default function AboutSection({ config = {} }) {
           <div className="col-xl-6 col-lg-12">
             <div className="about__thumb mb-60 wow fadeInLeft" data-wow-delay=".4s">
               <div className="about__img">
-                <img src="/assets/img/about/about-bg-01.png" alt="Innotech Medical About" />
+                <img src={imageMain} alt={title || "Innotech Medical About"} />
                 <div className="about__exprience">
                   <h3 className="counter">{experienceYears}</h3>
                   <i>

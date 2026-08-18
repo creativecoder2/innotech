@@ -1408,6 +1408,17 @@ export default function AdminHomePageManager() {
                 style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #D1D6E0', fontSize: '14px', boxSizing: 'border-box' }}
               ></textarea>
             </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <FileUploadField
+                label="About Section Showcase Image (Doctor / Scientist Image)"
+                value={config.about?.imageMain || config.about?.image || '/assets/img/about/about-bg-01.png'}
+                onChange={(val) => {
+                  handleConfigChange('about', 'imageMain', val);
+                  handleConfigChange('about', 'image', val);
+                }}
+                placeholder="Upload local image or enter image path..."
+              />
+            </div>
           </div>
 
           {/* Bullet Points */}

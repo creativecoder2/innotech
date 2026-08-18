@@ -56,6 +56,8 @@ const SiteConfigSchema = new mongoose.Schema(
         default:
           'Innotech Medical Pvt Ltd is Established & Reputable distributor of top-quality medical equipment across Pakistan. From state-of-the-art Medical Devices and Surgical Disposable solutions to comprehensive turnkey hospital projects, our commitment goes beyond equipment distribution. We provide end-to-end technical support, regulatory compliance, and seamless integration, ensuring that healthcare providers across the nation have access to reliable, cutting-edge medical technologies.',
       },
+      imageMain: { type: String, default: '/assets/img/about/about-bg-01.png' },
+      image: { type: String, default: '/assets/img/about/about-bg-01.png' },
       points: {
         type: [String],
         default: [
