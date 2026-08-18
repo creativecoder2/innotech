@@ -201,6 +201,9 @@ const SiteConfigSchema = new mongoose.Schema(
       enabled: { type: Boolean, default: true },
       title: { type: String, default: 'Looking for a best laboratory Service' },
       phone: { type: String, default: '+92 331 6699992' },
+      bgImage: { type: String, default: '/assets/img/shape/shape-bg-03.png' },
+      image: { type: String, default: '/assets/img/shape/shape-bg-03.png' },
+      thumbImage: { type: String, default: '' },
     },
 
     // 13. Blog Section

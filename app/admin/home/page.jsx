@@ -2831,6 +2831,27 @@ export default function AdminHomePageManager() {
                 style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #D1D6E0', boxSizing: 'border-box' }}
               />
             </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <FileUploadField
+                label="CTA Banner Main Background Image (Scientist / Blue Banner Graphic)"
+                value={config.ctaSection?.bgImage || config.ctaSection?.image || '/assets/img/shape/shape-bg-03.png'}
+                onChange={(val) => {
+                  handleConfigChange('ctaSection', 'bgImage', val);
+                  handleConfigChange('ctaSection', 'image', val);
+                }}
+                placeholder="Upload banner image or enter path..."
+              />
+            </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <FileUploadField
+                label="CTA Right Side Feature Image (Optional Overlay Image)"
+                value={config.ctaSection?.thumbImage || ''}
+                onChange={(val) => {
+                  handleConfigChange('ctaSection', 'thumbImage', val);
+                }}
+                placeholder="Upload optional right side scientist / lab image overlay..."
+              />
+            </div>
           </div>
         </div>
       )}
