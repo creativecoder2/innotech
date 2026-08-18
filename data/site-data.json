@@ -1,6 +1,5 @@
 {
   "config": {
-    "_id": "6a80ae35648e92c5e3b39642",
     "header": {
       "enabled": true,
       "helpDeskPhone": "+92 331 6699992",
@@ -255,6 +254,25 @@
         "skype": ""
       }
     },
+    "generalSettings": {
+      "siteName": "INNOTECH MEDICAL PVT LTD",
+      "siteTagline": "Innovating Healthcare with Advance Technologies",
+      "mainLogo": "/assets/img/logo/logo.png",
+      "whiteLogo": "/assets/img/logo/white-logo.png",
+      "favicon": "/assets/img/logo/favicon.png",
+      "adminName": "INNOTECH Admin Portal",
+      "adminLogo": "/assets/img/logo/white-logo.png"
+    },
+    "seoSettings": {
+      "metaTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
+      "metaDescription": "Innotech Medical Pvt Ltd is a leading distributor of top-quality medical equipment, diagnostic systems, and specialized clinical solutions across Pakistan.",
+      "metaKeywords": "medical equipment, diagnostic systems, laboratory supplies, hospital devices, Innotech Medical, Pakistan healthcare, turnkey hospital projects, biomedical engineering",
+      "metaAuthor": "Innotech Medical Pvt Ltd",
+      "metaImage": "/assets/img/banner/breadcrumb-01.jpg",
+      "canonicalUrl": "https://innotechmedical.org",
+      "googleAnalyticsId": "",
+      "robotsIndex": "index, follow"
+    },
     "chatWidget": {
       "enabled": true,
       "title": "Innotech Live Support",
@@ -271,28 +289,10 @@
       "defaultMessage": "Hello Innotech Medical, I would like to inquire about your medical equipment and solutions.",
       "tooltipText": "Chat with us on WhatsApp"
     },
-    "generalSettings": {
-      "siteName": "INNOTECH MEDICAL PVT LTD",
-      "siteTagline": "Innovating Healthcare with Advance Technologies",
-      "mainLogo": "/assets/img/logo/logo.png",
-      "whiteLogo": "/assets/img/logo/white-logo.png",
-      "favicon": "/assets/img/logo/favicon.png",
-      "adminName": "INNOTECH Admin Portal",
-      "adminLogo": "/assets/img/logo/white-logo.png"
-    },
+    "_id": "6a80ae35648e92c5e3b39642",
     "createdAt": "2026-08-15T18:21:41.823Z",
     "updatedAt": "2026-08-15T19:14:13.440Z",
     "__v": 0,
-    "seoSettings": {
-      "metaTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
-      "metaDescription": "Innotech Medical Pvt Ltd is a leading distributor of top-quality medical equipment, diagnostic systems, and specialized clinical solutions across Pakistan.",
-      "metaKeywords": "medical equipment, diagnostic systems, laboratory supplies, hospital devices, Innotech Medical, Pakistan healthcare, turnkey hospital projects, biomedical engineering",
-      "metaAuthor": "Innotech Medical Pvt Ltd",
-      "metaImage": "/assets/img/banner/breadcrumb-01.jpg",
-      "canonicalUrl": "https://innotechmedical.org",
-      "googleAnalyticsId": "",
-      "robotsIndex": "index, follow"
-    },
     "teamPages": {
       "allTeams": {
         "bannerImage": "/assets/img/banner/breadcrumb-01.jpg",
@@ -311,107 +311,7 @@
   "headerConfig": {
     "enabled": true,
     "helpDeskPhone": "+92 331 6699992",
-    "emergencyPhone": "+92 331 6699992",
-    "logo": "/assets/img/logo/logo.png",
-    "menuItems": [
-      {
-        "id": "1",
-        "label": "Home",
-        "link": "/",
-        "enabled": true,
-        "showOnHome": true,
-        "showOnInner": true
-      },
-      {
-        "id": "2",
-        "label": "About",
-        "link": "/about",
-        "enabled": true,
-        "showOnHome": true,
-        "showOnInner": true
-      },
-      {
-        "id": "3",
-        "label": "Services",
-        "link": "/services",
-        "enabled": true,
-        "showOnHome": true,
-        "showOnInner": true,
-        "hasDropdown": true,
-        "subItems": [
-          {
-            "id": "s1",
-            "label": "Medical Equipment & Devices",
-            "link": "/services/medical-equipment-devices",
-            "enabled": true
-          },
-          {
-            "id": "s2",
-            "label": "Diagnostic & Lab Systems",
-            "link": "/services/diagnostic-lab-systems",
-            "enabled": true
-          },
-          {
-            "id": "s3",
-            "label": "Critical Care & ICU",
-            "link": "/services/critical-care-icu",
-            "enabled": true
-          },
-          {
-            "id": "s4",
-            "label": "Surgical Devices & OT",
-            "link": "/services/surgical-devices",
-            "enabled": true
-          },
-          {
-            "id": "s5",
-            "label": "All Products & Services",
-            "link": "/services",
-            "enabled": true
-          }
-        ]
-      },
-      {
-        "id": "4",
-        "label": "Gallery",
-        "link": "/gallery",
-        "enabled": true,
-        "showOnHome": true,
-        "showOnInner": true
-      },
-      {
-        "id": "5",
-        "label": "Specialists",
-        "link": "/allteams",
-        "enabled": true,
-        "showOnHome": false,
-        "showOnInner": true
-      },
-      {
-        "id": "7",
-        "label": "Blogs",
-        "link": "/blog",
-        "enabled": true,
-        "showOnHome": true,
-        "showOnInner": true
-      },
-      {
-        "id": "8",
-        "label": "Research",
-        "link": "/research",
-        "enabled": false,
-        "showOnHome": false,
-        "showOnInner": true
-      },
-      {
-        "id": "9",
-        "label": "Contact",
-        "link": "/contact",
-        "enabled": true,
-        "showOnHome": true,
-        "showOnInner": true
-      }
-    ]
+    "emergencyPhone": "+92 331 6699992"
   },
   "services": [
     {
@@ -1603,6 +1503,26 @@
   ],
   "analytics": {
     "pageViews": [
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/",
+        "pageTitle": "/",
+        "duration": 5,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-18",
+        "createdAt": "2026-08-18T19:30:54.676Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/",
+        "pageTitle": "/",
+        "duration": 89511,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-16",
+        "createdAt": "2026-08-16T10:37:46.097Z"
+      },
       {
         "visitorId": "v_1mzuctr_msuehsgn",
         "path": "/contact",
