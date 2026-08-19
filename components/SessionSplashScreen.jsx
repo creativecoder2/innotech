@@ -18,7 +18,7 @@ export default function SessionSplashScreen() {
       sessionStorage.setItem('innotech_initial_splash_done', 'true');
 
       const startTime = Date.now();
-      const duration = 10000; // Exact 10 seconds progress duration
+      const duration = 5000; // Exact 5 seconds progress duration
 
       const progressInterval = setInterval(() => {
         const elapsed = Date.now() - startTime;
@@ -33,7 +33,7 @@ export default function SessionSplashScreen() {
 
       const removeTimer = setTimeout(() => {
         setShow(false);
-      }, 10450);
+      }, 5450);
 
       return () => {
         clearInterval(progressInterval);
@@ -57,13 +57,15 @@ export default function SessionSplashScreen() {
         width: '100vw',
         height: '100vh',
         zIndex: 99999999,
-        background: 'radial-gradient(circle at 50% 40%, #ffffff 0%, #f3f7ff 55%, #e9f1fe 100%)',
+        backgroundImage: `linear-gradient(135deg, rgba(10, 25, 47, 0.82) 0%, rgba(15, 23, 42, 0.88) 100%), url('/assets/img/splash-bg.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         opacity: fading ? 0 : 1,
-        transform: fading ? 'scale(1.025)' : 'scale(1)',
+        transform: fading ? 'scale(1.03)' : 'scale(1)',
         transition: 'opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
         pointerEvents: fading ? 'none' : 'all',
         userSelect: 'none',
@@ -78,23 +80,24 @@ export default function SessionSplashScreen() {
           flexDirection: 'column',
           alignItems: 'center',
           textAlign: 'center',
-          padding: '38px 42px 34px',
+          padding: '40px 44px 36px',
           background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
           borderRadius: '24px',
-          boxShadow: '0 30px 60px -15px rgba(14, 99, 255, 0.12), 0 0 0 1px rgba(14, 99, 255, 0.08)',
-          maxWidth: '440px',
+          boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.3)',
+          maxWidth: '450px',
           width: '88%',
           boxSizing: 'border-box',
+          animation: 'tp-splash-float 3s ease-in-out infinite alternate',
         }}
       >
         {/* Logo Container */}
         <div
           style={{
             position: 'relative',
-            width: '82px',
-            height: '82px',
+            width: '86px',
+            height: '86px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -119,8 +122,8 @@ export default function SessionSplashScreen() {
             src="/assets/img/logo/favicon.png"
             alt="Innotech Medical"
             style={{
-              width: '64px',
-              height: '64px',
+              width: '68px',
+              height: '68px',
               objectFit: 'contain',
             }}
           />
@@ -129,7 +132,7 @@ export default function SessionSplashScreen() {
         <h2
           style={{
             fontFamily: "'Days One', 'Archivo', sans-serif",
-            fontSize: '19px',
+            fontSize: '20px',
             fontWeight: '800',
             color: '#171151',
             letterSpacing: '0.8px',
@@ -194,6 +197,10 @@ export default function SessionSplashScreen() {
         @keyframes tp-splash-spin-ring {
           0%   { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+        @keyframes tp-splash-float {
+          0%   { transform: translateY(0px); }
+          100% { transform: translateY(-8px); }
         }
       `}</style>
     </div>
