@@ -45,22 +45,6 @@ async function getHomeData() {
   let dbGallery = localStore?.gallery || fallbackGallery;
   let dbBrands = localStore?.brands || fallbackBrands;
 
-  // Background non-blocking sync
-  connectToDatabase().then(async (conn) => {
-    if (!conn) return;
-    try {
-      const [fetchedConfig, fetchedServices, fetchedBlogs, fetchedTeam, fetchedTestimonials] =
-        await Promise.all([
-          SiteConfig.findOne().sort({ createdAt: -1 }).lean(),
-          Service.find().sort({ order: 1 }).lean(),
-          Blog.find().sort({ createdAt: -1 }).limit(10).lean(),
-          Team.find().sort({ order: 1 }).lean(),
-          Testimonial.find().sort({ order: 1 }).lean(),
-        ]);
-      if (fetchedConfig) saveLocalStore({ config: fetchedConfig });
-    } catch (_) {}
-  }).catch(() => {});
-
   const activeConfig = dbConfig ? JSON.parse(JSON.stringify(dbConfig)) : fallbackSiteConfig;
 
   // 1. Services items

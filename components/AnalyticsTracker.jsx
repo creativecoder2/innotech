@@ -51,39 +51,41 @@ export default function AnalyticsTracker() {
     startTimeRef.current = Date.now();
     pathRef.current = pathname;
 
-    // Send page visit ping
-    fetch('/api/analytics/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        visitorId: vid,
-        path: pathname,
-        pageTitle: typeof document !== 'undefined' ? document.title : pathname,
-        isBlog,
-        blogSlug,
-        duration: 5,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success && isBlog && data.views) {
-          // Dispatch custom event to update dynamic view counter on the page
-          window.dispatchEvent(
-            new CustomEvent('innotech_blog_views_updated', {
-              detail: { slug: blogSlug, views: data.views },
-            })
-          );
-        }
+    // Defer analytics ping slightly so initial user interaction is prioritized
+    const trackTimer = setTimeout(() => {
+      fetch('/api/analytics/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          visitorId: vid,
+          path: pathname,
+          pageTitle: typeof document !== 'undefined' ? document.title : pathname,
+          isBlog,
+          blogSlug,
+          duration: 5,
+        }),
       })
-      .catch(() => {});
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && isBlog && data.views) {
+            // Dispatch custom event to update dynamic view counter on the page
+            window.dispatchEvent(
+              new CustomEvent('innotech_blog_views_updated', {
+                detail: { slug: blogSlug, views: data.views },
+              })
+            );
+          }
+        })
+        .catch(() => {});
+    }, 1500);
 
-    // Periodic heartbeat to track active dwell time every 15s
+    // Periodic heartbeat to track active dwell time every 25s
     const heartbeat = setInterval(() => {
       const elapsedSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
       if (elapsedSeconds > 5) {
         sendDurationUpdate(pathname, elapsedSeconds);
       }
-    }, 15000);
+    }, 25000);
 
     const handleBeforeUnload = () => {
       const elapsedSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
