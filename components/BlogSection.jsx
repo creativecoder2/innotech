@@ -194,7 +194,7 @@ export default function BlogSection({ config = {}, blogs = [] }) {
                       </div>
 
                       <div className="tp-blog__btn" style={{ marginTop: 'auto', paddingTop: '2px' }}>
-                        <Link href={blogLink} style={{ padding: '6px 16px', fontSize: '12px' }}>
+                        <Link href={blogLink} prefetch={true} style={{ padding: '6px 16px', fontSize: '12px' }}>
                           Read moRe
                         </Link>
                       </div>
@@ -209,8 +209,18 @@ export default function BlogSection({ config = {}, blogs = [] }) {
         {/* Explore All Articles Button with generous bottom spacing */}
         <div className="row mt-50">
           <div className="col-12 text-center">
-            <Link href="/blog" className="tp-btn">
-              Explore All Articles
+            <Link
+              href="/blog"
+              prefetch={true}
+              className="tp-btn"
+              style={{
+                borderRadius: '8px',
+                padding: '14px 34px',
+                fontSize: '14px',
+                fontWeight: '700',
+              }}
+            >
+              Explore All Articles <i className="fa-regular fa-arrow-right ml-10"></i>
             </Link>
           </div>
         </div>

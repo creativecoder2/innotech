@@ -166,7 +166,7 @@ export default function ServicesSection({ config = {}, initialServices = [] }) {
                             className="services-item__tp-title mb-30"
                             style={{ minHeight: '52px', display: 'flex', alignItems: 'center' }}
                           >
-                            <Link href={service.link || `/services/${service.slug || 'hemoglobin-test'}`}>
+                            <Link href={service.link || `/services/${service.slug || 'hemoglobin-test'}`} prefetch={true}>
                               {service.title}
                             </Link>
                           </h4>
@@ -177,6 +177,7 @@ export default function ServicesSection({ config = {}, initialServices = [] }) {
                         <Link
                           className={`btn-hexa ${btnColorClass}`}
                           href={service.link || `/services/${service.slug || 'hemoglobin-test'}`}
+                          prefetch={true}
                         >
                           <i></i>Read More
                         </Link>
