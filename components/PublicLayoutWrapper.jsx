@@ -8,6 +8,7 @@ import TemplateScripts from '@/components/TemplateScripts';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import LiveChatWidget from '@/components/LiveChatWidget';
 import PageLoader from '@/components/PageLoader';
+import SessionSplashScreen from '@/components/SessionSplashScreen';
 
 export default function PublicLayoutWrapper({ children }) {
   const pathname = usePathname() || '';
@@ -25,6 +26,9 @@ export default function PublicLayoutWrapper({ children }) {
 
   return (
     <>
+      {/* Animated Entrance Progress Loader (Once per Session) */}
+      <SessionSplashScreen />
+
       {/* Non-blocking Page Transition Progress */}
       <PageLoader />
 
