@@ -8,7 +8,6 @@ import TemplateScripts from '@/components/TemplateScripts';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import LiveChatWidget from '@/components/LiveChatWidget';
 import PageLoader from '@/components/PageLoader';
-import InitialSplashScreen from '@/components/InitialSplashScreen';
 
 export default function PublicLayoutWrapper({ children }) {
   const pathname = usePathname() || '';
@@ -26,10 +25,7 @@ export default function PublicLayoutWrapper({ children }) {
 
   return (
     <>
-      {/* First-time Animated Entrance Splash Screen */}
-      <InitialSplashScreen />
-
-      {/* Page Transition Top Progress */}
+      {/* Non-blocking Page Transition Progress */}
       <PageLoader />
 
       <AnalyticsTracker />
