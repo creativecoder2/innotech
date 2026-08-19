@@ -113,6 +113,27 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="/assets/css/flaticon.css" />
         <link rel="stylesheet" href="/assets/css/spacing.css" />
         <link rel="stylesheet" href="/assets/css/style.css" />
+        <style>{`
+          @keyframes tp-splash-bar-grow {
+            0%   { width: 0%; }
+            50%  { width: 60%; }
+            85%  { width: 90%; }
+            100% { width: 100%; }
+          }
+          @keyframes tp-splash-spin-ring {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          @keyframes tp-splash-card-pop {
+            from { transform: scale(0.94); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+          }
+          @keyframes tp-splash-master-fade {
+            0%   { opacity: 1; pointer-events: all; }
+            80%  { opacity: 1; pointer-events: all; transform: scale(1); }
+            100% { opacity: 0; pointer-events: none; transform: scale(1.03); visibility: hidden; }
+          }
+        `}</style>
       </head>
       <body>
         <PublicLayoutWrapper>{children}</PublicLayoutWrapper>
