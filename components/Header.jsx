@@ -38,6 +38,16 @@ export default function Header() {
   const isWhiteHeader = !isHomePage;
 
   useEffect(() => {
+    // 1. Instantly restore from localStorage on refresh
+    if (typeof window !== 'undefined') {
+      try {
+        const cachedHeader = localStorage.getItem('innotech_header_data');
+        if (cachedHeader) setHeaderData(JSON.parse(cachedHeader));
+        const cachedLogos = localStorage.getItem('innotech_site_logos');
+        if (cachedLogos) setSiteLogos(JSON.parse(cachedLogos));
+      } catch (_) {}
+    }
+
     fetchHeaderConfig();
 
     const handleScroll = () => {
@@ -60,6 +70,9 @@ export default function Header() {
       const data = await res.json();
       if (data.data) {
         setHeaderData(data.data);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('innotech_header_data', JSON.stringify(data.data));
+        }
       }
 
       const siteRes = await fetch('/api/admin/site-config');
@@ -72,11 +85,15 @@ export default function Header() {
       }
       if (siteData.data?.generalSettings) {
         const gen = siteData.data.generalSettings;
-        setSiteLogos({
+        const newLogos = {
           mainLogo: gen.mainLogo || '/assets/img/logo/logo.png',
           whiteLogo: gen.whiteLogo || '/assets/img/logo/white-logo.png',
           siteName: gen.siteName || 'INNOTECH MEDICAL PVT LTD',
-        });
+        };
+        setSiteLogos(newLogos);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('innotech_site_logos', JSON.stringify(newLogos));
+        }
       }
     } catch (e) {
       console.error('Error loading header config:', e);
