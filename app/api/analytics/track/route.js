@@ -55,9 +55,8 @@ export async function POST(req) {
             },
           });
 
-          // Sync to MongoDB
-          try {
-            const conn = await connectToDatabase();
+          // Sync to MongoDB in background
+          connectToDatabase().then(async (conn) => {
             if (conn) {
               await Blog.findOneAndUpdate(
                 { slug: blogSlug },
@@ -67,7 +66,7 @@ export async function POST(req) {
                 }
               );
             }
-          } catch (dbErr) {}
+          }).catch(() => {});
         }
         currentViews = targetBlog.views || 0;
       }
@@ -109,9 +108,8 @@ export async function POST(req) {
       },
     });
 
-    // Sync PageView to MongoDB
-    try {
-      const conn = await connectToDatabase();
+    // Sync PageView to MongoDB in background
+    connectToDatabase().then(async (conn) => {
       if (conn) {
         if (duration > 0) {
           await PageView.findOneAndUpdate(
@@ -131,7 +129,7 @@ export async function POST(req) {
           });
         }
       }
-    } catch (dbErr) {}
+    }).catch(() => {});
 
     return NextResponse.json({
       success: true,

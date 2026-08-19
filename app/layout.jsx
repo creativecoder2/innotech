@@ -6,7 +6,7 @@ import connectToDatabase from '@/lib/db';
 import SiteConfig from '@/models/SiteConfig';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata() {
   let siteConfig = fallbackSiteConfig;
@@ -16,16 +16,8 @@ export async function generateMetadata() {
     if (local?.config) {
       siteConfig = local.config;
     }
-
-    const conn = await connectToDatabase();
-    if (conn) {
-      const dbConfig = await SiteConfig.findOne().lean();
-      if (dbConfig) {
-        siteConfig = dbConfig;
-      }
-    }
   } catch (e) {
-    console.error('Error fetching dynamic metadata in RootLayout:', e);
+    console.error('Error reading metadata in RootLayout:', e);
   }
 
   const general = siteConfig.generalSettings || fallbackSiteConfig.generalSettings || {};

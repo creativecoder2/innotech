@@ -3,8 +3,7 @@ import Link from 'next/link';
 import { fallbackResearchPage } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Research & Clinical Innovations - INNOTECH MEDICAL PVT LTD',

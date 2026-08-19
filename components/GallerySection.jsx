@@ -1,13 +1,16 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import { fallbackGallery } from '@/lib/data';
 
 export default function GallerySection({ config = {}, galleryItems = [] }) {
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const swiperRef = useRef(null);
 
   const galleryConfig = config.gallerySection || {};
   const subTitle = galleryConfig.subTitle || 'Work Gallery';
@@ -67,26 +70,133 @@ export default function GallerySection({ config = {}, galleryItems = [] }) {
 
   return (
     <>
+      <style jsx global>{`
+        .gall-active .swiper {
+          overflow: hidden !important;
+        }
+        .gall-active .swiper-wrapper {
+          display: flex !important;
+          flex-wrap: nowrap !important;
+        }
+        .gall-active .swiper-slide {
+          flex-shrink: 0 !important;
+          width: 100% !important;
+        }
+        @media (min-width: 576px) {
+          .gall-active .swiper-slide {
+            width: 50% !important;
+          }
+        }
+        @media (min-width: 992px) {
+          .gall-active .swiper-slide {
+            width: 33.333% !important;
+          }
+        }
+        @media (min-width: 1400px) {
+          .gall-active .swiper-slide {
+            width: 25% !important;
+          }
+        }
+        .tp-gallery__img {
+          border-radius: 10px !important;
+          overflow: hidden !important;
+          height: 280px !important;
+          background: #e2e8f0 !important;
+        }
+        .tp-gallery__img img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+        }
+        .gallery-nav-prev {
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 1.5px solid #dbe2ea;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #171151;
+          transition: all 0.25s ease;
+          cursor: pointer;
+          user-select: none;
+        }
+        .gallery-nav-prev:hover {
+          border-color: #171151;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .gallery-nav-next {
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          background: #1e2124;
+          border: 1.5px solid #1e2124;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #ffffff;
+          transition: all 0.25s ease;
+          cursor: pointer;
+          user-select: none;
+        }
+        .gallery-nav-next:hover {
+          background: #0e63ff;
+          border-color: #0e63ff;
+          color: #ffffff;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(14, 99, 255, 0.35);
+        }
+      `}</style>
       <section
         className="gallery-area grey-bg pt-120 pb-130"
         style={{ backgroundImage: `url('/assets/img/shape/shape-bg-01.png')` }}
-        data-background="assets/img/shape/shape-bg-01.png"
       >
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="tp-section text-center">
-                <span className="tp-section__sub-title left-line right-line mb-25">{subTitle}</span>
-                <h3 className="tp-section__title mb-70">{title}</h3>
+          <div className="row align-items-center mb-50">
+            <div className="col-lg-8 col-md-8 col-12">
+              <div className="tp-section">
+                <span className="tp-section__sub-title left-line mb-20">{subTitle}</span>
+                <h3 className="tp-section__title mb-0">{title}</h3>
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-4 col-12">
+              <div className="d-flex align-items-center justify-content-md-end mt-20 mt-md-0" style={{ gap: '14px' }}>
+                <div
+                  className="gallery-prev gallery-nav-prev"
+                  onClick={() => swiperRef.current?.slidePrev()}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Previous gallery item"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                  </svg>
+                </div>
+                <div
+                  className="gallery-next gallery-nav-next"
+                  onClick={() => swiperRef.current?.slideNext()}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Next gallery item"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="container-fluid">
-          <div className="tp-gallery ml-15 mr-15 wow fadeInUp" data-wow-delay=".4s">
+          <div className="tp-gallery ml-15 mr-15">
             <div className="gall-active">
               <Swiper
-                modules={[Autoplay]}
+                onSwiper={(swiper) => {
+                  swiperRef.current = swiper;
+                }}
+                modules={[Autoplay, Navigation]}
                 spaceBetween={30}
                 slidesPerView={1}
                 loop={itemsToRender.length >= 4}
@@ -94,6 +204,10 @@ export default function GallerySection({ config = {}, galleryItems = [] }) {
                   delay: 4500,
                   disableOnInteraction: false,
                   pauseOnMouseEnter: true,
+                }}
+                navigation={{
+                  prevEl: '.gallery-prev',
+                  nextEl: '.gallery-next',
                 }}
                 breakpoints={{
                   0: {
@@ -122,7 +236,7 @@ export default function GallerySection({ config = {}, galleryItems = [] }) {
                   <SwiperSlide key={item.id || idx}>
                     <div className="tp-gallery__item p-relative mb-70">
                       <div className="tp-gallery__img p-relative">
-                        <img src={item.image} alt={item.title} />
+                        <img src={item.image} alt={item.title} loading="eager" decoding="async" />
                         <div className="tp-gallery__info">
                           <a
                             className="popup-image"

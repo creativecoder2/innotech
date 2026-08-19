@@ -66,7 +66,7 @@ export default function TemplateScripts() {
 
     const timer = setTimeout(() => {
       initTemplate();
-    }, 150);
+    }, 0);
 
     return () => clearTimeout(timer);
   }, [pathname]);

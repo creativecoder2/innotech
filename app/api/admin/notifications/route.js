@@ -19,39 +19,13 @@ export async function GET() {
     const subscribersList = Array.isArray(localStore.subscribers) ? localStore.subscribers : fallbackSubscribers;
     const chatSessionsList = Array.isArray(localStore.chatSessions) ? localStore.chatSessions : [];
 
-    // 1. Unread Inquiries
-    let unreadInquiries = inquiriesList.filter(
+    // Compute from local store — instant, no DB wait
+    const unreadInquiries = inquiriesList.filter(
       (i) => i.status === 'unread' || (!i.status && i.status !== 'read' && i.status !== 'replied' && i.status !== 'archived')
     ).length;
-
-    // 2. Pending Comments (awaiting moderation)
-    let pendingComments = commentsList.filter((c) => c.status === 'pending').length;
-
-    // 3. New / Unseen Subscribers
-    let newSubscribers = subscribersList.filter((s) => s.viewed !== true && s.read !== true && s.isNew !== false).length;
-
-    // 4. Unread Chat Messages
-    let unreadChats = chatSessionsList.reduce((acc, s) => acc + (s.unreadAdminCount || 0), 0);
-
-    // Try MongoDB sync if connected
-    try {
-      const conn = await connectToDatabase();
-      if (conn) {
-        const [dbUnreadInquiries, dbPendingComments, dbNewSubscribers, dbChatSessions] = await Promise.all([
-          Inquiry.countDocuments({ status: 'unread' }),
-          Comment.countDocuments({ status: 'pending' }),
-          Subscriber.countDocuments({ $or: [{ viewed: false }, { viewed: { $exists: false } }] }),
-          ChatSession.find({ unreadAdminCount: { $gt: 0 } }).select('unreadAdminCount').lean(),
-        ]);
-
-        if (dbUnreadInquiries !== undefined) unreadInquiries = dbUnreadInquiries;
-        if (dbPendingComments !== undefined) pendingComments = dbPendingComments;
-        if (dbNewSubscribers !== undefined) newSubscribers = dbNewSubscribers;
-        if (dbChatSessions && Array.isArray(dbChatSessions)) {
-          unreadChats = dbChatSessions.reduce((acc, s) => acc + (s.unreadAdminCount || 0), 0);
-        }
-      }
-    } catch (dbErr) {}
+    const pendingComments = commentsList.filter((c) => c.status === 'pending').length;
+    const newSubscribers = subscribersList.filter((s) => s.viewed !== true && s.read !== true && s.isNew !== false).length;
+    const unreadChats = chatSessionsList.reduce((acc, s) => acc + (s.unreadAdminCount || 0), 0);
 
     return NextResponse.json({
       success: true,

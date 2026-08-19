@@ -7,8 +7,7 @@ import { fallbackServices, fallbackServicesPage } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 import ServiceSupportForm from '@/components/ServiceSupportForm';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 async function getService(slug) {
   // 1. Check servicesPage from LocalStore

@@ -3,8 +3,7 @@ import { fallbackBlogPage, fallbackBlogList } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 import BlogListingClient from '@/components/BlogListingClient';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Blog & Clinical Insights - INNOTECH MEDICAL PVT LTD',

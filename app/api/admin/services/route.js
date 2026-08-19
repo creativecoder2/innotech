@@ -6,16 +6,18 @@ import { getLocalStore, saveLocalStore } from '@/lib/storage';
 
 export async function GET() {
   try {
-    const conn = await connectToDatabase();
-    if (conn) {
-      const services = await Service.find().sort({ order: 1 }).lean();
-      if (services && services.length > 0) {
-        saveLocalStore({ services });
-        return NextResponse.json({ success: true, data: services });
-      }
-    }
     const local = getLocalStore();
     const data = local?.services && local.services.length > 0 ? local.services : fallbackServices;
+
+    // Background non-blocking sync
+    connectToDatabase().then(async (conn) => {
+      if (!conn) return;
+      try {
+        const services = await Service.find().sort({ order: 1 }).lean();
+        if (services && services.length > 0) saveLocalStore({ services });
+      } catch (_) {}
+    }).catch(() => {});
+
     return NextResponse.json({ success: true, data });
   } catch (error) {
     const local = getLocalStore();

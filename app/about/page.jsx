@@ -7,8 +7,7 @@ import TeamSection from '@/components/TeamSection';
 import { fallbackAboutPage, fallbackTeam } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata = {
   title: 'About Us - INNOTECH MEDICAL PVT LTD',

@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import TemplateScripts from '@/components/TemplateScripts';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
 import LiveChatWidget from '@/components/LiveChatWidget';
+import PageLoader from '@/components/PageLoader';
 
 export default function PublicLayoutWrapper({ children }) {
   const pathname = usePathname() || '';
@@ -19,6 +20,9 @@ export default function PublicLayoutWrapper({ children }) {
 
   return (
     <>
+      {/* Page Transition Splash Screen */}
+      <PageLoader />
+
       <AnalyticsTracker />
 
       <Header />

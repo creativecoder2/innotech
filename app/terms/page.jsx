@@ -3,8 +3,7 @@ import Link from 'next/link';
 import { fallbackTermsPage } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Terms and Conditions - INNOTECH MEDICAL PVT LTD',

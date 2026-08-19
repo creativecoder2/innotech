@@ -5,8 +5,7 @@ import { fallbackBlogPage, fallbackBlogList } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 import BlogCommentsSection from '@/components/BlogCommentsSection';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

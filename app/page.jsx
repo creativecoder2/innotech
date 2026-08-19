@@ -29,8 +29,7 @@ import {
 } from '@/lib/data';
 import { getLocalStore } from '@/lib/storage';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 60;
 
 async function getHomeData() {
   const localStore = getLocalStore();
@@ -43,9 +42,10 @@ async function getHomeData() {
   let dbGallery = localStore?.gallery || fallbackGallery;
   let dbBrands = localStore?.brands || fallbackBrands;
 
-  try {
-    const conn = await connectToDatabase();
-    if (conn) {
+  // Background non-blocking sync
+  connectToDatabase().then(async (conn) => {
+    if (!conn) return;
+    try {
       const [fetchedConfig, fetchedServices, fetchedBlogs, fetchedTeam, fetchedTestimonials] =
         await Promise.all([
           SiteConfig.findOne().sort({ createdAt: -1 }).lean(),
@@ -54,16 +54,9 @@ async function getHomeData() {
           Team.find().sort({ order: 1 }).lean(),
           Testimonial.find().sort({ order: 1 }).lean(),
         ]);
-
-      if (fetchedConfig) dbConfig = fetchedConfig;
-      if (fetchedServices && fetchedServices.length > 0) dbServices = fetchedServices;
-      if (fetchedBlogs && fetchedBlogs.length > 0) dbBlogs = fetchedBlogs;
-      if (fetchedTeam && fetchedTeam.length > 0) dbTeam = fetchedTeam;
-      if (fetchedTestimonials && fetchedTestimonials.length > 0) dbTestimonials = fetchedTestimonials;
-    }
-  } catch (error) {
-    console.warn('Home page MongoDB sync notice:', error.message);
-  }
+      if (fetchedConfig) saveLocalStore({ config: fetchedConfig });
+    } catch (_) {}
+  }).catch(() => {});
 
   const activeConfig = dbConfig ? JSON.parse(JSON.stringify(dbConfig)) : fallbackSiteConfig;
 

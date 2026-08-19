@@ -100,6 +100,11 @@ export default function AdminLayout({ children }) {
     checkAuth();
     fetchNotifications();
 
+    const interval = setInterval(fetchNotifications, 30000);
+    return () => clearInterval(interval);
+  }, [isLoginPage]);
+
+  useEffect(() => {
     if (pathname === '/admin/newsletter') {
       fetch('/api/admin/notifications', {
         method: 'POST',
@@ -107,17 +112,14 @@ export default function AdminLayout({ children }) {
         body: JSON.stringify({ type: 'subscribers' }),
       }).then(() => {
         setNotifications((prev) => ({ ...prev, subscribers: 0 }));
-      });
+      }).catch(() => {});
     }
 
     // Auto-open services dropdown if on a services route
     if (pathname.startsWith('/admin/services')) {
       setOpenDropdowns((prev) => ({ ...prev, services: true }));
     }
-
-    const interval = setInterval(fetchNotifications, 8000);
-    return () => clearInterval(interval);
-  }, [pathname, isLoginPage]);
+  }, [pathname]);
 
   const checkAuth = async () => {
     if (isLoginPage) {

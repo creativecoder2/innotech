@@ -51,34 +51,6 @@ export async function GET() {
     let totalBlogs = blogList.length;
     let totalComments = commentsList.length;
 
-    // Try fetching from MongoDB if available
-    try {
-      const conn = await connectToDatabase();
-      if (conn) {
-        const [dbViews, dbInquiries, dbUnreadInq, dbSubscribers, dbBlogs, dbComments] = await Promise.all([
-          PageView.find().sort({ createdAt: -1 }).limit(500).lean(),
-          Inquiry.countDocuments(),
-          Inquiry.countDocuments({ status: 'unread' }),
-          Subscriber.countDocuments({ status: 'active' }),
-          Blog.countDocuments(),
-          Comment.countDocuments(),
-        ]);
-
-        if (dbViews && dbViews.length > 0) {
-          pageViews = dbViews.map((p) => ({
-            ...p,
-            _id: p._id.toString(),
-            createdAt: p.createdAt ? new Date(p.createdAt).toISOString() : new Date().toISOString(),
-          }));
-        }
-        if (dbInquiries !== undefined && dbInquiries > 0) totalInquiries = dbInquiries;
-        if (dbUnreadInq !== undefined) unreadInquiries = dbUnreadInq;
-        if (dbSubscribers !== undefined && dbSubscribers > 0) totalSubscribers = dbSubscribers;
-        if (dbBlogs !== undefined && dbBlogs > 0) totalBlogs = dbBlogs;
-        if (dbComments !== undefined && dbComments > 0) totalComments = dbComments;
-      }
-    } catch (e) {}
-
     const todayDate = new Date().toISOString().split('T')[0];
 
     // 1. Calculate Today & Overall Visitor Metrics

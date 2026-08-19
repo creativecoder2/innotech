@@ -6,16 +6,18 @@ import SiteConfig from '@/models/SiteConfig';
 
 export async function GET() {
   try {
-    const conn = await connectToDatabase();
-    if (conn) {
-      const siteDoc = await SiteConfig.findOne().sort({ createdAt: -1 }).lean();
-      if (siteDoc?.header) {
-        saveLocalStore({ headerConfig: siteDoc.header });
-        return NextResponse.json({ success: true, data: siteDoc.header });
-      }
-    }
     const local = getLocalStore();
     const data = local?.headerConfig || fallbackHeaderConfig;
+
+    // Background sync from MongoDB
+    connectToDatabase().then(async (conn) => {
+      if (!conn) return;
+      try {
+        const siteDoc = await SiteConfig.findOne().sort({ createdAt: -1 }).lean();
+        if (siteDoc?.header) saveLocalStore({ headerConfig: siteDoc.header });
+      } catch (_) {}
+    }).catch(() => {});
+
     return NextResponse.json({ success: true, data });
   } catch (error) {
     const local = getLocalStore();
