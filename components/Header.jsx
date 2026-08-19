@@ -197,7 +197,7 @@ export default function Header() {
                 <div className="row align-items-center">
                   <div className="col-lg-7">
                     <div className="main-menu main-menu-second">
-                      <nav id="mobile-menu">
+                      <nav className="main-nav-menu">
                         <ul>
                           {innerMenuItems.map((item) => {
                             const isCurrent =
@@ -286,7 +286,7 @@ export default function Header() {
                 {/* Dynamic Navigation Menu (Primary / Home Page Header) */}
                 <div className="col-xxl-7 col-lg-6">
                   <div className="main-menu">
-                    <nav id="mobile-menu">
+                    <nav className="main-nav-menu">
                       <ul>
                         {homeMenuItems.map((item) => {
                           const isCurrent =
