@@ -18,7 +18,7 @@ export default function SessionSplashScreen() {
       sessionStorage.setItem('innotech_initial_splash_done', 'true');
 
       const startTime = Date.now();
-      const duration = 1350; // 1.35s duration
+      const duration = 10000; // Exact 10 seconds progress duration
 
       const progressInterval = setInterval(() => {
         const elapsed = Date.now() - startTime;
@@ -33,7 +33,7 @@ export default function SessionSplashScreen() {
 
       const removeTimer = setTimeout(() => {
         setShow(false);
-      }, 1800);
+      }, 10450);
 
       return () => {
         clearInterval(progressInterval);
