@@ -3,44 +3,47 @@
 import { useState, useEffect } from 'react';
 
 export default function SessionSplashScreen() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [fading, setFading] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     try {
       const hasSeen = sessionStorage.getItem('innotech_initial_splash_done');
-      if (!hasSeen) {
-        setShow(true);
-        sessionStorage.setItem('innotech_initial_splash_done', 'true');
-
-        // Progress counter animation from 0 to 100%
-        const startTime = Date.now();
-        const duration = 1350; // 1.35s duration
-
-        const progressInterval = setInterval(() => {
-          const elapsed = Date.now() - startTime;
-          const currentPercent = Math.min(Math.round((elapsed / duration) * 100), 100);
-          setProgress(currentPercent);
-
-          if (currentPercent >= 100) {
-            clearInterval(progressInterval);
-            setFading(true);
-          }
-        }, 30);
-
-        // Remove from DOM after fade-out transition finishes
-        const removeTimer = setTimeout(() => {
-          setShow(false);
-        }, 1800);
-
-        return () => {
-          clearInterval(progressInterval);
-          clearTimeout(removeTimer);
-        };
+      if (hasSeen) {
+        // If already seen in this session, unmount immediately without showing
+        setShow(false);
+        return;
       }
+
+      sessionStorage.setItem('innotech_initial_splash_done', 'true');
+
+      // Progress counter animation from 0 to 100%
+      const startTime = Date.now();
+      const duration = 1350; // 1.35s duration
+
+      const progressInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const currentPercent = Math.min(Math.round((elapsed / duration) * 100), 100);
+        setProgress(currentPercent);
+
+        if (currentPercent >= 100) {
+          clearInterval(progressInterval);
+          setFading(true);
+        }
+      }, 30);
+
+      // Remove from DOM after fade-out transition finishes
+      const removeTimer = setTimeout(() => {
+        setShow(false);
+      }, 1800);
+
+      return () => {
+        clearInterval(progressInterval);
+        clearTimeout(removeTimer);
+      };
     } catch (_) {
-      // Fallback
+      setShow(false);
     }
   }, []);
 
