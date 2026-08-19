@@ -5,7 +5,6 @@ import { getLocalStore } from '@/lib/storage';
 import connectToDatabase from '@/lib/db';
 import SiteConfig from '@/models/SiteConfig';
 
-export const dynamic = 'force-dynamic';
 export const revalidate = 60;
 
 export async function generateMetadata() {

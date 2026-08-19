@@ -7,6 +7,16 @@ import BlogCommentsSection from '@/components/BlogCommentsSection';
 
 export const revalidate = 60;
 
+export async function generateStaticParams() {
+  try {
+    const local = getLocalStore();
+    const items = local?.blogPage?.items?.length ? local.blogPage.items : fallbackBlogList;
+    return items.map((b) => ({ slug: b.slug || b._id }));
+  } catch (e) {
+    return fallbackBlogList.map((b) => ({ slug: b.slug }));
+  }
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);

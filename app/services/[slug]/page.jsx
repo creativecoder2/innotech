@@ -9,6 +9,16 @@ import ServiceSupportForm from '@/components/ServiceSupportForm';
 
 export const revalidate = 60;
 
+export async function generateStaticParams() {
+  try {
+    const local = getLocalStore();
+    const items = local?.servicesPage?.servicesSection?.items || local?.services || fallbackServices;
+    return items.map((s) => ({ slug: s.slug || s._id }));
+  } catch (e) {
+    return fallbackServices.map((s) => ({ slug: s.slug }));
+  }
+}
+
 async function getService(slug) {
   // 1. Check servicesPage from LocalStore
   try {

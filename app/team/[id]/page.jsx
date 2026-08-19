@@ -6,7 +6,17 @@ import { getLocalStore } from '@/lib/storage';
 import connectToDatabase from '@/lib/db';
 import SiteConfig from '@/models/SiteConfig';
 
-export const revalidate = 0;
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  try {
+    const local = getLocalStore();
+    const members = local?.team?.length ? local.team : fallbackTeam;
+    return members.map((m) => ({ id: String(m._id || m.id) }));
+  } catch (e) {
+    return fallbackTeam.map((m) => ({ id: String(m._id || m.id) }));
+  }
+}
 
 async function getTeamData(idOrSlug) {
   let allMembers = fallbackTeam;
