@@ -3,16 +3,13 @@ import connectToDatabase from '@/lib/db';
 import Service from '@/models/Service';
 import { fallbackServices } from '@/lib/data';
 
+import { getLocalStore } from '@/lib/storage';
+
 export async function GET() {
   try {
-    const conn = await connectToDatabase();
-    if (conn) {
-      const services = await Service.find({ isActive: true }).sort({ order: 1 });
-      if (services && services.length > 0) {
-        return NextResponse.json({ success: true, source: 'mongodb', data: services });
-      }
-    }
-    return NextResponse.json({ success: true, source: 'fallback', data: fallbackServices });
+    const local = getLocalStore();
+    const data = local?.services && local.services.length > 0 ? local.services : fallbackServices;
+    return NextResponse.json({ success: true, source: 'local-store', data });
   } catch (error) {
     return NextResponse.json({ success: true, source: 'fallback', data: fallbackServices });
   }

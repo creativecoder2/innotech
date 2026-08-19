@@ -7,18 +7,8 @@ import { getLocalStore } from '@/lib/storage';
 export async function GET() {
   try {
     const local = getLocalStore();
-    if (local?.blogPage?.items?.length) {
-      return NextResponse.json({ success: true, source: 'local', data: local.blogPage.items });
-    }
-
-    const conn = await connectToDatabase();
-    if (conn) {
-      const blogs = await Blog.find().sort({ createdAt: -1 });
-      if (blogs && blogs.length > 0) {
-        return NextResponse.json({ success: true, source: 'mongodb', data: blogs });
-      }
-    }
-    return NextResponse.json({ success: true, source: 'fallback', data: fallbackBlogList });
+    const data = local?.blogPage?.items?.length ? local.blogPage.items : fallbackBlogList;
+    return NextResponse.json({ success: true, source: 'local', data });
   } catch (error) {
     return NextResponse.json({ success: true, source: 'fallback', data: fallbackBlogList });
   }

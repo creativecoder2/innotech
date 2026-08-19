@@ -22,17 +22,8 @@ async function getTeamData(idOrSlug) {
       }
       if (local.config) siteConfig = local.config;
     }
-
-    const conn = await connectToDatabase();
-    if (conn) {
-      const dbConfig = await SiteConfig.findOne().lean();
-      if (dbConfig?.teamSection?.members?.length > 0) {
-        allMembers = dbConfig.teamSection.members;
-      }
-      if (dbConfig) siteConfig = dbConfig;
-    }
   } catch (e) {
-    console.error('Error fetching team member in /team/[id]:', e);
+    console.error('Error reading team member in /team/[id]:', e);
   }
 
   const decodeParam = decodeURIComponent(idOrSlug).toLowerCase().trim();

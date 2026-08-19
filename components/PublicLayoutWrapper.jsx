@@ -15,7 +15,12 @@ export default function PublicLayoutWrapper({ children }) {
 
   if (isAdmin) {
     // Admin routes do not load public headers, footers or template scripts
-    return <>{children}</>;
+    return (
+      <>
+        <PageLoader />
+        {children}
+      </>
+    );
   }
 
   return (

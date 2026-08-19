@@ -52,20 +52,7 @@ async function getService(slug) {
     if (match) return match;
   }
 
-  // 3. Try DB
-  try {
-    const conn = await connectToDatabase();
-    if (conn) {
-      const dbService = await Service.findOne({
-        $or: [{ slug: slug }, { _id: slug.length === 24 ? slug : null }],
-      }).lean();
-      if (dbService) return JSON.parse(JSON.stringify(dbService));
-    }
-  } catch (e) {
-    console.error('Error fetching service from DB:', e);
-  }
-
-  // 4. Try Fallback Data
+  // 3. Fallback Data
   const fallback = fallbackServices.find(
     (s) => (s.slug && s.slug.toLowerCase() === slug.toLowerCase()) || s._id === slug
   );
