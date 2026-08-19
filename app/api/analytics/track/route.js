@@ -54,19 +54,6 @@ export async function POST(req) {
               items: blogItems,
             },
           });
-
-          // Sync to MongoDB in background
-          connectToDatabase().then(async (conn) => {
-            if (conn) {
-              await Blog.findOneAndUpdate(
-                { slug: blogSlug },
-                {
-                  $inc: { views: 1 },
-                  $addToSet: { viewedVisitors: visitorId },
-                }
-              );
-            }
-          }).catch(() => {});
         }
         currentViews = targetBlog.views || 0;
       }
@@ -107,30 +94,9 @@ export async function POST(req) {
         uniqueBlogViews,
       },
     });
-
-    // Sync PageView to MongoDB in background
-    connectToDatabase().then(async (conn) => {
-      if (conn) {
-        if (duration > 0) {
-          await PageView.findOneAndUpdate(
-            { visitorId, path, date: todayDate },
-            { $max: { duration } },
-            { upsert: true, new: true }
-          );
-        } else {
-          await PageView.create({
-            visitorId,
-            path,
-            pageTitle: pageTitle || path,
-            duration: 5,
             isBlog: Boolean(isBlog),
             blogSlug: blogSlug || '',
             date: todayDate,
-          });
-        }
-      }
-    }).catch(() => {});
-
     return NextResponse.json({
       success: true,
       views: currentViews,
