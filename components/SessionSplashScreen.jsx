@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react';
 
 export default function SessionSplashScreen() {
   const [show, setShow] = useState(true);
-  const [fading, setFading] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     try {
@@ -14,31 +12,14 @@ export default function SessionSplashScreen() {
         setShow(false);
         return;
       }
-
       sessionStorage.setItem('innotech_initial_splash_done', 'true');
 
-      const startTime = Date.now();
-      const duration = 5000; // Exact 5 seconds progress duration
-
-      const progressInterval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const currentPercent = Math.min(Math.round((elapsed / duration) * 100), 100);
-        setProgress(currentPercent);
-
-        if (currentPercent >= 100) {
-          clearInterval(progressInterval);
-          setFading(true);
-        }
-      }, 30);
-
-      const removeTimer = setTimeout(() => {
+      // Unmount component from DOM after CSS animation completes (2.6s total)
+      const timer = setTimeout(() => {
         setShow(false);
-      }, 5450);
+      }, 2600);
 
-      return () => {
-        clearInterval(progressInterval);
-        clearTimeout(removeTimer);
-      };
+      return () => clearTimeout(timer);
     } catch (_) {
       setShow(false);
     }
@@ -57,17 +38,15 @@ export default function SessionSplashScreen() {
         width: '100vw',
         height: '100vh',
         zIndex: 99999999,
-        backgroundImage: `linear-gradient(135deg, rgba(10, 25, 47, 0.82) 0%, rgba(15, 23, 42, 0.88) 100%), url('/assets/img/splash-bg.jpg')`,
+        backgroundColor: '#0a192f',
+        backgroundImage: `linear-gradient(135deg, rgba(10, 25, 47, 0.85) 0%, rgba(15, 23, 42, 0.9) 100%), url('/assets/img/splash-bg.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: fading ? 0 : 1,
-        transform: fading ? 'scale(1.03)' : 'scale(1)',
-        transition: 'opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
-        pointerEvents: fading ? 'none' : 'all',
+        animation: 'tp-splash-master-fade 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards',
         userSelect: 'none',
         boxSizing: 'border-box',
       }}
@@ -81,15 +60,15 @@ export default function SessionSplashScreen() {
           alignItems: 'center',
           textAlign: 'center',
           padding: '40px 44px 36px',
-          background: 'rgba(255, 255, 255, 0.95)',
+          background: 'rgba(255, 255, 255, 0.96)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           borderRadius: '24px',
-          boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.3)',
+          boxShadow: '0 35px 70px -15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.4)',
           maxWidth: '450px',
           width: '88%',
           boxSizing: 'border-box',
-          animation: 'tp-splash-float 3s ease-in-out infinite alternate',
+          animation: 'tp-splash-card-pop 0.35s ease-out',
         }}
       >
         {/* Logo Container */}
@@ -115,7 +94,7 @@ export default function SessionSplashScreen() {
               border: '3.5px solid transparent',
               borderTopColor: '#0e63ff',
               borderRightColor: '#10d0a1',
-              animation: 'tp-splash-spin-ring 1s linear infinite',
+              animation: 'tp-splash-spin-ring 0.9s linear infinite',
             }}
           />
           <img
@@ -156,26 +135,26 @@ export default function SessionSplashScreen() {
           Innovating Healthcare with Advance Technologies
         </p>
 
-        {/* Progress Bar Container */}
+        {/* Pure GPU CSS Animated Progress Bar (Starts 0th Millisecond Instant) */}
         <div
           style={{
             width: '100%',
-            height: '6px',
+            height: '7px',
             background: '#e2e8f0',
             borderRadius: '6px',
             overflow: 'hidden',
             position: 'relative',
-            marginBottom: '10px',
+            marginBottom: '14px',
           }}
         >
           <div
             style={{
               height: '100%',
-              width: `${progress}%`,
-              background: 'linear-gradient(90deg, #0e63ff 0%, #10d0a1 100%)',
+              background: 'linear-gradient(90deg, #0e63ff 0%, #10d0a1 50%, #0e63ff 100%)',
+              backgroundSize: '200% 100%',
               borderRadius: '6px',
-              transition: 'width 0.04s linear',
-              boxShadow: '0 0 10px rgba(14, 99, 255, 0.4)',
+              animation: 'tp-splash-bar-grow 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+              boxShadow: '0 0 12px rgba(14, 99, 255, 0.6)',
             }}
           />
         </div>
@@ -183,24 +162,39 @@ export default function SessionSplashScreen() {
         <span
           style={{
             fontFamily: "'Archivo', sans-serif",
-            fontSize: '13px',
+            fontSize: '12.5px',
             fontWeight: '700',
             color: '#0e63ff',
-            letterSpacing: '0.5px',
+            letterSpacing: '0.6px',
+            textTransform: 'uppercase',
           }}
         >
-          {progress}%
+          Loading Healthcare Systems...
         </span>
       </div>
 
       <style jsx global>{`
+        @keyframes tp-splash-bar-grow {
+          0%   { width: 0%; }
+          50%  { width: 65%; }
+          85%  { width: 92%; }
+          100% { width: 100%; }
+        }
+
         @keyframes tp-splash-spin-ring {
           0%   { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
-        @keyframes tp-splash-float {
-          0%   { transform: translateY(0px); }
-          100% { transform: translateY(-8px); }
+
+        @keyframes tp-splash-card-pop {
+          from { transform: scale(0.94); opacity: 0; }
+          to   { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes tp-splash-master-fade {
+          0%   { opacity: 1; pointer-events: all; }
+          82%  { opacity: 1; pointer-events: all; transform: scale(1); }
+          100% { opacity: 0; pointer-events: none; transform: scale(1.03); visibility: hidden; }
         }
       `}</style>
     </div>
