@@ -209,14 +209,14 @@ export default function Header() {
                               const activeSub = item.subItems.filter((s) => s.enabled !== false);
                               return (
                                 <li key={item.id} className="has-dropdown">
-                                  <Link className={isCurrent ? 'active' : ''} href={item.link}>
+                                  <Link className={isCurrent ? 'active' : ''} href={item.link} prefetch={true}>
                                     {item.label}
                                   </Link>
                                   {activeSub.length > 0 && (
                                     <ul className="sub-menu">
                                       {activeSub.map((sub, sIdx) => (
                                         <li key={sub.id || sIdx}>
-                                          <Link href={sub.link}>{sub.label}</Link>
+                                          <Link href={sub.link} prefetch={true}>{sub.label}</Link>
                                         </li>
                                       ))}
                                     </ul>
@@ -227,7 +227,7 @@ export default function Header() {
 
                             return (
                               <li key={item.id}>
-                                <Link className={isCurrent ? 'active' : ''} href={item.link}>
+                                <Link className={isCurrent ? 'active' : ''} href={item.link} prefetch={true}>
                                   {item.label}
                                 </Link>
                               </li>
@@ -255,7 +255,7 @@ export default function Header() {
                           <i className="fa-solid fa-list"></i>
                         </button>
                       </div>
-                      <Link href="/contact" className="header-bottom-btn">
+                      <Link href="/contact" className="header-bottom-btn" prefetch={true}>
                         Book Appointment
                       </Link>
                     </div>
@@ -277,7 +277,7 @@ export default function Header() {
                 {/* Logo */}
                 <div className="col-xxl-2 col-lg-3">
                   <div className="logo">
-                    <Link href="/">
+                    <Link href="/" prefetch={true}>
                       <img src={siteLogos.mainLogo || '/assets/img/logo/logo.png'} alt={siteLogos.siteName || 'Innotech Medical'} />
                     </Link>
                   </div>
@@ -298,14 +298,14 @@ export default function Header() {
                             const activeSub = item.subItems.filter((s) => s.enabled !== false);
                             return (
                               <li key={item.id} className="has-dropdown">
-                                <Link className={isCurrent ? 'active' : ''} href={item.link}>
+                                <Link className={isCurrent ? 'active' : ''} href={item.link} prefetch={true}>
                                   {item.label}
                                 </Link>
                                 {activeSub.length > 0 && (
                                   <ul className="sub-menu">
                                     {activeSub.map((sub, sIdx) => (
                                       <li key={sub.id || sIdx}>
-                                        <Link href={sub.link}>{sub.label}</Link>
+                                        <Link href={sub.link} prefetch={true}>{sub.label}</Link>
                                       </li>
                                     ))}
                                   </ul>
@@ -316,7 +316,7 @@ export default function Header() {
 
                           return (
                             <li key={item.id}>
-                              <Link className={isCurrent ? 'active' : ''} href={item.link}>
+                              <Link className={isCurrent ? 'active' : ''} href={item.link} prefetch={true}>
                                 {item.label}
                               </Link>
                             </li>
@@ -443,6 +443,7 @@ export default function Header() {
                     <li key={item.id} className={hasDropdown ? 'has-dropdown' : ''}>
                       <Link
                         href={item.link}
+                        prefetch={true}
                         onClick={() => setIsSidebarOpen(false)}
                       >
                         {item.label}
@@ -471,6 +472,7 @@ export default function Header() {
                               <li key={sub.id || sIdx}>
                                 <Link
                                   href={sub.link}
+                                  prefetch={true}
                                   onClick={() => setIsSidebarOpen(false)}
                                 >
                                   {sub.label}

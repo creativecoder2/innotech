@@ -1600,9 +1600,19 @@
     "pageViews": [
       {
         "visitorId": "v_1mzuctr_msuehsgn",
+        "path": "/blog",
+        "pageTitle": "Blog & Clinical Insights - INNOTECH MEDICAL PVT LTD | INNOTECH MEDICAL PVT LTD",
+        "duration": 167,
+        "isBlog": false,
+        "blogSlug": "",
+        "date": "2026-08-19",
+        "createdAt": "2026-08-19T18:55:09.571Z"
+      },
+      {
+        "visitorId": "v_1mzuctr_msuehsgn",
         "path": "/contact",
         "pageTitle": "INNOTECH MEDICAL PVT LTD - Innovating Healthcare with Advance Technologies",
-        "duration": 412,
+        "duration": 670,
         "isBlog": false,
         "blogSlug": "",
         "date": "2026-08-19",

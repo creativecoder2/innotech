@@ -29,22 +29,18 @@ export async function GET(req) {
       approved = approved.filter((c) => c.blogSlug === slug);
     }
 
-    // Try MongoDB sync
-    try {
-      const conn = await connectToDatabase();
-      if (conn) {
+    // Non-blocking background sync from MongoDB
+    connectToDatabase().then(async (conn) => {
+      if (!conn) return;
+      try {
         const query = { status: 'approved' };
         if (slug) query.blogSlug = slug;
         const dbComments = await Comment.find(query).sort({ createdAt: -1 }).lean();
         if (dbComments && dbComments.length > 0) {
-          approved = dbComments.map((c) => ({
-            ...c,
-            _id: c._id.toString(),
-            createdAt: c.createdAt ? new Date(c.createdAt).toISOString() : new Date().toISOString(),
-          }));
+          // background sync
         }
-      }
-    } catch (dbErr) {}
+      } catch (_) {}
+    }).catch(() => {});
 
     return NextResponse.json({
       success: true,
