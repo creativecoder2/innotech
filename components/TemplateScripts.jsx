@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function TemplateScripts() {
   const pathname = usePathname();
+  const scriptsLoaded = useRef(false);
 
   useEffect(() => {
     // If admin route, do not run public template scripts
@@ -18,7 +19,7 @@ export default function TemplateScripts() {
         }
         const script = document.createElement('script');
         script.src = src;
-        script.async = false;
+        script.async = true;
         script.onload = () => resolve();
         script.onerror = () => resolve(); // Graceful on error
         document.body.appendChild(script);
@@ -27,21 +28,25 @@ export default function TemplateScripts() {
 
     const initTemplate = async () => {
       try {
-        await loadScript('/assets/js/jquery.js');
-        await loadScript('/assets/js/bootstrap.bundle.min.js');
-        await loadScript('/assets/js/swiper-bundle.js');
-        await loadScript('/assets/js/magnific-popup.js');
-        await loadScript('/assets/js/wow.js');
+        if (!scriptsLoaded.current) {
+          await loadScript('/assets/js/jquery.js');
+          await loadScript('/assets/js/bootstrap.bundle.min.js');
+          await loadScript('/assets/js/swiper-bundle.js');
+          await loadScript('/assets/js/magnific-popup.js');
+          await loadScript('/assets/js/wow.js');
+          scriptsLoaded.current = true;
+        }
 
-        if (window.$) {
+        if (typeof window !== 'undefined' && window.$) {
           const $ = window.$;
 
           // Data background
           $('[data-background]').each(function () {
-            $(this).css('background-image', 'url(' + $(this).attr('data-background') + ')');
+            const bg = $(this).attr('data-background');
+            if (bg) $(this).css('background-image', 'url(' + bg + ')');
           });
 
-          // WOW.js
+          // WOW.js initialization
           if (window.WOW) {
             try {
               new window.WOW({
@@ -49,26 +54,28 @@ export default function TemplateScripts() {
                 animateClass: 'animated',
                 offset: 0,
                 mobile: true,
-                live: true,
+                live: false, // Don't run continuous mutation observer
               }).init();
-            } catch (e) {
-              console.warn('WOW notice:', e);
-            }
+            } catch (_) {}
           }
-
-          // Preloader fadeout
-          $('#preloadertp').delay(200).fadeOut('slow');
         }
       } catch (err) {
-        console.warn('Template script notice:', err);
+        // Silently catch template notices
       }
     };
 
-    const timer = setTimeout(() => {
-      initTemplate();
-    }, 0);
+    // Run in next idle frame so main thread is never blocked during navigation
+    const idleId = typeof window !== 'undefined' && window.requestIdleCallback
+      ? window.requestIdleCallback(() => initTemplate())
+      : setTimeout(initTemplate, 60);
 
-    return () => clearTimeout(timer);
+    return () => {
+      if (typeof window !== 'undefined' && window.cancelIdleCallback && typeof idleId === 'number') {
+        window.cancelIdleCallback(idleId);
+      } else {
+        clearTimeout(idleId);
+      }
+    };
   }, [pathname]);
 
   return null;
