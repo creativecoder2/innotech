@@ -5,24 +5,9 @@ import { fallbackSiteConfig } from '@/lib/data';
 import { getLocalStore, saveLocalStore } from '@/lib/storage';
 
 export async function GET() {
-  try {
-    // Always serve from local store first — instant response, no DB wait
-    const local = getLocalStore();
-    const data = local?.config || fallbackSiteConfig;
-
-    // Background sync from MongoDB (non-blocking)
-    connectToDatabase().then(async (conn) => {
-      if (!conn) return;
-      try {
-        const config = await SiteConfig.findOne().sort({ createdAt: -1 }).lean();
-        if (config) saveLocalStore({ config });
-      } catch (_) {}
-    }).catch(() => {});
-
-    return NextResponse.json({ success: true, source: 'local-store', data });
-  } catch (error) {
-    return NextResponse.json({ success: true, source: 'fallback', data: fallbackSiteConfig });
-  }
+  const local = getLocalStore();
+  const data = local?.config || fallbackSiteConfig;
+  return NextResponse.json({ success: true, source: 'local-store', data });
 }
 
 export async function POST(req) {
