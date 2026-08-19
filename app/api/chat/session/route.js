@@ -151,46 +151,19 @@ export async function GET(req) {
       return NextResponse.json({ success: false, message: 'Session ID is required' }, { status: 400 });
     }
 
-    // Try MongoDB first
-    let session = null;
-    try {
-      const conn = await connectToDatabase();
-      if (conn) {
-        session = await ChatSession.findOne({ sessionId }).lean();
-        if (session) {
-          // Mark admin messages as read by user
-          await ChatSession.updateOne(
-            { sessionId },
-            {
-              $set: {
-                unreadUserCount: 0,
-                'messages.$[elem].read': true,
-              },
-            },
-            {
-              arrayFilters: [{ 'elem.sender': { $in: ['admin', 'system'] }, 'elem.read': false }],
-            }
-          );
-        }
-      }
-    } catch (e) {}
+    // Read from local store immediately
+    const local = getLocalStore();
+    const sessions = Array.isArray(local.chatSessions) ? local.chatSessions : [];
+    let session = sessions.find((s) => s.sessionId === sessionId);
 
-    // Fallback to local store
-    if (!session) {
-      const local = getLocalStore();
-      const sessions = Array.isArray(local.chatSessions) ? local.chatSessions : [];
-      session = sessions.find((s) => s.sessionId === sessionId);
-
-      if (session) {
-        // Mark user unread messages as read
-        session.unreadUserCount = 0;
-        if (Array.isArray(session.messages)) {
-          session.messages.forEach((m) => {
-            if (m.sender === 'admin' || m.sender === 'system') m.read = true;
-          });
-        }
-        saveLocalStore({ chatSessions: sessions });
+    if (session) {
+      session.unreadUserCount = 0;
+      if (Array.isArray(session.messages)) {
+        session.messages.forEach((m) => {
+          if (m.sender === 'admin' || m.sender === 'system') m.read = true;
+        });
       }
+      saveLocalStore({ chatSessions: sessions });
     }
 
     if (!session) {

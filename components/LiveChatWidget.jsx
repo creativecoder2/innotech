@@ -86,10 +86,12 @@ export default function LiveChatWidget() {
     if (!sessionId) return;
 
     fetchSessionMessages();
-    const interval = setInterval(fetchSessionMessages, 2500);
+    // Poll every 4s if chat is open, or 60s if closed
+    const pollInterval = isOpen ? 4000 : 60000;
+    const interval = setInterval(fetchSessionMessages, pollInterval);
 
     return () => clearInterval(interval);
-  }, [sessionId, fetchSessionMessages]);
+  }, [sessionId, isOpen, fetchSessionMessages]);
 
   // Scroll to bottom when messages update
   useEffect(() => {
