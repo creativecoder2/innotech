@@ -1,16 +1,19 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import HeroBanner from '@/components/HeroBanner';
 import ServicesSection from '@/components/ServicesSection';
 import AboutSection from '@/components/AboutSection';
-import CounterSection from '@/components/CounterSection';
-import GallerySection from '@/components/GallerySection';
-import WhyChooseUs from '@/components/WhyChooseUs';
-import AppointmentForm from '@/components/AppointmentForm';
-import TeamSection from '@/components/TeamSection';
-import TestimonialSection from '@/components/TestimonialSection';
-import BrandSection from '@/components/BrandSection';
-import CtaSection from '@/components/CtaSection';
-import BlogSection from '@/components/BlogSection';
+
+// Below-the-fold components loaded dynamically for ultra-fast initial page interactivity
+const CounterSection = dynamic(() => import('@/components/CounterSection'));
+const GallerySection = dynamic(() => import('@/components/GallerySection'));
+const WhyChooseUs = dynamic(() => import('@/components/WhyChooseUs'));
+const AppointmentForm = dynamic(() => import('@/components/AppointmentForm'));
+const TeamSection = dynamic(() => import('@/components/TeamSection'));
+const TestimonialSection = dynamic(() => import('@/components/TestimonialSection'));
+const BrandSection = dynamic(() => import('@/components/BrandSection'));
+const CtaSection = dynamic(() => import('@/components/CtaSection'));
+const BlogSection = dynamic(() => import('@/components/BlogSection'));
 
 import connectToDatabase from '@/lib/db';
 import Service from '@/models/Service';
