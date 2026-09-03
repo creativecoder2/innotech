@@ -420,7 +420,25 @@ input[type=color] {
 
 /* Preloader */
 #preloadertp {
-  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 999999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  color: var(--tp-theme-secondary);
+}
+
+#preloadertp img {
+  width: 70px;
+  animation: preloader 3s linear infinite;
 }
 
 /*--
@@ -1208,7 +1226,7 @@ input[type=color] {
 }
 
 .header-top-mob {
-  margin-left: 80px;
+  margin-left: 35px;
   font-size: 15px;
   line-height: 1;
   font-weight: 700;
@@ -1234,12 +1252,18 @@ input[type=color] {
 }
 
 .main-menu-second {
-  margin: 0 0 0 80px;
+  margin: 0 0 0 35px;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .main-menu-second {
-    margin: 0 0 0 30px;
+    margin: 0 0 0 20px;
   }
+}
+.main-menu-second ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .header-cart-list {
@@ -1296,24 +1320,25 @@ input[type=color] {
 }
 
 .main-menu-second ul li {
-  margin-right: 60px;
+  margin-right: 32px;
+  white-space: nowrap;
 }
 .main-menu-second ul li:last-child {
   margin-right: 0;
 }
 @media only screen and (min-width: 1601px) and (max-width: 1700px) {
   .main-menu-second ul li {
-    margin-right: 45px;
+    margin-right: 26px;
   }
 }
 @media only screen and (min-width: 1400px) and (max-width: 1600px) {
   .main-menu-second ul li {
-    margin-right: 30px;
+    margin-right: 20px;
   }
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .main-menu-second ul li {
-    margin-right: 20px;
+    margin-right: 14px;
   }
 }
 .main-menu-second ul li > a {
@@ -4186,79 +4211,6 @@ div.tp-srv-link a {
 }
 
 /*----------------------------------------*/
-/*  11b. TEAM ITEM CSS (team-01 style)
-/*----------------------------------------*/
-.team-item {
-  text-align: center;
-}
-.team-item:hover .team-item__title a {
-  background-size: 0% 1px, 100% 1px;
-}
-.team-item:hover .team-item__social-info a {
-  opacity: 1;
-  visibility: visible;
-}
-.team-item:hover .team-item__social-info a:first-child {
-  transition-delay: 100ms;
-}
-.team-item:hover .team-item__social-info a:nth-child(2) {
-  transition-delay: 180ms;
-}
-.team-item:hover .team-item__social-info a:nth-child(3) {
-  transition-delay: 260ms;
-}
-.team-item:hover .team-item__social-info a:last-child {
-  transition-delay: 320ms;
-}
-.team-item span {
-  color: var(--tp-theme-blue, #0E63FF);
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: block;
-}
-.team-item__title a {
-  background-image: linear-gradient(#171151, #171151), linear-gradient(#171151, #171151);
-  display: inline;
-  background-size: 0% 1px, 0 1px;
-  background-position: 100% 100%, 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.4s linear;
-  color: #171151;
-  font-size: 18px;
-  font-weight: 700;
-}
-.team-item__title a:hover {
-  color: #0E63FF;
-}
-.team-item__social-info a {
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: all 0.4s ease-out 0s;
-  -moz-transition: all 0.4s ease-out 0s;
-  -ms-transition: all 0.4s ease-out 0s;
-  -o-transition: all 0.4s ease-out 0s;
-  transition: all 0.4s ease-out 0s;
-  margin: 0 10px;
-  color: #B2B0C1;
-  font-size: 18px;
-}
-.team-item__social-info a:hover {
-  color: #0E63FF;
-}
-.team-item__thumb img {
-  width: 100%;
-  -webkit-transition: all 0.4s ease-out 0s;
-  transition: all 0.4s ease-out 0s;
-}
-.team-item__thumb {
-  display: inline-block;
-  margin-bottom: 0;
-  overflow: hidden;
-}
-
-/*----------------------------------------*/
 /*  12. TEAM CSS START
 /*----------------------------------------*/
 .tp-team:hover .tp-team__thumb a img {
@@ -4706,18 +4658,10 @@ div.tp-srv-link a {
   top: -40px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
-  width: 80px;
-  height: 80px;
 }
 .tp-testi__avata img {
-  width: 80px !important;
-  height: 80px !important;
-  object-fit: cover !important;
-  border-radius: 50% !important;
-  border: 4px solid #ffffff;
-  box-shadow: 0px 9px 18px 0px rgba(162, 170, 191, 0.35);
-  display: block;
+  box-shadow: 0px 9px 11px 0px rgba(162, 170, 191, 0.25);
+  border-radius: 50%;
 }
 .tp-testi__content p {
   font-size: 15px;
@@ -7895,8 +7839,8 @@ p.checkout-coupon input[type=text]:focus {
 .footer-widget__newsletter form input {
   width: 100%;
   height: 60px;
-  padding: 0 200px 0 25px;
-  font-size: 16px;
+  padding: 0 70px 0 20px;
+  font-size: 15px;
   color: var(--tp-text-4);
   border: none;
   background-color: #e1e1e1;
@@ -7905,7 +7849,7 @@ p.checkout-coupon input[type=text]:focus {
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px), (max-width: 767px) {
   .footer-widget__newsletter form input {
-    padding: 0 80px 0 25px;
+    padding: 0 70px 0 20px;
   }
 }
 .footer-widget__newsletter form input::placeholder {
@@ -8004,13 +7948,15 @@ p.checkout-coupon input[type=text]:focus {
 .tp-f-youtube,
 .tp-f-twitter,
 .tp-f-fb,
-.tp-f-skype {
+.tp-f-skype,
+.tp-f-insta {
   margin-right: 12px;
 }
 .tp-f-youtube i,
 .tp-f-twitter i,
 .tp-f-fb i,
-.tp-f-skype i {
+.tp-f-skype i,
+.tp-f-insta i {
   display: inline-block;
   height: 50px;
   width: 50px;
@@ -8022,7 +7968,8 @@ p.checkout-coupon input[type=text]:focus {
 .tp-f-youtube i:hover,
 .tp-f-twitter i:hover,
 .tp-f-fb i:hover,
-.tp-f-skype i:hover {
+.tp-f-skype i:hover,
+.tp-f-insta i:hover {
   color: var(--tp-common-white);
   border: 1px solid var(--tp-icon-red);
   background-color: var(--tp-icon-red);
@@ -8044,6 +7991,12 @@ p.checkout-coupon input[type=text]:focus {
   color: var(--tp-common-white);
   border: 1px solid var(--tp-icon-skype);
   background-color: var(--tp-icon-skype);
+}
+
+.tp-f-insta:hover.tp-f-insta i {
+  color: var(--tp-common-white);
+  border: 1px solid #E1306C;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 }
 
 .footer-col-2 {

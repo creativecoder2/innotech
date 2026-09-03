@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "6a80b6def211d93ae862d376",
+    "title": "Heart Diseases Tests Ordered By Doctors",
+    "slug": "heart-diseases-tests-ordered-by-doctors",
+    "category": "Medicine",
+    "dateDay": "26",
+    "dateMonth": "Dec",
+    "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+    "image": "/assets/img/blog/blog-thumb-01.jpg",
+    "__v": 0,
+    "updatedAt": "2026-08-17T15:22:35.492Z",
+    "viewedVisitors": [
+      "v_6h1o7y8_msxdhwhg"
+    ],
+    "views": 2
+  },
+  {
+    "_id": "6a80b6def211d93ae862d377",
+    "title": "Heart Diseases Tests Ordered By Doctors",
+    "slug": "heart-diseases-tests-ordered-by-doctors-2",
+    "category": "Medicine",
+    "dateDay": "26",
+    "dateMonth": "Dec",
+    "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+    "image": "/assets/img/blog/blog-thumb-02.jpg",
+    "__v": 0,
+    "updatedAt": "2026-08-19T19:55:56.599Z",
+    "viewedVisitors": [
+      "v_vd26asq_msuqv6cj",
+      "v_y1coqiz_mt0hje1t"
+    ],
+    "views": 2
+  },
+  {
+    "_id": "6a80b6def211d93ae862d378",
+    "title": "Identifying bases of disease pathophysio",
+    "slug": "identifying-bases-of-disease-pathophysio",
+    "category": "Medicine",
+    "dateDay": "26",
+    "dateMonth": "Dec",
+    "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+    "image": "/assets/img/blog/blog-thumb-03.jpg",
+    "__v": 0,
+    "updatedAt": "2026-08-17T03:47:45.083Z",
+    "viewedVisitors": [
+      "v_d7rnfly_mswp0twr"
+    ],
+    "views": 1
+  },
+  {
+    "_id": "6a80b6def211d93ae862d379",
+    "title": "Coronavirus global health emergency",
+    "slug": "coronavirus-global-health-emergency",
+    "category": "Medicine",
+    "dateDay": "26",
+    "dateMonth": "Dec",
+    "excerpt": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla ...",
+    "image": "/assets/img/blog/blog-thumb-04.jpg",
+    "__v": 0
+  }
+]

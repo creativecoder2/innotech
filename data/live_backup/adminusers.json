@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "6a80ad22b167dcaa1c22f365",
+    "name": "Innotech Administrator",
+    "email": "admin@innotech.com",
+    "password": "admin123",
+    "role": "superadmin",
+    "createdAt": "2026-08-15T18:17:06.273Z",
+    "updatedAt": "2026-08-15T18:17:06.273Z",
+    "__v": 0
+  }
+]

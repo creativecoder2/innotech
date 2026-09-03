@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <path d="M 85,12 L 97,32 L 105,18 L 115,32 L 127,12 L 120,40 L 105,24 L 92,40 Z" fill="#EAB308" />
+  <path d="M 97,32 L 105,18 L 115,32 Z" fill="#10B981" />
+  <circle cx="127" cy="12" r="3" fill="#10B981" />
+  <text x="70" y="52" font-family="'Arial', sans-serif" font-weight="900" font-size="14" fill="#0284C7" letter-spacing="2">MICARE</text>
+</svg>

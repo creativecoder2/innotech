@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "6a80b6ddf211d93ae862d36a",
+    "name": "Cameron Williamson",
+    "position": "Genetic Specialist",
+    "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+    "image": "/assets/img/team/team-thumb-01.jpg",
+    "socialLinks": {
+      "youtube": "#",
+      "twitter": "#",
+      "facebook": "#",
+      "skype": "#"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "6a80b6ddf211d93ae862d36b",
+    "name": "Savannah Nguyen",
+    "position": "Anaesthetist Specialist",
+    "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+    "image": "/assets/img/team/team-thumb-02.jpg",
+    "socialLinks": {
+      "youtube": "#",
+      "twitter": "#",
+      "facebook": "#",
+      "skype": "#"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "6a80b6ddf211d93ae862d36c",
+    "name": "Darlene Robertson",
+    "position": "Gynaecologist Specialist",
+    "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+    "image": "/assets/img/team/team-thumb-03.jpg",
+    "socialLinks": {
+      "youtube": "#",
+      "twitter": "#",
+      "facebook": "#",
+      "skype": "#"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "6a80b6ddf211d93ae862d36d",
+    "name": "Jhon Methweu",
+    "position": "Radiologist Specialist",
+    "bio": "Providing insight-driven transformation to investment banks, wealth and asset mana, exchanges, Finance",
+    "image": "/assets/img/team/team-thumb-04.jpg",
+    "socialLinks": {
+      "youtube": "#",
+      "twitter": "#",
+      "facebook": "#",
+      "skype": "#"
+    },
+    "__v": 0
+  }
+]

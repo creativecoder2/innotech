@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "6a8325f722968297d0297ff3",
+    "sessionId": "chat_1786979831893_tu0r6w",
+    "__v": 0,
+    "autoReplySent": false,
+    "createdAt": "2026-08-17T15:17:11.897Z",
+    "lastMessage": "Good",
+    "lastMessageAt": "2026-08-17T15:17:39.026Z",
+    "messages": [
+      {
+        "id": "msg_1786979831894_welcome",
+        "sender": "admin",
+        "senderName": "Innotech Support Team",
+        "text": "Welcome to Innotech Medical Support! How can we assist you with our medical equipment and services today?",
+        "timestamp": "2026-08-17T15:17:11.894Z",
+        "read": true
+      },
+      {
+        "id": "msg_1786979844937_r6kgo",
+        "sender": "user",
+        "senderName": "Hello",
+        "text": "Hy",
+        "timestamp": "2026-08-17T15:17:24.937Z",
+        "read": false
+      },
+      {
+        "id": "msg_1786979859026_zijrh",
+        "sender": "user",
+        "senderName": "Hello",
+        "text": "Good",
+        "timestamp": "2026-08-17T15:17:39.026Z",
+        "read": false
+      }
+    ],
+    "status": "active",
+    "unreadAdminCount": 2,
+    "unreadUserCount": 0,
+    "updatedAt": "2026-08-19T06:14:33.978Z",
+    "userCity": "Mjjh",
+    "userName": "Hello",
+    "userPhone": "0347255252"
+  }
+]

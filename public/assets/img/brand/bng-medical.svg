@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <g transform="translate(65, 5)">
+    <!-- Leaf -->
+    <path d="M 12,5 C 20,2 25,12 18,22 C 10,22 8,12 12,5 Z" fill="#65A30D" />
+    <path d="M 12,5 L 18,22" stroke="#FFFFFF" stroke-width="1.5" />
+    <!-- bng letters -->
+    <text x="0" y="38" font-family="'Arial Rounded MT Bold', 'Helvetica', sans-serif" font-weight="900" font-size="34" fill="#65A30D" letter-spacing="-1">bng</text>
+    <text x="2" y="48" font-family="'Arial', sans-serif" font-weight="800" font-size="8" fill="#65A30D" letter-spacing="2">MEDICAL</text>
+  </g>
+</svg>

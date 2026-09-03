@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <g transform="translate(15, 12)">
+    <!-- Drop icon with inner circle -->
+    <path d="M 18,2 C 26,12 32,22 28,30 C 24,37 12,37 8,30 C 4,22 10,12 18,2 Z" fill="#65A30D" />
+    <ellipse cx="18" cy="24" rx="5" ry="6" fill="#F8FAFC" />
+    <text x="38" y="27" font-family="'Century Gothic', 'Arial', sans-serif" font-weight="700" font-size="22" fill="#94A3B8" letter-spacing="3">LYNMOU</text>
+  </g>
+</svg>

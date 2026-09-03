@@ -1,0 +1,46 @@
+[
+  {
+    "_id": "6a80b6ddf211d93ae862d364",
+    "title": "HEMOGLOBIN TEST",
+    "slug": "hemoglobin-test",
+    "iconClass": "flaticon-hemoglobin-test-meter",
+    "iconTheme": "blue",
+    "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+    "order": 1,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "6a80b6ddf211d93ae862d365",
+    "title": "BLOOD TESTING",
+    "slug": "blood-testing",
+    "iconClass": "flaticon-blood-test",
+    "iconTheme": "pink",
+    "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+    "order": 2,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "6a80b6ddf211d93ae862d366",
+    "title": "BIOCHEMISTRY",
+    "slug": "biochemistry",
+    "iconClass": "flaticon-biochemistry",
+    "iconTheme": "green",
+    "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+    "order": 3,
+    "isActive": true,
+    "__v": 0
+  },
+  {
+    "_id": "6a80b6ddf211d93ae862d367",
+    "title": "HISTOPATOLOGY",
+    "slug": "histopatology",
+    "iconClass": "flaticon-dna-1",
+    "iconTheme": "sky",
+    "description": "Nam eget dui vel quam sodales semper quis porttitor tortor. Vivamus quis ex nulla.Nam eget dui vel quam",
+    "order": 4,
+    "isActive": true,
+    "__v": 0
+  }
+]
