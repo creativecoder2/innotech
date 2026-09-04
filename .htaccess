@@ -1,11 +1,16 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # Prevent loop on internal redirect
+    RewriteCond %{ENV:REDIRECT_STATUS} 200
+    RewriteRule ^ - [L]
+
     # Block access to hidden files (.env, .git, etc.)
     RewriteRule ^\.(.*)$ - [F,L]
 
-    # Send all requests to the public directory
-    RewriteCond %{REQUEST_URI} !/public/ [NC]
+    # Route all requests to public folder
+    RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
+
 
