@@ -44,21 +44,23 @@ class InquiryController extends Controller
 
         $inquiry->update(['status' => 'replied']);
 
-        try {
-            $fromAddress = config('mail.from.address', 'info@innotechmed.com');
-            $fromName = config('mail.from.name', 'INNOTECH MEDICAL PVT LTD');
+        $sendResult = \App\Helpers\MailHelper::sendSafeMail(
+            $inquiry->email,
+            $inquiry->name,
+            $request->subject,
+            $request->reply_body
+        );
 
-            \Illuminate\Support\Facades\Mail::raw($request->reply_body, function ($msg) use ($inquiry, $request, $fromAddress, $fromName) {
-                $msg->to($inquiry->email, $inquiry->name)
-                    ->from($fromAddress, $fromName)
-                    ->replyTo($fromAddress, $fromName)
-                    ->subject($request->subject);
-            });
+        $fromAddress = config('mail.from.address') ?: \App\Models\Setting::get('support_email', 'info@innotechmed.com');
 
-            return back()->with('success', 'Email reply successfully sent to ' . $inquiry->email . ' from ' . $fromAddress . '!');
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('SMTP Mail Error: ' . $e->getMessage());
-            return back()->with('warning', 'Inquiry marked as replied in database, but SMTP delivery could not connect: ' . $e->getMessage() . '. Please verify your cPanel email password in .env.');
+        if ($sendResult['success']) {
+            $viaText = (str_contains($sendResult['mailer'], 'sendmail') || str_contains($sendResult['mailer'], 'fallback'))
+                ? " (via {$sendResult['mailer']})"
+                : "";
+            return back()->with('success', "Email reply successfully delivered to {$inquiry->email} from {$fromAddress}{$viaText}!");
+        } else {
+            \Illuminate\Support\Facades\Log::error('Inquiry reply mail error: ' . $sendResult['error']);
+            return back()->with('warning', "Inquiry marked as replied in database, but email delivery encountered an issue: " . $sendResult['error'] . ". You can also use the 'Open in Outlook / Gmail' button in the reply modal.");
         }
     }
 }

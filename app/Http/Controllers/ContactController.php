@@ -72,7 +72,27 @@ class ContactController extends Controller
             Cache::put($attemptKey, $attempts, 900);
         }
 
-        Inquiry::create($validated);
+        $inquiry = Inquiry::create($validated);
+
+        // Send automated acknowledgment / welcome email and notify admin safely
+        try {
+            $isNewsletter = (
+                (isset($validated['name']) && $validated['name'] === 'Newsletter Subscriber') ||
+                (isset($validated['message']) && str_contains(strtolower($validated['message']), 'newsletter')) ||
+                (isset($validated['subject']) && str_contains(strtolower($validated['subject']), 'newsletter'))
+            );
+
+            if ($isNewsletter) {
+                \App\Helpers\MailHelper::sendNewsletterWelcome($inquiry->email);
+            } else {
+                \App\Helpers\MailHelper::sendInquiryAcknowledgement($inquiry);
+            }
+
+            // Also alert the admin team
+            \App\Helpers\MailHelper::sendAdminInquiryAlert($inquiry);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Automatic email notification on inquiry submission failed: ' . $e->getMessage());
+        }
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([

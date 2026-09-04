@@ -28,4 +28,26 @@ class SettingController extends Controller
 
         return back()->with('success', 'Website settings and contact information saved successfully!');
     }
+
+    /**
+     * Run live SMTP / Sendmail diagnostic test
+     */
+    public function testEmail(Request $request)
+    {
+        $request->validate([
+            'test_email' => 'required|email',
+        ]);
+
+        $result = \App\Helpers\MailHelper::testConnection($request->test_email);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($result);
+        }
+
+        if ($result['success']) {
+            return back()->with('success', $result['message']);
+        } else {
+            return back()->with('warning', $result['message']);
+        }
+    }
 }

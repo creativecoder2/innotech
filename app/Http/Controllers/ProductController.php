@@ -136,7 +136,7 @@ class ProductController extends Controller
                      . "Hospital / Clinic: " . ($validated['hospital'] ?? 'Not specified') . "\n\n"
                      . "User Notes:\n" . ($validated['message'] ?? 'Client requested an in-person or live technical demonstration.');
 
-        Inquiry::create([
+        $inq = Inquiry::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
@@ -145,6 +145,14 @@ class ProductController extends Controller
             'message' => $fullMessage,
             'status' => 'unread',
         ]);
+
+        // Safely dispatch acknowledgement & admin alert
+        try {
+            \App\Helpers\MailHelper::sendInquiryAcknowledgement($inq);
+            \App\Helpers\MailHelper::sendAdminInquiryAlert($inq);
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Demo request auto email failed: ' . $e->getMessage());
+        }
 
         if ($request->ajax() || $request->wantsJson()) {
             return response()->json([

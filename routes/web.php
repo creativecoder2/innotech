@@ -173,6 +173,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Settings Management
     Route::get('settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [AdminSettingController::class, 'update'])->name('settings.update');
+    Route::post('settings/test-email', [AdminSettingController::class, 'testEmail'])->name('settings.test_email');
 
     // Testimonials
     Route::get('testimonials', [AdminTestimonialController::class, 'index'])->name('testimonials.index');
@@ -212,4 +213,21 @@ Route::get('/uploads/{path}', function ($path) {
     }
     abort(404);
 })->where('path', '.*');
+
+// Browser cache clear utility (executes optimize:clear without needing cPanel terminal)
+Route::get('/clear-cache', function () {
+    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+    $output = \Illuminate\Support\Facades\Artisan::output();
+    return '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 30px; border: 1.5px solid #86EFAC; background: #F0FDF4; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">'
+        . '<div style="font-size: 40px; margin-bottom: 10px;">✅</div>'
+        . '<h2 style="color: #166534; margin: 0 0 10px;">System Cache Cleared Successfully!</h2>'
+        . '<p style="color: #15803D; font-size: 14px; margin: 0 0 20px;">Configuration, routes, views, and compiled caches have been refreshed.</p>'
+        . '<pre style="background: #ffffff; border: 1px solid #CBD5E1; padding: 12px; border-radius: 6px; text-align: left; font-size: 12px; color: #334155; max-height: 180px; overflow-y: auto;">' . htmlspecialchars($output) . '</pre>'
+        . '<div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px;">'
+        . '<a href="' . url('/') . '" style="padding: 10px 20px; background: #0E63FF; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Go to Website</a>'
+        . '<a href="' . url('/admin') . '" style="padding: 10px 20px; background: #334155; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Go to Admin Panel</a>'
+        . '</div>'
+        . '</div>';
+});
+
 

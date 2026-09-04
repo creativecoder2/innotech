@@ -137,6 +137,11 @@
                             <i class="fa-solid fa-crown text-warning me-2"></i> SEO & Search Ranking (VIP)
                         </button>
                     </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="email-tab" data-bs-toggle="pill" data-bs-target="#email" type="button" role="tab" style="border: 1px solid #10B981;">
+                            <i class="fa-solid fa-envelope-circle-check text-success me-2"></i> Email & SMTP Diagnostics
+                        </button>
+                    </li>
                 </ul>
 
                 <div class="tab-content" id="settingsTabContent">
@@ -789,6 +794,203 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Tab 9: Email & SMTP Diagnostics -->
+                    <div class="tab-pane fade" id="email" role="tabpanel">
+                        <div class="row g-4">
+                            <!-- 1. Current Mail Configuration Status -->
+                            <div class="col-12">
+                                <div class="card border shadow-sm">
+                                    <div class="card-header bg-light py-3 d-flex justify-content-between align-items-center">
+                                        <h6 class="fw-bold mb-0 text-dark">
+                                            <i class="fa-solid fa-server text-primary me-2"></i> Current Live Mail Configuration (.env)
+                                        </h6>
+                                        <span class="badge bg-primary-subtle text-primary border">Auto-Detected</span>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <div class="p-3 bg-light rounded border">
+                                                    <div class="text-muted small fw-semibold">Default Mailer</div>
+                                                    <div class="fw-bold fs-6 text-dark mt-1">
+                                                        <span class="badge bg-info text-dark">{{ config('mail.default', 'smtp') }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="p-3 bg-light rounded border">
+                                                    <div class="text-muted small fw-semibold">SMTP Host & Port</div>
+                                                    <div class="fw-bold fs-6 text-dark mt-1">
+                                                        {{ config('mail.mailers.smtp.host', '127.0.0.1') }}:{{ config('mail.mailers.smtp.port', 465) }}
+                                                        <span class="badge bg-secondary ms-1">{{ strtoupper(config('mail.mailers.smtp.encryption', 'ssl') ?: 'NONE') }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="p-3 bg-light rounded border">
+                                                    <div class="text-muted small fw-semibold">SMTP Username / Account</div>
+                                                    <div class="fw-bold fs-6 text-dark mt-1 text-truncate" title="{{ config('mail.mailers.smtp.username') }}">
+                                                        {{ config('mail.mailers.smtp.username') ?: 'Not configured' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="p-3 bg-light rounded border">
+                                                    <div class="text-muted small fw-semibold">From Address & Name</div>
+                                                    <div class="fw-bold fs-6 text-dark mt-1">
+                                                        {{ config('mail.from.address') }} <small class="text-muted fw-normal">({{ config('mail.from.name') }})</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="p-3 bg-light rounded border">
+                                                    <div class="text-muted small fw-semibold">cPanel SSL Peer Verification</div>
+                                                    <div class="fw-bold fs-6 mt-1">
+                                                        @if(config('mail.mailers.smtp.verify_peer') === false)
+                                                            <span class="text-success"><i class="fa-solid fa-circle-check me-1"></i> Disabled (Compatible / Self-Signed SSL Allowed)</span>
+                                                        @else
+                                                            <span class="text-warning"><i class="fa-solid fa-triangle-exclamation me-1"></i> Strict Verification Enabled</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Interactive Live Test Email Form -->
+                            <div class="col-12">
+                                <div class="card border shadow-sm border-primary-subtle">
+                                    <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
+                                        <h6 class="fw-bold mb-0">
+                                            <i class="fa-solid fa-paper-plane me-2"></i> Send Live Test Email (Diagnose SMTP & Server Delivery)
+                                        </h6>
+                                        <small class="opacity-75">Tests live socket connection & dispatch</small>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <p class="text-secondary small mb-3">
+                                            Enter any email address (your personal email or client email) to test whether your live server can successfully connect to the mail server and deliver emails without errors.
+                                        </p>
+                                        
+                                        <div class="row g-2 align-items-center">
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light"><i class="fa-solid fa-at text-muted"></i></span>
+                                                    <input type="email" id="testRecipientEmail" class="form-control" 
+                                                           value="{{ $settings['support_email']->value ?? (config('mail.from.address') ?: 'info@innotechmed.com') }}" 
+                                                           placeholder="recipient@example.com" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" id="btnRunEmailTest" class="btn btn-primary w-100 fw-semibold">
+                                                    <i class="fa-solid fa-bolt me-1"></i> Send Test Email Now
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Live Diagnostic Output Console -->
+                                        <div id="testEmailResultBox" class="d-none mt-4">
+                                            <div class="p-3 rounded" id="testEmailAlert" style="font-family: monospace; font-size: 13px; line-height: 1.6;">
+                                                <div id="testEmailMessage" class="fw-bold mb-2"></div>
+                                                <div id="testEmailLogs" style="background: rgba(0,0,0,0.04); padding: 10px; border-radius: 6px; white-space: pre-wrap;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. cPanel Hosting Quick Troubleshooting Guide -->
+                            <div class="col-12">
+                                <div class="card border shadow-sm" style="background: #F8FAFC;">
+                                    <div class="card-header bg-transparent py-3 fw-bold text-dark d-flex justify-content-between align-items-center">
+                                        <span><i class="fa-solid fa-lightbulb text-warning me-2"></i> Live Server (cPanel) Email Configuration Guide</span>
+                                        <span class="badge bg-secondary text-white">Troubleshooting</span>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <p class="small text-secondary mb-3">
+                                            Agar live server par newsletter ya inquiry reply emails nahi ja rahi hon, toh aam taur par in 4 wajohat mein se koi ek hoti hai:
+                                        </p>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="p-3 bg-white border rounded h-100">
+                                                    <h6 class="fw-bold text-dark mb-1">
+                                                        <span class="badge bg-primary me-1">Option 1</span> cPanel SMTP with SSL (Port 465)
+                                                    </h6>
+                                                    <p class="small text-muted mb-2">Agar aapka cPanel custom domain SSL use karta hai:</p>
+                                                    <pre class="bg-light p-2 rounded small mb-0 border" style="font-size: 11.5px;"><code>MAIL_MAILER=smtp
+MAIL_HOST=mail.innotechmed.com
+MAIL_PORT=465
+MAIL_USERNAME=info@innotechmed.com
+MAIL_PASSWORD=your_actual_password
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="info@innotechmed.com"
+MAIL_FROM_NAME="INNOTECH MEDICAL PVT LTD"
+MAIL_VERIFY_PEER=false</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="p-3 bg-white border rounded h-100">
+                                                    <h6 class="fw-bold text-dark mb-1">
+                                                        <span class="badge bg-success me-1">Option 2</span> cPanel SMTP with TLS (Port 587 - Recommended)
+                                                    </h6>
+                                                    <p class="small text-muted mb-2">Bohat se hosting providers Port 465 block karte hain, jabkay 587 khula hota hai:</p>
+                                                    <pre class="bg-light p-2 rounded small mb-0 border" style="font-size: 11.5px;"><code>MAIL_MAILER=smtp
+MAIL_HOST=mail.innotechmed.com
+MAIL_PORT=587
+MAIL_USERNAME=info@innotechmed.com
+MAIL_PASSWORD=your_actual_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="info@innotechmed.com"
+MAIL_FROM_NAME="INNOTECH MEDICAL PVT LTD"
+MAIL_VERIFY_PEER=false</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="p-3 bg-white border rounded h-100">
+                                                    <h6 class="fw-bold text-dark mb-1">
+                                                        <span class="badge bg-info text-dark me-1">Option 3</span> Localhost Internal SMTP (Port 25)
+                                                    </h6>
+                                                    <p class="small text-muted mb-2">Agar website aur email dono usi cPanel server par hain:</p>
+                                                    <pre class="bg-light p-2 rounded small mb-0 border" style="font-size: 11.5px;"><code>MAIL_MAILER=smtp
+MAIL_HOST=localhost
+MAIL_PORT=25
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="info@innotechmed.com"
+MAIL_FROM_NAME="INNOTECH MEDICAL PVT LTD"</code></pre>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="p-3 bg-white border rounded h-100">
+                                                    <h6 class="fw-bold text-dark mb-1">
+                                                        <span class="badge bg-warning text-dark me-1">Option 4</span> Native Linux Sendmail (Guaranteed Delivery)
+                                                    </h6>
+                                                    <p class="small text-muted mb-2">cPanel ka built-in MTA jo bina kisi port ya password ke email send karta hai:</p>
+                                                    <pre class="bg-light p-2 rounded small mb-0 border" style="font-size: 11.5px;"><code>MAIL_MAILER=sendmail
+MAIL_SENDMAIL_PATH="/usr/sbin/sendmail -bs -i"
+MAIL_FROM_ADDRESS="info@innotechmed.com"
+MAIL_FROM_NAME="INNOTECH MEDICAL PVT LTD"</code></pre>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="alert alert-warning mt-3 mb-0 d-flex align-items-center gap-2 small">
+                                            <i class="fa-solid fa-triangle-exclamation fs-5 text-warning flex-shrink-0"></i>
+                                            <div>
+                                                <strong>Ahem Tareen Point:</strong> Jab bhi aap live server par <code>.env</code> file change karein, cPanel terminal ya SSH mein <code>php artisan optimize:clear</code> zaroor chalayein taakay puraana cached configuration clear ho jaye!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Card Footer with Save Button -->
@@ -851,6 +1053,71 @@
         }
         $('#metaDescTextarea').on('input propertychange', updateMetaDescCount);
         updateMetaDescCount();
+
+        // Interactive Live Test Email Dispatcher
+        $('#btnRunEmailTest').on('click', function(e) {
+            e.preventDefault();
+            const btn = $(this);
+            const emailInput = $('#testRecipientEmail');
+            const targetEmail = emailInput.val().trim();
+            const resultBox = $('#testEmailResultBox');
+            const alertBox = $('#testEmailAlert');
+            const msgBox = $('#testEmailMessage');
+            const logsBox = $('#testEmailLogs');
+
+            if (!targetEmail) {
+                alert('Please enter a destination email address to run test.');
+                emailInput.focus();
+                return;
+            }
+
+            const origHtml = btn.html();
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span> Testing Live Connection...');
+            resultBox.removeClass('d-none');
+            alertBox.removeClass('alert-success alert-danger alert-warning bg-success-subtle bg-danger-subtle bg-warning-subtle text-success text-danger text-dark')
+                    .addClass('bg-info-subtle text-dark border border-info');
+            msgBox.html('<i class="fa-solid fa-spinner fa-spin me-2"></i> Connecting to mail server and attempting transmission...');
+            logsBox.text('Initiating diagnostic test...\nContacting configured mailer...');
+
+            $.ajax({
+                url: "{{ route('admin.settings.test_email') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    test_email: targetEmail
+                },
+                dataType: "json",
+                success: function(res) {
+                    btn.prop('disabled', false).html(origHtml);
+                    alertBox.removeClass('bg-info-subtle text-dark border-info');
+
+                    if (res.success) {
+                        alertBox.addClass('bg-success-subtle text-success border border-success');
+                        msgBox.html('<i class="fa-solid fa-circle-check text-success me-2"></i> ' + res.message);
+                    } else {
+                        alertBox.addClass('bg-danger-subtle text-danger border border-danger');
+                        msgBox.html('<i class="fa-solid fa-triangle-exclamation text-danger me-2"></i> ' + res.message);
+                    }
+
+                    if (res.logs && res.logs.length) {
+                        logsBox.text(res.logs.join('\n'));
+                    } else {
+                        logsBox.text('No detailed logs returned.');
+                    }
+                },
+                error: function(xhr) {
+                    btn.prop('disabled', false).html(origHtml);
+                    alertBox.removeClass('bg-info-subtle text-dark border-info')
+                            .addClass('bg-danger-subtle text-danger border border-danger');
+                    let errMsg = 'Network or server error encountered during test.';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errMsg = xhr.responseJSON.message;
+                    }
+                    msgBox.html('<i class="fa-solid fa-circle-xmark text-danger me-2"></i> ' + errMsg);
+                    logsBox.text('HTTP ' + xhr.status + ': ' + xhr.statusText);
+                }
+            });
+        });
     });
 </script>
 @endpush

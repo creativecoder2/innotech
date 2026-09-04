@@ -106,6 +106,8 @@
                     <textarea name="message" id="chat_message" class="form-control form-control-sm" rows="3" placeholder="Describe equipment or service inquiry..." required></textarea>
                 </div>
 
+                <div id="chatStartError" class="alert alert-danger py-2 px-3 small mb-2 d-none" style="font-size: 12px; border-radius: 6px;"></div>
+
                 <button type="submit" id="btnStartChat" class="btn btn-primary btn-sm w-100 py-2 fw-semibold rounded-3 shadow-sm">
                     <i class="fa-solid fa-paper-plane me-1"></i> Start Conversation
                 </button>
@@ -558,6 +560,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let pollInterval = null;
     let pendingDelayedMsgId = null;
 
+    function getCsrfToken() {
+        const meta = document.querySelector('meta[name="csrf-token"]');
+        return meta ? meta.getAttribute('content') : '{{ csrf_token() }}';
+    }
+
     function showChatTooltip(customText = null) {
         if (!liveChatTooltip || !chatBox) return;
         if (!chatBox.classList.contains('d-none')) {
@@ -758,6 +765,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (startChatForm) {
         startChatForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            const chatStartError = document.getElementById('chatStartError');
+            if (chatStartError) chatStartError.classList.add('d-none');
+
             btnStartChat.disabled = true;
             btnStartChat.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Connecting...';
 
@@ -766,20 +776,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 phone: document.getElementById('chat_phone').value,
                 email: document.getElementById('chat_email').value,
                 message: document.getElementById('chat_message').value,
-                _token: '{{ csrf_token() }}'
+                _token: getCsrfToken()
             };
 
             fetch('{{ route("chat.start") }}', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json', 
+                    'X-CSRF-TOKEN': getCsrfToken() 
+                },
                 body: JSON.stringify(payload)
             })
-            .then(res => res.json())
-            .then(data => {
+            .then(async res => {
+                const data = await res.json().catch(() => ({}));
                 btnStartChat.disabled = false;
                 btnStartChat.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> Start Conversation';
 
-                if (data.status === 'success') {
+                if (res.ok && data.status === 'success') {
                     sessionToken = data.session_token;
                     localStorage.setItem('innotech_chat_token', sessionToken);
                     switchActiveChatMode();
@@ -806,13 +820,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     startPolling();
                 } else {
-                    alert(data.message || 'Could not start chat. Please try again.');
+                    const errMsg = data.message || 'Could not start chat. Please try again.';
+                    if (chatStartError) {
+                        chatStartError.innerText = errMsg;
+                        chatStartError.classList.remove('d-none');
+                    } else {
+                        alert(errMsg);
+                    }
                 }
             })
             .catch(err => {
                 btnStartChat.disabled = false;
                 btnStartChat.innerHTML = '<i class="fa-solid fa-paper-plane me-1"></i> Start Conversation';
-                alert('Network error. Please try again.');
+                if (chatStartError) {
+                    chatStartError.innerText = 'Network error. Please try again.';
+                    chatStartError.classList.remove('d-none');
+                } else {
+                    alert('Network error. Please try again.');
+                }
             });
         });
     }
@@ -828,8 +853,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             fetch('{{ route("chat.send") }}', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                body: JSON.stringify({ session_token: sessionToken, message: text, _token: '{{ csrf_token() }}' })
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json', 
+                    'X-CSRF-TOKEN': getCsrfToken() 
+                },
+                body: JSON.stringify({ session_token: sessionToken, message: text, _token: getCsrfToken() })
             })
             .then(res => res.json())
             .then(data => {
@@ -991,7 +1020,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append('audio', blob, 'user_voice.webm');
         formData.append('session_token', sessionToken);
-        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('_token', getCsrfToken());
 
         fetch('{{ route("chat.send") }}', {
             method: 'POST',
