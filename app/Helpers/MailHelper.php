@@ -12,6 +12,7 @@ class MailHelper
      * Send email with automatic fallback:
      * 1. Attempt primary configured mailer (e.g. SMTP)
      * 2. If SMTP fails (socket error, timeout, auth error), attempt cPanel server sendmail
+     * Automatically wraps plain-text in the branded Innotech Medical HTML template.
      *
      * @param string $toEmail
      * @param string $toName
@@ -29,6 +30,23 @@ class MailHelper
 
         $fromAddress = config('mail.from.address') ?: Setting::get('support_email', 'info@innotechmed.com');
         $fromName = config('mail.from.name') ?: Setting::get('site_title', 'INNOTECH MEDICAL PVT LTD');
+
+        // Automatically wrap in master branded template if custom HTML is not provided
+        if (!$bodyHtml) {
+            try {
+                $bodyHtml = view('emails.master', [
+                    'subject' => $subject,
+                    'heading' => $subject,
+                    'contentText' => $bodyText,
+                    'badgeText' => 'Official Communication',
+                    'actionUrl' => url('/'),
+                    'actionText' => 'Visit Web Portal',
+                ])->render();
+            } catch (\Throwable $e) {
+                Log::warning('Email master template rendering failed: ' . $e->getMessage());
+                $bodyHtml = '<div style="font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; color: #334155;">' . nl2br(e($bodyText)) . '</div>';
+            }
+        }
 
         $primaryMailer = config('mail.default', 'smtp');
         $errorMessage = null;
@@ -94,7 +112,7 @@ class MailHelper
 
         $subject = "Welcome to {$siteTitle} - Newsletter Subscription Confirmed";
 
-        $bodyText = "Dear Valued Partner,\n\n"
+        $bodyText = "Dear Valued Healthcare Partner,\n\n"
             . "Thank you for subscribing to the {$siteTitle} newsletter!\n\n"
             . "As Pakistan's growing distributor of advanced biomedical instrumentation, diagnostic systems, and critical care solutions, we are committed to keeping healthcare professionals and institutions equipped with the latest clinical technologies.\n\n"
             . "You will now receive periodic updates regarding our equipment releases, preventative maintenance insights, and turnkey hospital solutions.\n\n"
@@ -107,33 +125,41 @@ class MailHelper
             . "Customer Engagement & Technical Desk\n"
             . "{$siteTitle}";
 
-        $bodyHtml = '
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
-            <div style="background: #0E63FF; color: #ffffff; padding: 24px; text-align: center;">
-                <h2 style="margin: 0; font-size: 20px; font-weight: 700;">' . htmlspecialchars($siteTitle) . '</h2>
-                <p style="margin: 5px 0 0; font-size: 13px; opacity: 0.9;">Biomedical Engineering & Medical Technology Solutions</p>
-            </div>
-            <div style="padding: 28px 24px; color: #334155; line-height: 1.6; font-size: 14px;">
-                <h3 style="color: #0F172A; margin-top: 0;">Thank You for Subscribing!</h3>
-                <p>Dear Valued Partner,</p>
-                <p>You have successfully subscribed to the <strong>' . htmlspecialchars($siteTitle) . '</strong> newsletter. You will now receive timely updates on healthcare technology advancements, hospital equipment releases, preventative maintenance protocols, and exclusive biomedical insights across Pakistan.</p>
-                <div style="background: #F8FAFC; border-left: 4px solid #0E63FF; padding: 14px 18px; margin: 20px 0; border-radius: 4px;">
-                    <div style="font-weight: 700; color: #0F172A; margin-bottom: 6px;">Need Clinical Equipment or Demonstration?</div>
-                    <div style="font-size: 13px; color: #475569;">Our engineering desk is always ready to assist hospitals, clinics, and diagnostic labs.</div>
-                    <div style="margin-top: 8px; font-size: 13px;">
-                        <strong>Phone / WhatsApp:</strong> ' . htmlspecialchars($phone) . '<br>
-                        <strong>Email:</strong> <a href="mailto:' . htmlspecialchars($supportEmail) . '" style="color: #0E63FF;">' . htmlspecialchars($supportEmail) . '</a>
-                    </div>
+        $contentHtml = '
+            <p>Dear <strong>Valued Healthcare Partner</strong>,</p>
+            <p>Thank you for subscribing to the <strong>' . htmlspecialchars($siteTitle) . '</strong> newsletter!</p>
+            <p>As Pakistan\'s growing distributor of advanced biomedical instrumentation, diagnostic systems, and critical care solutions, we are committed to keeping healthcare professionals, hospitals, and diagnostic institutions equipped with the latest clinical technologies.</p>
+            <p>You will now receive periodic updates regarding our new medical equipment releases, preventative maintenance insights, special hospital packages, and turnkey clinical engineering solutions.</p>
+            
+            <div style="background-color: #F0FDF4; border: 1.5px solid #86EFAC; border-radius: 8px; padding: 16px 20px; margin: 22px 0;">
+                <div style="font-weight: 700; color: #166534; font-size: 13.5px; margin-bottom: 4px;">
+                    ✅ Subscription Status: Active & Confirmed
                 </div>
-                <p style="margin-bottom: 0;">Warm regards,<br><strong>Customer Engagement & Technical Desk</strong><br>' . htmlspecialchars($siteTitle) . '<br><a href="' . htmlspecialchars($website) . '" style="color: #0E63FF; text-decoration: none;">' . htmlspecialchars($website) . '</a></p>
+                <div style="color: #15803D; font-size: 13px;">
+                    Your email <strong>' . htmlspecialchars($subscriberEmail) . '</strong> is now enrolled for biomedical alerts and product updates.
+                </div>
             </div>
-            <div style="background: #F1F5F9; padding: 14px 24px; text-align: center; font-size: 12px; color: #64748B; border-top: 1px solid #E2E8F0;">
-                ' . htmlspecialchars($address) . '<br>
-                &copy; ' . date('Y') . ' ' . htmlspecialchars($siteTitle) . '. All Rights Reserved.
-            </div>
-        </div>';
+            
+            <p style="margin-bottom: 0;">Warm regards,<br>
+            <strong>Customer Engagement & Technical Desk</strong><br>
+            ' . htmlspecialchars($siteTitle) . '</p>
+        ';
 
-        return self::sendSafeMail($subscriberEmail, 'Newsletter Subscriber', $subject, $bodyText, $bodyHtml);
+        try {
+            $bodyHtml = view('emails.master', [
+                'subject' => $subject,
+                'heading' => 'Welcome to ' . $siteTitle,
+                'badgeText' => '📬 Newsletter Subscription Confirmed',
+                'contentHtml' => $contentHtml,
+                'contentText' => $bodyText,
+                'actionUrl' => url('/products'),
+                'actionText' => 'Explore Medical Products Catalog',
+            ])->render();
+        } catch (\Throwable $e) {
+            $bodyHtml = null;
+        }
+
+        return self::sendSafeMail($subscriberEmail, 'Valued Subscriber', $subject, $bodyText, $bodyHtml);
     }
 
     /**
@@ -151,50 +177,48 @@ class MailHelper
         $subject = "Thank you for contacting {$siteTitle} [Inquiry #{$inquiry->id}]";
 
         $bodyText = "Dear {$clientName},\n\n"
-            . "Thank you for contacting {$siteTitle}. We have safely received your message regarding: \"" . ($inquiry->subject ?: ($inquiry->service_interested ?: 'Biomedical Equipment / Consultation')) . "\".\n\n"
-            . "Our biomedical engineering and consultation team has been notified and a dedicated representative will review your request and get back to you shortly.\n\n"
-            . "Your Submitted Message:\n"
-            . "----------------------------------------\n"
-            . "{$inquiry->message}\n"
-            . "----------------------------------------\n\n"
-            . "If your requirement is urgent, please feel free to reach our desk directly:\n"
-            . "- Phone / WhatsApp: {$phone}\n"
-            . "- Support Email: {$supportEmail}\n"
-            . "- Office: {$address}\n\n"
-            . "Warm regards,\n"
-            . "Biomedical Support Team\n"
-            . "{$siteTitle}\n"
-            . "{$website}";
+            . "Thank you for reaching out to {$siteTitle}. We have received your message regarding: \"" . ($inquiry->subject ?: ($inquiry->service_interested ?: 'Biomedical Equipment / Consultation')) . "\".\n\n"
+            . "Our biomedical engineering department has received your request:\n"
+            . "\"{$inquiry->message}\"\n\n"
+            . "A dedicated technical consultant has been assigned to your request and can arrange an on-site demonstration, technical specifications, and formal quotation.\n\n"
+            . "Best regards,\n"
+            . "Biomedical Support & Sales Team\n"
+            . "{$siteTitle}";
 
-        $bodyHtml = '
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
-            <div style="background: #0E63FF; color: #ffffff; padding: 24px; text-align: center;">
-                <h2 style="margin: 0; font-size: 20px; font-weight: 700;">' . htmlspecialchars($siteTitle) . '</h2>
-                <p style="margin: 5px 0 0; font-size: 13px; opacity: 0.9;">Inquiry Acknowledgement</p>
-            </div>
-            <div style="padding: 28px 24px; color: #334155; line-height: 1.6; font-size: 14px;">
-                <h3 style="color: #0F172A; margin-top: 0;">We Have Received Your Inquiry</h3>
-                <p>Dear <strong>' . htmlspecialchars($clientName) . '</strong>,</p>
-                <p>Thank you for reaching out to <strong>' . htmlspecialchars($siteTitle) . '</strong>. Our team has received your message and an engineering specialist has been assigned to assist you with specifications, pricing, and consultation.</p>
-                
-                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 14px 18px; margin: 20px 0; border-radius: 6px;">
-                    <div style="font-weight: 700; color: #0F172A; font-size: 13px; margin-bottom: 8px;">Inquiry Summary:</div>
-                    <div style="font-size: 13px; color: #475569; white-space: pre-line;">' . htmlspecialchars($inquiry->message) . '</div>
+        $contentHtml = '
+            <p>Dear <strong>' . htmlspecialchars($clientName) . '</strong>,</p>
+            <p>Thank you for reaching out to <strong>' . htmlspecialchars($siteTitle) . '</strong> regarding your biomedical and clinical equipment requirements.</p>
+            
+            <div style="background-color: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px; padding: 16px 20px; margin: 22px 0;">
+                <div style="font-weight: 700; color: #0F172A; font-size: 13.5px; margin-bottom: 6px;">
+                    📋 Your Submitted Inquiry Summary:
                 </div>
-
-                <p>If you have urgent clinical or equipment needs, please contact our helpdesk directly:</p>
-                <p style="font-size: 13px;">
-                    <strong>Help Desk:</strong> ' . htmlspecialchars($phone) . '<br>
-                    <strong>Email:</strong> <a href="mailto:' . htmlspecialchars($supportEmail) . '" style="color: #0E63FF;">' . htmlspecialchars($supportEmail) . '</a>
-                </p>
-
-                <p style="margin-bottom: 0;">Best regards,<br><strong>Biomedical Support & Sales Team</strong><br>' . htmlspecialchars($siteTitle) . '</p>
+                <div style="font-size: 13px; color: #475569; margin-bottom: 8px;">
+                    <strong>Subject / Service:</strong> ' . htmlspecialchars($inquiry->subject ?: ($inquiry->service_interested ?: 'General Equipment Inquiry')) . '
+                </div>
+                <div style="font-size: 13px; color: #334155; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 6px; padding: 12px 14px; white-space: pre-wrap; font-style: italic;">"' . htmlspecialchars($inquiry->message) . '"</div>
             </div>
-            <div style="background: #F1F5F9; padding: 14px 24px; text-align: center; font-size: 12px; color: #64748B; border-top: 1px solid #E2E8F0;">
-                ' . htmlspecialchars($address) . '<br>
-                &copy; ' . date('Y') . ' ' . htmlspecialchars($siteTitle) . '. All Rights Reserved.
-            </div>
-        </div>';
+
+            <p>Our biomedical engineering department has received your request. A dedicated clinical consultant has been assigned to your institution and will assist you with official technical specifications, quotation, hospital installation, and OEM warranty details.</p>
+            
+            <p style="margin-bottom: 0;">Best regards,<br>
+            <strong>Biomedical Support & Sales Team</strong><br>
+            ' . htmlspecialchars($siteTitle) . '</p>
+        ';
+
+        try {
+            $bodyHtml = view('emails.master', [
+                'subject' => $subject,
+                'heading' => 'Inquiry Received & Under Review',
+                'badgeText' => '🏥 Inquiry #' . $inquiry->id . ' Acknowledged',
+                'contentHtml' => $contentHtml,
+                'contentText' => $bodyText,
+                'actionUrl' => url('/products'),
+                'actionText' => 'Browse Equipment Catalog',
+            ])->render();
+        } catch (\Throwable $e) {
+            $bodyHtml = null;
+        }
 
         return self::sendSafeMail($inquiry->email, $clientName, $subject, $bodyText, $bodyHtml);
     }
@@ -225,7 +249,50 @@ class MailHelper
             . "You can view and reply to this lead directly in your Admin Panel:\n"
             . url('/admin/inquiries');
 
-        return self::sendSafeMail($adminEmail, 'Admin Desk', $subject, $bodyText);
+        $contentHtml = '
+            <p style="margin-top: 0;">A new <strong>' . htmlspecialchars($typeLabel) . '</strong> lead has just arrived through the website portal:</p>
+            
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin: 18px 0; background-color: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 8px; overflow: hidden; font-size: 13.5px;">
+                <tr>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0; width: 140px; font-weight: 700; color: #475569;">Lead Name:</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0; color: #0F172A; font-weight: 600;">' . htmlspecialchars($inquiry->name) . '</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0; font-weight: 700; color: #475569;">Email Address:</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0;"><a href="mailto:' . htmlspecialchars($inquiry->email) . '" style="color: #0E63FF; text-decoration: none;">' . htmlspecialchars($inquiry->email) . '</a></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0; font-weight: 700; color: #475569;">Phone Number:</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0;">' . htmlspecialchars($inquiry->phone ?: 'Not provided') . '</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0; font-weight: 700; color: #475569;">Subject / Type:</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid #E2E8F0;">' . htmlspecialchars($inquiry->service_interested ?: ($inquiry->subject ?: 'General Inquiry')) . '</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px 16px; font-weight: 700; color: #475569; vertical-align: top;">Message:</td>
+                    <td style="padding: 10px 16px; color: #334155; white-space: pre-wrap;">' . htmlspecialchars($inquiry->message) . '</td>
+                </tr>
+            </table>
+
+            <p style="font-size: 13px; color: #64748B;">You can respond to this inquiry directly through your administrative portal or via the quick button below.</p>
+        ';
+
+        try {
+            $bodyHtml = view('emails.master', [
+                'subject' => $subject,
+                'heading' => 'New Lead: ' . ($inquiry->name ?: $inquiry->email),
+                'badgeText' => '⚡ Admin Lead Notification',
+                'contentHtml' => $contentHtml,
+                'contentText' => $bodyText,
+                'actionUrl' => url('/admin/inquiries'),
+                'actionText' => 'View & Reply in Admin Panel',
+            ])->render();
+        } catch (\Throwable $e) {
+            $bodyHtml = null;
+        }
+
+        return self::sendSafeMail($adminEmail, 'Admin Desk', $subject, $bodyText, $bodyHtml);
     }
 
     /**
@@ -268,16 +335,49 @@ class MailHelper
             }
         }
 
-        // Step 2: Attempt actual test email send
+        // Step 2: Attempt actual test email send with branded HTML template
         $subject = "Innotech Medical SMTP Diagnostic Test - " . date('Y-m-d H:i:s');
         $body = "This is a diagnostic test email from INNOTECH MEDICAL PVT LTD.\n\n"
               . "Server Time: " . date('r') . "\n"
               . "Default Mailer: {$configMailer}\n"
               . "SMTP Host: {$host}:{$port} ({$encryption})\n"
               . "From: {$fromAddress}\n\n"
-              . "If you are reading this email, your live email configuration is active and working properly!";
+              . "If you are reading this email, your live email delivery system is active, verified, and functioning properly!";
 
-        $sendResult = self::sendSafeMail($testToEmail, 'Admin Tester', $subject, $body);
+        $contentHtml = '
+            <p>Dear <strong>Administrator</strong>,</p>
+            <p>This is a live diagnostic test email successfully dispatched from <strong>INNOTECH MEDICAL PVT LTD</strong>.</p>
+            
+            <div style="background-color: #F0FDF4; border: 1.5px solid #86EFAC; border-radius: 8px; padding: 16px 20px; margin: 20px 0;">
+                <div style="font-weight: 700; color: #166534; font-size: 14px; margin-bottom: 6px;">
+                    ✅ Email Delivery System: Active & Online
+                </div>
+                <div style="color: #15803D; font-size: 13px; line-height: 1.6;">
+                    <strong>Driver:</strong> ' . htmlspecialchars($configMailer) . '<br>
+                    <strong>Host:</strong> ' . htmlspecialchars($host ?: 'localhost') . ':' . htmlspecialchars($port ?: '25') . ' (' . strtoupper(htmlspecialchars($encryption ?: 'NONE')) . ')<br>
+                    <strong>From:</strong> ' . htmlspecialchars($fromAddress) . ' (' . htmlspecialchars($fromName) . ')<br>
+                    <strong>Timestamp:</strong> ' . date('r') . '
+                </div>
+            </div>
+
+            <p style="margin-bottom: 0;">Your live emails are now formatted in the official Innotech Medical corporate theme.</p>
+        ';
+
+        try {
+            $bodyHtml = view('emails.master', [
+                'subject' => $subject,
+                'heading' => 'Diagnostic Test Verification',
+                'badgeText' => '⚡ System Test Successful',
+                'contentHtml' => $contentHtml,
+                'contentText' => $body,
+                'actionUrl' => url('/admin/settings?tab=email'),
+                'actionText' => 'Return to Admin Settings',
+            ])->render();
+        } catch (\Throwable $e) {
+            $bodyHtml = null;
+        }
+
+        $sendResult = self::sendSafeMail($testToEmail, 'Admin Tester', $subject, $body, $bodyHtml);
 
         $elapsed = round((microtime(true) - $startTime) * 1000, 1);
 
