@@ -60,7 +60,7 @@ class InquiryController extends Controller
             return back()->with('success', "Email reply successfully delivered to {$inquiry->email} from {$fromAddress}{$viaText}!");
         } else {
             \Illuminate\Support\Facades\Log::error('Inquiry reply mail error: ' . $sendResult['error']);
-            return back()->with('warning', "Inquiry marked as replied in database, but email delivery encountered an issue: " . $sendResult['error'] . ". You can also use the 'Open in Outlook / Gmail' button in the reply modal.");
+            return back()->with('warning', "Inquiry marked as replied in database, but email delivery encountered an issue: " . $sendResult['error']);
         }
     }
 }

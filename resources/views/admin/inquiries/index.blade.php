@@ -175,16 +175,11 @@
                         </div>
                     </div>
 
-                    <div class="modal-footer bg-light py-3 px-4 d-flex justify-content-between">
-                        <a href="#" id="replyMailtoBtn" class="btn btn-outline-success">
-                            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open in Outlook / Gmail
-                        </a>
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary px-4 fw-semibold">
-                                <i class="fa-solid fa-check me-1"></i> Send & Mark as Replied
-                            </button>
-                        </div>
+                    <div class="modal-footer bg-light py-3 px-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary px-4 fw-semibold">
+                            <i class="fa-solid fa-check me-1"></i> Send & Mark as Replied
+                        </button>
                     </div>
                 </form>
             </div>
@@ -218,7 +213,7 @@ You will now receive periodic updates regarding our equipment releases, preventa
 
 If you have an immediate equipment or technical requirement, please feel free to contact our biomedical desk at:
 - Phone / WhatsApp: +92 331 6699992
-- Support Email: info@innotecmedical.org
+- Support Email: info@innotechmed.com
 - Office Address: 1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.
 
 Warm regards,
@@ -239,7 +234,7 @@ We would be pleased to assist you with official technical specifications, quotat
 
 Please let us know your preferred time or feel free to reach our administrative desk directly at:
 - Help Desk: +92 331 6699992
-- Email: info@innotecmedical.org
+- Email: info@innotechmed.com
 - Office: 1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Pakistan.
 
 Best regards,
@@ -251,21 +246,8 @@ www.innotechmed.com`;
         $('#reply_subject').val(defaultSubject);
         $('#reply_body').val(defaultBody);
 
-        // Update mailto link
-        const mailtoUrl = `mailto:${encodeURIComponent(inq.email)}?subject=${encodeURIComponent(defaultSubject)}&body=${encodeURIComponent(defaultBody)}`;
-        $('#replyMailtoBtn').attr('href', mailtoUrl);
-
         const modal = new bootstrap.Modal(document.getElementById('replyInquiryModal'));
         modal.show();
-    });
-
-    // Update mailto link dynamically if subject or body edited
-    $('#reply_subject, #reply_body').on('input', function() {
-        const email = $('#reply_email').val();
-        const subject = $('#reply_subject').val();
-        const body = $('#reply_body').val();
-        const mailtoUrl = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        $('#replyMailtoBtn').attr('href', mailtoUrl);
     });
 </script>
 @endpush
