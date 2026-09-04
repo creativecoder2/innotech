@@ -36,17 +36,20 @@
             <div class="container">
                <div class="row">
                   <div class="col-lg-4 col-md-5 col-12 wow fadeInLeft" data-wow-delay=".4s">
+                     <!-- 1. Address Item -->
                      <div class="tpcontact mr-60 mb-60 wow fadeInUp" data-wow-delay=".2s">
                         <div class="tpcontact__item text-center">
                            <div class="tpcontact__icon mb-20">
                               <img src="{{ asset('assets/img/icon/contact-01.svg') }}" alt="contact-icon">
                            </div>
                            <div class="tpcontact__address">
-                              <h4 class="tpcontact__title mb-15">Address line</h4>
+                              <h4 class="tpcontact__title mb-15">Address Line</h4>
                               <span><a href="{{ url('/contact') }}">{{ \App\Models\Setting::get('office_address', '1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.') }}</a></span>
                            </div>
                         </div>
                      </div>
+
+                     <!-- 2. Phone Item -->
                      <div class="tpcontact mr-60 mb-60 wow fadeInUp" data-wow-delay=".4s">
                         <div class="tpcontact__item text-center">
                            <div class="tpcontact__icon mb-20">
@@ -54,10 +57,22 @@
                            </div>
                            <div class="tpcontact__address">
                               <h4 class="tpcontact__title mb-15">Phone Number</h4>
-                              <span><a href="tel:{{ preg_replace('/[^0-9+]/', '', \App\Models\Setting::get('helpdesk_phone', '+92 331 6699992')) }}">{{ \App\Models\Setting::get('helpdesk_phone', '+92 331 6699992') }}</a></span>
+                              <span>
+                                 <a href="tel:{{ preg_replace('/[^0-9+]/', '', \App\Models\Setting::get('helpdesk_phone', '+92 331 6699992')) }}">
+                                    {{ \App\Models\Setting::get('helpdesk_phone', '+92 331 6699992') }}
+                                 </a>
+                                 @if($altPhone = \App\Models\Setting::get('emergency_phone'))
+                                    <br>
+                                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $altPhone) }}" class="text-muted small">
+                                       <i class="fa-solid fa-phone-volume text-danger me-1"></i> {{ $altPhone }}
+                                    </a>
+                                 @endif
+                              </span>
                            </div>
                         </div>
                      </div>
+
+                     <!-- 3. Working Hours Item -->
                      <div class="tpcontact mr-60 mb-60 wow fadeInUp" data-wow-delay=".6s">
                         <div class="tpcontact__item text-center">
                            <div class="tpcontact__icon mb-20">
@@ -65,16 +80,23 @@
                            </div>
                            <div class="tpcontact__address">
                               <h4 class="tpcontact__title mb-15">Opening Hours</h4>
-                              <span>{{ \App\Models\Setting::get('working_hours', 'Moday - Friday') }} <br>10:00 AM - 06:00 PM</span>
+                              <span>{!! nl2br(e(\App\Models\Setting::get('working_hours', "Monday - Saturday:\n10:00 AM - 06:00 PM"))) !!}</span>
                            </div>
                         </div>
                      </div>
                   </div>
+
                   <div class="col-lg-8 col-md-7 col-12">
                      <div class="contactform wow fadeInRight" data-wow-delay=".4s">
-                        <span class="tp-section__sub-title left-line mb-10 text-primary fw-bold" style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">SEND US AN INQUIRY</span>
-                        <h3 class="tp-section__title mb-15" style="font-size: 32px;">Ready to Upgrade Your Hospital or Laboratory?</h3>
-                        <p class="text-muted mb-35" style="font-size: 15px; line-height: 24px;">Leave your project requirements, equipment inquiries, or technical support requests below. Our biomedical specialists will assist you immediately.</p>
+                        <span class="tp-section__sub-title left-line mb-10 text-primary fw-bold" style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
+                           {{ \App\Models\Setting::get('contact_form_subtitle', 'SEND US AN INQUIRY') }}
+                        </span>
+                        <h3 class="tp-section__title mb-15" style="font-size: 32px;">
+                           {{ \App\Models\Setting::get('contact_form_title', 'Ready to Upgrade Your Hospital or Laboratory?') }}
+                        </h3>
+                        <p class="text-muted mb-35" style="font-size: 15px; line-height: 24px;">
+                           {{ \App\Models\Setting::get('contact_form_description', 'Leave your project requirements, equipment inquiries, or technical support requests below. Our biomedical specialists will assist you immediately.') }}
+                        </p>
                         
                         @if(session('success'))
                            <div class="alert alert-success mb-30 rounded-3 shadow-sm" style="background-color: #ECFDF5; border: 1.5px solid #10B981; color: #065F46;">
@@ -94,14 +116,14 @@
                         @endif
 
                         <div class="contactform__list mb-60">
-                           <form id="contact-form" action="{{ route('contact.store') }}" method="post">
+                           <form id="contact-form" class="ajax-contact-form" action="{{ route('contact.store') }}" method="post">
                               @csrf
                               <div class="row">
                                  <div class="col-lg-6 mb-20">
-                                    <input class="form-control py-3 px-3 rounded-2" name="name" type="text" placeholder="Enter your full name" required style="border-color: #E2E8F0; font-size: 15px;">
+                                    <input class="form-control py-3 px-3 rounded-2" name="name" type="text" placeholder="Enter your full name *" required style="border-color: #E2E8F0; font-size: 15px;">
                                  </div>
                                  <div class="col-lg-6 mb-20">
-                                    <input class="form-control py-3 px-3 rounded-2" name="email" type="email" placeholder="Enter your email" required style="border-color: #E2E8F0; font-size: 15px;">
+                                    <input class="form-control py-3 px-3 rounded-2" name="email" type="email" placeholder="Enter your email *" required style="border-color: #E2E8F0; font-size: 15px;">
                                  </div>
                                  <div class="col-lg-6 mb-20">
                                     <input class="form-control py-3 px-3 rounded-2" name="phone" type="text" placeholder="Enter phone / mobile number" style="border-color: #E2E8F0; font-size: 15px;">
@@ -113,26 +135,43 @@
                                     <textarea class="form-control py-3 px-3 rounded-2" name="message" rows="5" placeholder="How can our biomedical team assist your facility?" required style="border-color: #E2E8F0; font-size: 15px;"></textarea>
                                  </div>
                                  <div class="col-lg-12">
-                                    <button type="submit" class="tp-btn-theme" style="background: linear-gradient(135deg, #0E63FF 0%, #0056e0 100%); color: #ffffff; border: none; border-radius: 8px; padding: 15px 34px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 14px rgba(14, 99, 255, 0.3); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; white-space: nowrap;">
-                                       <i class="fa-solid fa-paper-plane"></i>
-                                       <span>SEND MESSAGE</span>
+                                    <button type="submit" class="tp-btn-theme" style="padding: 14px 34px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; border-radius: 8px;">
+                                       <span style="display: inline-block; margin-bottom: 0; font-size: 14px;">SEND MESSAGE</span>
+                                       <i class="fa-solid fa-paper-plane ms-2"></i>
                                     </button>
                                     <div class="ajax-response mt-3 mb-0" style="display: none;"></div>
                                  </div>
                               </div>
                            </form>
                         </div>
+
+                        <!-- Dynamic Google Map Location -->
+                        @php
+                           $rawMap = trim(\App\Models\Setting::get('contact_map_iframe', ''));
+                           $mapSrc = '';
+                           if (!empty($rawMap)) {
+                              if (preg_match('/src=["\']([^"\']+)["\']/', $rawMap, $matches)) {
+                                 $mapSrc = $matches[1];
+                              } else {
+                                 $mapSrc = $rawMap;
+                              }
+                           }
+                           if (empty($mapSrc)) {
+                              $address = \App\Models\Setting::get('office_address', '1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.');
+                              $mapSrc = 'https://maps.google.com/maps?q=' . urlencode($address) . '&t=&z=16&ie=UTF8&iwloc=&output=embed';
+                           }
+                        @endphp
                         <div class="row">
                            <div class="col-lg-12">
-                              <div class="tpcontactmap">
+                              <div class="tpcontactmap rounded-4 overflow-hidden shadow-sm" style="border: 1px solid #E2E8F0;">
                                  <iframe 
-                                 src="https://maps.google.com/maps?q=1st%20Floor,%20Plot:%20A-301,%20Sardar%20Ali%20Sabri%20Road,%20Block-2,%20Gulshan%20e%20Iqbal,%20Karachi,%20Pakistan&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                                 width="100%" 
-                                 height="450" 
-                                 style="border:0;" 
-                                 allowfullscreen="" 
-                                 loading="lazy" 
-                                 referrerpolicy="no-referrer-when-downgrade">
+                                    src="{{ $mapSrc }}" 
+                                    width="100%" 
+                                    height="450" 
+                                    style="border:0; display: block;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
                                  </iframe>
                               </div>
                            </div>

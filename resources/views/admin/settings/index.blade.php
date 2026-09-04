@@ -344,30 +344,129 @@
 
                     <!-- Tab 3: Helpdesk & Contact -->
                     <div class="tab-pane fade" id="contact" role="tabpanel">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label"><i class="fa-solid fa-phone text-success me-1"></i> Help Desk Phone (Top Header)</label>
-                                <input type="text" name="helpdesk_phone" class="form-control" value="{{ $settings['helpdesk_phone']->value ?? '+92 331 6699992' }}">
+                        <!-- 1. General Contact & Helpdesk Details -->
+                        <div class="banner-setting-card mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="fa-solid fa-phone-volume me-2"></i> 1. Contact Numbers, Emails & Working Hours
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fa-solid fa-phone text-success me-1"></i> Help Desk Phone (Primary & Header)</label>
+                                    <input type="text" name="helpdesk_phone" class="form-control" value="{{ $settings['helpdesk_phone']->value ?? '+92 331 6699992' }}" placeholder="+92 331 6699992">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fa-solid fa-phone-volume text-danger me-1"></i> Emergency Hotline / Secondary Phone</label>
+                                    <input type="text" name="emergency_phone" class="form-control" value="{{ $settings['emergency_phone']->value ?? '' }}" placeholder="+92 300 1234567">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fa-solid fa-envelope text-primary me-1"></i> Primary Support Email</label>
+                                    <input type="email" name="support_email" class="form-control" value="{{ $settings['support_email']->value ?? 'info@innotechmed.com' }}" placeholder="info@innotechmed.com">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label"><i class="fa-solid fa-file-invoice text-info me-1"></i> Sales & Tenders Email</label>
+                                    <input type="email" name="sales_email" class="form-control" value="{{ $settings['sales_email']->value ?? 'sales@innotechmedical.com' }}" placeholder="sales@innotechmedical.com">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label"><i class="fa-solid fa-clock text-warning me-1"></i> Working Hours</label>
+                                    <input type="text" name="working_hours" class="form-control" value="{{ $settings['working_hours']->value ?? 'Monday - Saturday: 10:00 AM - 6:00 PM' }}" placeholder="Monday - Saturday: 10:00 AM - 6:00 PM">
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><i class="fa-solid fa-phone-volume text-danger me-1"></i> Emergency Hotline / Secondary Phone</label>
-                                <input type="text" name="emergency_phone" class="form-control" value="{{ $settings['emergency_phone']->value ?? '' }}" placeholder="+92 ...">
+                        </div>
+
+                        <!-- 2. Physical Address & Interactive Google Map -->
+                        <div class="banner-setting-card mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="fa-solid fa-map-location-dot me-2"></i> 2. Head Office Address & Google Map
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label"><i class="fa-solid fa-location-dot text-danger me-1"></i> Head Office Address (Displayed in Header, Footer & Contact Cards)</label>
+                                    <textarea name="office_address" class="form-control" rows="2" placeholder="1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.">{{ $settings['office_address']->value ?? '1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.' }}</textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fa-solid fa-map text-primary me-1"></i> Google Maps Embed URL or Iframe Code
+                                    </label>
+                                    <textarea name="contact_map_iframe" class="form-control font-monospace" rows="3" placeholder="https://maps.google.com/maps?q=... or <iframe src='...'></iframe>">{{ $settings['contact_map_iframe']->value ?? '' }}</textarea>
+                                    <small class="text-muted d-block mt-1">
+                                        <i class="fa-solid fa-circle-info text-info me-1"></i> <strong>Automatic Fallback:</strong> If you leave this empty, the website will automatically generate and display a Google Map pointing directly to your <strong>Head Office Address</strong> above!
+                                    </small>
+                                </div>
+
+                                @php
+                                    $adminMapRaw = trim($settings['contact_map_iframe']->value ?? '');
+                                    $adminMapSrc = '';
+                                    if (!empty($adminMapRaw)) {
+                                        if (preg_match('/src=["\']([^"\']+)["\']/', $adminMapRaw, $matches)) {
+                                            $adminMapSrc = $matches[1];
+                                        } else {
+                                            $adminMapSrc = $adminMapRaw;
+                                        }
+                                    }
+                                    if (empty($adminMapSrc)) {
+                                        $adminAddr = $settings['office_address']->value ?? '1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.';
+                                        $adminMapSrc = 'https://maps.google.com/maps?q=' . urlencode($adminAddr) . '&t=&z=16&ie=UTF8&iwloc=&output=embed';
+                                    }
+                                @endphp
+
+                                <div class="col-12 mt-2">
+                                    <label class="form-label small fw-bold text-muted">Current Live Map Preview on Website:</label>
+                                    <div class="rounded-3 overflow-hidden border" style="height: 250px; background: #f8fafc;">
+                                        <iframe src="{{ $adminMapSrc }}" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><i class="fa-solid fa-envelope text-primary me-1"></i> Primary Support Email</label>
-                                <input type="email" name="support_email" class="form-control" value="{{ $settings['support_email']->value ?? 'info@innotecmedical.org' }}">
+                        </div>
+
+                        <!-- 3. Contact Us Page In-Page Form Text & Content -->
+                        <div class="banner-setting-card mb-4">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="fa-solid fa-message me-2"></i> 3. Contact Page Inquiry Form Headings
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Form Small Subtitle / Badge</label>
+                                    <input type="text" name="contact_form_subtitle" class="form-control" value="{{ $settings['contact_form_subtitle']->value ?? 'SEND US AN INQUIRY' }}" placeholder="SEND US AN INQUIRY">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label">Form Main Heading</label>
+                                    <input type="text" name="contact_form_title" class="form-control" value="{{ $settings['contact_form_title']->value ?? 'Ready to Upgrade Your Hospital or Laboratory?' }}" placeholder="Ready to Upgrade Your Hospital or Laboratory?">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Form Description / Helper Paragraph</label>
+                                    <textarea name="contact_form_description" class="form-control" rows="2" placeholder="Leave your project requirements, equipment inquiries, or technical support requests below. Our biomedical specialists will assist you immediately.">{{ $settings['contact_form_description']->value ?? 'Leave your project requirements, equipment inquiries, or technical support requests below. Our biomedical specialists will assist you immediately.' }}</textarea>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><i class="fa-solid fa-file-invoice text-info me-1"></i> Sales & Tenders Email</label>
-                                <input type="email" name="sales_email" class="form-control" value="{{ $settings['sales_email']->value ?? 'sales@innotechmedical.org' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><i class="fa-solid fa-clock text-warning me-1"></i> Working Hours</label>
-                                <input type="text" name="working_hours" class="form-control" value="{{ $settings['working_hours']->value ?? 'Monday - Saturday: 10:00 AM - 6:00 PM' }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><i class="fa-solid fa-location-dot text-danger me-1"></i> Head Office Address</label>
-                                <textarea name="office_address" class="form-control" rows="2">{{ $settings['office_address']->value ?? '1st Floor, Plot: A-301, Sardar Ali Sabri Road, Block-2, Gulshan e Iqbal, Karachi, Sindh, Pakistan.' }}</textarea>
+                        </div>
+
+                        <!-- 4. Contact Us Top Page Banner (Breadcrumb) -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="fa-solid fa-image me-2"></i> 4. Contact Us Page Top Banner (Breadcrumb)
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Page Heading / Title</label>
+                                    <input type="text" name="contact_banner_title" class="form-control" value="{{ $settings['contact_banner_title']->value ?? 'Contact us' }}" placeholder="Contact us">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Breadcrumb Subtitle</label>
+                                    <input type="text" name="contact_banner_subtitle" class="form-control" value="{{ $settings['contact_banner_subtitle']->value ?? 'Innotech : Contact' }}" placeholder="Innotech : Contact">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['contact_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['contact_banner_image']->value) }}" alt="Contact Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="contact_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Recommended resolution: 1920x350px. (Leave blank to keep current).</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
