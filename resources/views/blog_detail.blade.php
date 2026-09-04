@@ -63,7 +63,7 @@
 <main>
 
    <!-- 1. BREADCRUMB AREA -->
-   <section class="breadcrumb__area pt-100 pb-120 breadcrumb__overlay" data-background="{{ asset(\App\Models\Setting::get('blog_banner_image', 'assets/img/banner/breadcrumb-01.jpg')) }}">
+   <section class="breadcrumb__area pt-100 pb-120 breadcrumb__overlay" data-background="{{ asset(\App\Models\Setting::get('blog_detail_banner_image', \App\Models\Setting::get('blog_banner_image', 'assets/img/banner/breadcrumb-01.jpg'))) }}">
       <div class="container">
          <div class="row align-items-center">
             <div class="col-xl-8 col-lg-8 col-md-12 col-12">

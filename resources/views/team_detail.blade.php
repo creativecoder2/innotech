@@ -84,7 +84,7 @@
 <main>
 
    <!-- 1. BREADCRUMB AREA -->
-   <section class="breadcrumb__area pt-100 pb-120 breadcrumb__overlay" data-background="{{ asset(\App\Models\Setting::get('team_banner_image', 'assets/img/banner/breadcrumb-01.jpg')) }}">
+   <section class="breadcrumb__area pt-100 pb-120 breadcrumb__overlay" data-background="{{ asset(\App\Models\Setting::get('specialist_detail_banner_image', \App\Models\Setting::get('team_banner_image', 'assets/img/banner/breadcrumb-01.jpg'))) }}">
       <div class="container">
          <div class="row align-items-center">
             <div class="col-xl-7 col-lg-8 col-md-12 col-12">
@@ -94,7 +94,7 @@
             </div>
             <div class="col-xl-5 col-lg-4 col-md-12 col-12">
                <div class="tp-breadcrumb__link serv-md d-flex justify-content-lg-end">
-                  <span>Innotech : <a href="{{ url('/specialists') }}"> Specialist Profile</a></span>
+                  <span>Innotech : <a href="{{ url('/specialists') }}">{{ \App\Models\Setting::get('specialist_detail_banner_subtitle', 'Specialist Profile') }}</a></span>
                </div>
             </div>
          </div>

@@ -8,7 +8,7 @@
 <main>
 
    <!-- 1. BREADCRUMB AREA -->
-   <section class="breadcrumb__area pt-90 pb-100 breadcrumb__overlay" data-background="{{ asset('assets/img/banner/breadcrumb-01.jpg') }}">
+   <section class="breadcrumb__area pt-90 pb-100 breadcrumb__overlay" data-background="{{ asset(\App\Models\Setting::get('products_banner_image', 'assets/img/banner/breadcrumb-01.jpg')) }}">
       <div class="container">
          <div class="row align-items-center">
             <div class="col-lg-7 col-md-7 col-12">
@@ -17,14 +17,14 @@
                      @if($selectedCompany)
                         {{ $selectedCompany->name }} Products
                      @else
-                        Medical Products & Equipment
+                        {{ \App\Models\Setting::get('products_banner_title', 'Medical Products & Equipment') }}
                      @endif
                   </h2>
                </div>
             </div>
             <div class="col-lg-5 col-md-5 col-12">
                <div class="tp-breadcrumb__link d-flex align-items-center justify-content-md-end">
-                  <span>Innotech : <a href="{{ route('products') }}">Products</a> @if($selectedCompany) / <span class="text-white" id="breadcrumb-company-name">{{ $selectedCompany->name }}</span> @endif</span>
+                  <span>Innotech : <a href="{{ route('products') }}">{{ \App\Models\Setting::get('products_banner_subtitle', 'Products') }}</a> @if($selectedCompany) / <span class="text-white" id="breadcrumb-company-name">{{ $selectedCompany->name }}</span> @endif</span>
                </div>
             </div>
          </div>

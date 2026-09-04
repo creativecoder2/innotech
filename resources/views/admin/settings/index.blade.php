@@ -225,9 +225,109 @@
                             </div>
                         </div>
 
-                        <!-- 2. Work Gallery Page Banner -->
+                        <!-- 2. Services & Solutions Main Page Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-images me-2"></i> 2. Work Gallery Page Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-stethoscope me-2"></i> 2. Services & Solutions Main Page Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Page Heading / Title</label>
+                                    <input type="text" name="services_banner_title" class="form-control" value="{{ $settings['services_banner_title']->value ?? 'Services & Solutions' }}" placeholder="Services & Solutions">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Breadcrumb Subtitle</label>
+                                    <input type="text" name="services_banner_subtitle" class="form-control" value="{{ $settings['services_banner_subtitle']->value ?? 'Innotech : Services' }}" placeholder="Innotech : Services">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['services_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['services_banner_image']->value) }}" alt="Services Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="services_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Recommended resolution: 1920x350px. (Leave blank to keep current).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Service Detail Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-briefcase-medical me-2"></i> 3. Service Detail Page Default Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Service Detail Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['service_detail_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['service_detail_banner_image']->value) }}" alt="Service Detail Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="service_detail_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Default banner applied across all service detail pages (1920x350px). Note: Individual services can also have custom banners from Services Manager.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Medical Products & Equipment Catalog Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-laptop-medical me-2"></i> 4. Medical Products Catalog Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Page Heading / Title</label>
+                                    <input type="text" name="products_banner_title" class="form-control" value="{{ $settings['products_banner_title']->value ?? 'Medical Products & Equipment' }}" placeholder="Medical Products & Equipment">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Breadcrumb Subtitle</label>
+                                    <input type="text" name="products_banner_subtitle" class="form-control" value="{{ $settings['products_banner_subtitle']->value ?? 'Innotech : Products' }}" placeholder="Innotech : Products">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['products_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['products_banner_image']->value) }}" alt="Products Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="products_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Recommended resolution: 1920x350px. (Leave blank to keep current).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Product Detail Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-microscope me-2"></i> 5. Product Detail Page Default Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Product Detail Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['product_detail_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['product_detail_banner_image']->value) }}" alt="Product Detail Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="product_detail_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Default banner applied across all individual product detail pages (1920x350px).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Work Gallery Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-images me-2"></i> 6. Work Gallery Page Banner</h6>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Page Heading / Title</label>
@@ -254,9 +354,9 @@
                             </div>
                         </div>
 
-                        <!-- 3. Contact Page Banner -->
+                        <!-- 7. Contact Page Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-headset me-2"></i> 3. Contact Page Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-headset me-2"></i> 7. Contact Page Banner</h6>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Page Heading / Title</label>
@@ -283,9 +383,9 @@
                             </div>
                         </div>
 
-                        <!-- 4. Blog & Research Page Banner -->
+                        <!-- 8. Blog & Research Page Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-newspaper me-2"></i> 4. Blog & Medical Research Page Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-newspaper me-2"></i> 8. Blog & Medical Research Main Page Banner</h6>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Page Heading / Title</label>
@@ -312,9 +412,30 @@
                             </div>
                         </div>
 
-                        <!-- 5. Team / Specialists Page Banner -->
+                        <!-- 9. Blog / Article Detail Page Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-user-doctor me-2"></i> 5. Team / Specialists Page Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-newspaper me-2"></i> 9. Blog / Article Detail Page Default Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Blog Detail Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['blog_detail_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['blog_detail_banner_image']->value) }}" alt="Blog Detail Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="blog_detail_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Default banner applied across all individual blog & research article detail pages (1920x350px).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 10. Team / Specialists Main Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-user-doctor me-2"></i> 10. Team / Specialists Main Page Banner</h6>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Page Heading / Title</label>
@@ -341,9 +462,34 @@
                             </div>
                         </div>
 
-                        <!-- 6. Terms & Conditions Page Banner -->
+                        <!-- 11. Specialist Profile Detail Page Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file-contract me-2"></i> 6. Terms & Conditions Page Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-id-card-clip me-2"></i> 11. Specialist Profile Detail Page Default Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label class="form-label">Breadcrumb Subtitle</label>
+                                    <input type="text" name="specialist_detail_banner_subtitle" class="form-control" value="{{ $settings['specialist_detail_banner_subtitle']->value ?? 'Specialist Profile' }}" placeholder="Specialist Profile">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Specialist Detail Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['specialist_detail_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['specialist_detail_banner_image']->value) }}" alt="Specialist Detail Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="specialist_detail_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Default banner applied across all individual doctor & specialist profile pages (1920x350px).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 12. Terms & Conditions Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file-contract me-2"></i> 12. Terms & Conditions Page Banner</h6>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Page Heading / Title</label>
@@ -370,9 +516,9 @@
                             </div>
                         </div>
 
-                        <!-- 7. Privacy Policy Page Banner -->
+                        <!-- 13. Privacy Policy Page Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-shield-halved me-2"></i> 7. Privacy Policy Page Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-shield-halved me-2"></i> 13. Privacy Policy Page Banner</h6>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Page Heading / Title</label>
@@ -399,9 +545,9 @@
                             </div>
                         </div>
 
-                        <!-- 8. Other Custom Pages Default Banner -->
+                        <!-- 14. Other Custom Pages Default Banner -->
                         <div class="banner-setting-card">
-                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file-lines me-2"></i> 8. Other Custom Policy / Info Pages Default Banner</h6>
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file-lines me-2"></i> 14. Other Custom Policy / Info Pages Default Banner</h6>
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label">Default Banner Background Image for Custom Pages</label>
