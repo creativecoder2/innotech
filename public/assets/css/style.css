@@ -2277,12 +2277,24 @@ input[type=color] {
     padding-top: 80px;
   }
 }
+.banner__content {
+  max-width: 620px;
+}
 .banner__content p {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 500;
   color: var(--tp-text-2);
   margin-bottom: 45px;
   line-height: 29px;
+  max-width: 560px;
+}
+@media only screen and (min-width: 1200px) and (max-width: 1450px) {
+  .banner__content {
+    max-width: 540px;
+  }
+  .banner__content p {
+    max-width: 490px;
+  }
 }
 @media (max-width: 767px) {
   .banner__content p {

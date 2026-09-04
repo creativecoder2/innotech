@@ -326,17 +326,17 @@
             <div class="container">
                <div class="row">
                   <div class="col-xl-8">
-                     <div class="banner__content pt-145 mb-135">
-                        <span class="banner__sub-title mb-20">{{ \App\Models\Setting::get('banner_badge', 'Welcome to Innotech Medical Pvt Ltd') }}</span>
-                        <h2 class="banner__title mb-30">{{ \App\Models\Setting::get('banner_title', 'Innovating Health Care with Advance Technologies') }}</h2>
-                        <p>{{ \App\Models\Setting::get('banner_description', 'Innotech Medical Pvt Ltd is Growing distributor of top-quality medical equipment across Pakistan At Innotech Medical, we are dedicated to bridging the gap between world-class medical innovation and Pakistan’s healthcare sector. As a leading provider of advanced biomedical technologies, diagnostic systems, and specialized clinical equipment, we empower healthcare institutions to deliver accurate diagnoses and superior patient care.') }}</p>
-                        <div class="banner__btn">
-                           <a class="tp-btn" href="{{ url(\App\Models\Setting::get('banner_btn_link', '/contact')) }}">{{ \App\Models\Setting::get('banner_btn_text', 'Contact with Us') }}</a>
-                           <a class="tp-btn-second ml-25" href="{{ url(\App\Models\Setting::get('banner_btn2_link', '/about')) }}">{{ \App\Models\Setting::get('banner_btn2_text', 'About us') }}</a>
-                        </div>
-                     </div>
+                      <div class="banner__content pt-145 mb-135" style="max-width: 600px;">
+                         <span class="banner__sub-title mb-20">{{ \App\Models\Setting::get('banner_badge', 'Welcome to Innotech Medical Pvt Ltd') }}</span>
+                         <h2 class="banner__title mb-30">{{ \App\Models\Setting::get('banner_title', 'Innovating Health Care with Advance Technologies') }}</h2>
+                         <p style="max-width: 540px; font-size: 16px; line-height: 1.75; color: #475569;">{{ str_replace(['â€™', '’'], "'", \App\Models\Setting::get('banner_description', 'Innotech Medical Pvt Ltd is a growing distributor of top-quality medical equipment across Pakistan. We are dedicated to bridging the gap between world-class medical innovation and Pakistan\'s healthcare sector. As a leading provider of advanced biomedical technologies, diagnostic systems, and specialized clinical equipment, we empower healthcare institutions to deliver accurate diagnoses and superior patient care.')) }}</p>
+                         <div class="banner__btn">
+                            <a class="tp-btn" href="{{ url(\App\Models\Setting::get('banner_btn_link', '/contact')) }}">{{ \App\Models\Setting::get('banner_btn_text', 'Contact with Us') }}</a>
+                            <a class="tp-btn-second ml-25" href="{{ url(\App\Models\Setting::get('banner_btn2_link', '/about')) }}">{{ \App\Models\Setting::get('banner_btn2_text', 'About us') }}</a>
+                         </div>
+                      </div>
 
-                     <div class="banner__box-item">
+                      <div class="banner__box-item">
                         <div class="row">
                            <div class="col-xl-4 col-lg-4 col-md-6">
                               <div class="banner__item d-flex align-items-center mb-30 wow fadeInUp" data-wow-delay=".2s">

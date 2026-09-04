@@ -649,7 +649,7 @@
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label">Description Paragraph</label>
-                            <textarea name="banner_description" class="form-control" rows="3">{{ $settings['banner_description'] ?? 'Innotech Medical Pvt Ltd is Growing distributor of top-quality medical equipment across Pakistan At Innotech Medical, we are dedicated to bridging the gap between world-class medical innovation and Pakistan’s healthcare sector.' }}</textarea>
+                            <textarea name="banner_description" class="form-control" rows="3">{{ str_replace(['â€™', '’'], "'", $settings['banner_description'] ?? "Innotech Medical Pvt Ltd is a growing distributor of top-quality medical equipment across Pakistan. We are dedicated to bridging the gap between world-class medical innovation and Pakistan's healthcare sector.") }}</textarea>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Primary Button Text</label>
