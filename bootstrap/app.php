@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'chat/*',
             'chat',
             'api/analytics/*',
+            'admin/logout',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

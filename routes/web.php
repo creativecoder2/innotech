@@ -86,7 +86,7 @@ Route::get('/chat/restore', [ChatController::class, 'restore'])->name('chat.rest
 */
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('login');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
-Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::match(['get', 'post'], '/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
 /*
 |--------------------------------------------------------------------------
