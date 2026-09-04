@@ -198,3 +198,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::delete('live-chat/{id}', [AdminLiveChatController::class, 'destroy'])->name('live_chat.destroy');
     Route::post('live-chat/settings', [AdminLiveChatController::class, 'saveSettings'])->name('live_chat.settings');
 });
+
+// Uploads static fallback handler (ensures uploaded images are served reliably in cPanel/Apache/XAMPP)
+Route::get('/uploads/{path}', function ($path) {
+    $path = trim(str_replace('..', '', $path), '/\\');
+    $file = public_path('uploads/' . $path);
+    if (!file_exists($file)) {
+        $file = base_path('uploads/' . $path);
+    }
+    if (file_exists($file) && !is_dir($file)) {
+        $mime = mime_content_type($file) ?: 'application/octet-stream';
+        return response()->file($file, ['Content-Type' => $mime]);
+    }
+    abort(404);
+})->where('path', '.*');
+

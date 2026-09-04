@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
+use App\Helpers\UploadHelper;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -37,9 +38,7 @@ class SliderController extends Controller
         $validated['order'] = $request->input('order', 0);
 
         if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('uploads/sliders'), $imageName);
-            $validated['image'] = 'uploads/sliders/' . $imageName;
+            $validated['image'] = UploadHelper::uploadImage($request->file('image'), 'uploads/sliders');
         }
 
         Slider::create($validated);
@@ -71,9 +70,7 @@ class SliderController extends Controller
         $validated['order'] = $request->input('order', 0);
 
         if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('uploads/sliders'), $imageName);
-            $validated['image'] = 'uploads/sliders/' . $imageName;
+            $validated['image'] = UploadHelper::uploadImage($request->file('image'), 'uploads/sliders');
         }
 
         $slider->update($validated);

@@ -81,7 +81,7 @@
       <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.css') }}">
-      <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ file_exists(public_path('assets/css/style.css')) ? filemtime(public_path('assets/css/style.css')) : time() }}">
       @stack('styles')
    </head>
    <body>

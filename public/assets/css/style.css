@@ -1259,7 +1259,7 @@ input[type=color] {
     margin: 0 0 0 20px;
   }
 }
-.main-menu-second ul {
+.main-menu-second > nav > ul {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -1319,33 +1319,34 @@ input[type=color] {
   }
 }
 
-.main-menu-second ul li {
+.main-menu-second > nav > ul > li {
   margin-right: 32px;
   white-space: nowrap;
+  position: relative;
 }
-.main-menu-second ul li:last-child {
+.main-menu-second > nav > ul > li:last-child {
   margin-right: 0;
 }
 @media only screen and (min-width: 1601px) and (max-width: 1700px) {
-  .main-menu-second ul li {
+  .main-menu-second > nav > ul > li {
     margin-right: 26px;
   }
 }
 @media only screen and (min-width: 1400px) and (max-width: 1600px) {
-  .main-menu-second ul li {
+  .main-menu-second > nav > ul > li {
     margin-right: 20px;
   }
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
-  .main-menu-second ul li {
+  .main-menu-second > nav > ul > li {
     margin-right: 14px;
   }
 }
-.main-menu-second ul li > a {
+.main-menu-second > nav > ul > li > a {
   margin: 0;
   padding: 20px 0;
 }
-.main-menu-second ul li > a::before {
+.main-menu-second > nav > ul > li > a::before {
   content: "";
   bottom: 1px;
   left: 0;
@@ -1356,8 +1357,112 @@ input[type=color] {
   background-color: var(--tp-icon-green);
   position: absolute;
 }
-.main-menu-second ul li > a:hover::before, .main-menu-second ul li > a.active::before {
+.main-menu-second > nav > ul > li > a:hover::before, .main-menu-second > nav > ul > li > a.active::before {
   width: 100%;
+}
+
+/* Dropdown Sub-menu Styling for Both Main & Inner Screen Menus */
+.main-menu ul > li.has-dropdown,
+.main-menu-second ul > li.has-dropdown,
+.main-menu-second > nav > ul > li.has-dropdown {
+  position: relative;
+}
+
+.main-menu ul > li .sub-menu,
+.main-menu-second .sub-menu,
+.main-menu-second ul .sub-menu,
+.main-menu-second > nav > ul > li .sub-menu {
+  display: block !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  min-width: 290px !important;
+  width: max-content !important;
+  max-width: 360px !important;
+  background: var(--tp-theme-secondary, #2cae72) !important;
+  padding: 8px 0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.08) !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(12px) !important;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  z-index: 99999 !important;
+  pointer-events: none;
+  list-style: none !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.main-menu ul > li:hover > .sub-menu,
+.main-menu-second ul > li:hover > .sub-menu,
+.main-menu-second > nav > ul > li:hover > .sub-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.main-menu ul > li .sub-menu > li,
+.main-menu-second .sub-menu > li,
+.main-menu-second ul .sub-menu > li,
+.main-menu-second > nav > ul > li .sub-menu > li {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: normal !important;
+  text-align: left !important;
+  border: none !important;
+  float: none !important;
+}
+
+.main-menu ul > li .sub-menu > li > a,
+.main-menu-second .sub-menu > li > a,
+.main-menu-second ul .sub-menu > li > a,
+.main-menu-second > nav > ul > li .sub-menu > li > a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 8px 20px !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.4 !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+  background: transparent !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.main-menu ul > li .sub-menu > li > a::before,
+.main-menu-second .sub-menu > li > a::before,
+.main-menu ul > li .sub-menu > li > a::after,
+.main-menu-second .sub-menu > li > a::after {
+  display: none !important;
+  content: none !important;
+}
+
+.main-menu ul > li .sub-menu > li > a:hover,
+.main-menu-second .sub-menu > li > a:hover,
+.main-menu-second > nav > ul > li .sub-menu > li > a:hover {
+  background-color: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff !important;
+  padding-left: 25px !important;
+}
+
+.main-menu ul > li .sub-menu > li:first-child > a,
+.main-menu-second .sub-menu > li:first-child > a,
+.main-menu-second > nav > ul > li .sub-menu > li:first-child > a {
+  font-weight: 700 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 4px !important;
 }
 
 .tp-menu-toggle {
