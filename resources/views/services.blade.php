@@ -183,46 +183,46 @@
             </div>
          </div>
          <div class="row justify-content-center">
-            <div class="col-lg-10 col-md-12 col-12">
-               <div class="tp-support-form text-center bg-white p-4 p-md-5 rounded-4 shadow-sm">
-                  <span class="text-primary fw-bold text-uppercase d-block mb-3">Direct Contact with our Engineering Desk</span>
+             <div class="col-lg-10 col-md-12 col-12">
+                <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm text-center">
+                   <span class="text-primary fw-bold text-uppercase d-block mb-3">Direct Contact with our Engineering Desk</span>
 
-                  @if(session('success'))
-                     <div class="alert alert-success d-flex align-items-center mb-4 text-start">
-                        <i class="fa-solid fa-circle-check fs-4 me-2"></i>
-                        <div>{{ session('success') }}</div>
-                     </div>
-                  @endif
+                   @if(session('success'))
+                      <div class="alert alert-success d-flex align-items-center mb-4 text-start">
+                         <i class="fa-solid fa-circle-check fs-4 me-2"></i>
+                         <div>{{ session('success') }}</div>
+                      </div>
+                   @endif
 
-                  <form action="{{ route('contact.store') }}" method="POST">
-                     @csrf
-                     <div class="row g-3 text-start">
-                        <div class="col-md-6">
-                           <input type="text" name="name" class="form-control py-3 px-3" placeholder="Enter your Name *" required>
-                        </div>
-                        <div class="col-md-6">
-                           <input type="email" name="email" class="form-control py-3 px-3" placeholder="Enter your Email *" required>
-                        </div>
-                        <div class="col-md-6">
-                           <input type="text" name="phone" class="form-control py-3 px-3" placeholder="Phone Number (Optional)">
-                        </div>
-                        <div class="col-md-6">
-                           <input type="text" name="subject" class="form-control py-3 px-3" placeholder="Service Interested In / Equipment Inquiry">
-                        </div>
-                        <div class="col-12">
-                           <textarea name="message" class="form-control p-3" rows="4" placeholder="Type your message, equipment requirements, or project details..." required></textarea>
-                        </div>
-                        <div class="col-12 text-center mt-4">
-                           <div class="tp-support-form__btn">
-                              <button type="submit" class="tp-btn">
-                                 Send Inquiry Message <i class="fa-solid fa-paper-plane ms-1"></i>
-                              </button>
-                           </div>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-            </div>
+                   <form class="ajax-contact-form" action="{{ route('contact.store') }}" method="POST">
+                      @csrf
+                      <div class="row g-3 text-start">
+                         <div class="col-md-6">
+                            <input type="text" name="name" class="form-control py-3 px-3" placeholder="Enter your Name *" required>
+                         </div>
+                         <div class="col-md-6">
+                            <input type="email" name="email" class="form-control py-3 px-3" placeholder="Enter your Email *" required>
+                         </div>
+                         <div class="col-md-6">
+                            <input type="text" name="phone" class="form-control py-3 px-3" placeholder="Phone Number (Optional)">
+                         </div>
+                         <div class="col-md-6">
+                            <input type="text" name="subject" class="form-control py-3 px-3" placeholder="Service Interested In / Equipment Inquiry">
+                         </div>
+                         <div class="col-12">
+                            <textarea name="message" class="form-control p-3" rows="4" placeholder="Type your message, equipment requirements, or project details..." required></textarea>
+                         </div>
+                         <div class="col-12 text-center mt-4">
+                            <button type="submit" class="tp-btn-theme" style="padding: 14px 34px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; border-radius: 8px;">
+                               <span>Send Inquiry Message</span>
+                               <i class="fa-solid fa-paper-plane ms-2"></i>
+                            </button>
+                            <div class="ajax-response mt-3 mb-0" style="display: none;"></div>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+             </div>
          </div>
       </div>
    </section>

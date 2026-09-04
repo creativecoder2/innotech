@@ -4276,12 +4276,21 @@ div.tp-srv-link a {
     padding: 50px 10px 50px 10px;
   }
 }
-.tp-support-form span {
+.tp-support-form > span {
   font-weight: 500;
   font-size: 24px;
   text-align: left;
   display: block;
   margin-bottom: 50px;
+}
+.tp-support-form button span,
+.tp-support-form .tp-btn span,
+.tp-support-form .tp-btn-theme span {
+  display: inline-block !important;
+  font-size: inherit !important;
+  margin-bottom: 0 !important;
+  font-weight: inherit !important;
+  text-align: inherit !important;
 }
 .tp-support-form form {
   margin-bottom: 12px;
