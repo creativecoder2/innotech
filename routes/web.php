@@ -58,9 +58,9 @@ Route::get('/products/company/{companySlug}', [ProductController::class, 'index'
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('product.detail');
 Route::post('/products/{id}/demo-request', [ProductController::class, 'demoRequest'])->name('product.demo_request');
 
-// Legacy Services Route Redirects (Seamless Transition)
-Route::get('/services', function () { return redirect()->route('products'); })->name('services');
-Route::get('/services/{slug}', function ($slug) { return redirect()->route('product.detail', $slug); })->name('service.detail');
+// Services & Healthcare Solutions Routes
+Route::get('/services', [HomeController::class, 'services'])->name('services');
+Route::get('/services/{slug}', [HomeController::class, 'serviceDetail'])->name('service.detail');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::get('/blogs', function () { return redirect()->route('blog'); });
 Route::get('/blog/{slug}', [HomeController::class, 'blogDetail'])->name('blog.detail');
