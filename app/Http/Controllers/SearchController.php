@@ -300,19 +300,34 @@ class SearchController extends Controller
         $galleryEnabled  = (Setting::get('section_gallery_enabled', '1') == '1');
 
         $services = collect();
+        $products = collect();
         $blogs = collect();
         $team = collect();
         $gallery = collect();
         $pages = collect();
 
         $servicesCount = 0;
+        $productsCount = 0;
         $blogsCount = 0;
         $teamCount = 0;
         $galleryCount = 0;
         $pagesCount = 0;
 
         if ($query !== '') {
-            // 1. Services (Strictly Active)
+            // 1. Products / Medical Equipment (Strictly Active)
+            $productsQuery = Product::with('company')->where('is_active', true)
+                ->where(function ($q) use ($query) {
+                    $q->where('title', 'LIKE', "%{$query}%")
+                      ->orWhere('sku', 'LIKE', "%{$query}%")
+                      ->orWhere('short_description', 'LIKE', "%{$query}%")
+                      ->orWhereHas('company', function ($cq) use ($query) {
+                          $cq->where('name', 'LIKE', "%{$query}%");
+                      });
+                });
+            $productsCount = (clone $productsQuery)->count();
+            $products = $productsQuery->orderBy('order', 'asc')->get();
+
+            // 2. Services (Strictly Active)
             if ($servicesEnabled) {
                 $srvQuery = Service::where('is_active', true)
                     ->where(function ($q) use ($query) {
@@ -324,7 +339,7 @@ class SearchController extends Controller
                 $services = $srvQuery->orderBy('order', 'asc')->get();
             }
 
-            // 2. Blogs (Strictly Active & Published)
+            // 3. Blogs (Strictly Active & Published)
             if ($blogEnabled) {
                 $blgQuery = Blog::where('is_published', true)
                     ->where('status', 'published')
@@ -338,7 +353,7 @@ class SearchController extends Controller
                 $blogs = $blgQuery->orderBy('published_at', 'desc')->get();
             }
 
-            // 3. Team Members (Strictly Active)
+            // 4. Team Members (Strictly Active)
             if ($teamEnabled) {
                 $tmQuery = TeamMember::where('is_active', true)
                     ->where(function ($q) use ($query) {
@@ -351,7 +366,7 @@ class SearchController extends Controller
                 $team = $tmQuery->orderBy('order', 'asc')->get();
             }
 
-            // 4. Gallery Items (Strictly Active)
+            // 5. Gallery Items (Strictly Active)
             if ($galleryEnabled) {
                 $galQuery = GalleryItem::where('is_active', true)
                     ->where(function ($q) use ($query) {
@@ -362,7 +377,7 @@ class SearchController extends Controller
                 $gallery = $galQuery->orderBy('order', 'asc')->get();
             }
 
-            // 5. Pages (Active Pages & Published Custom Pages Title/Subtitle match)
+            // 6. Pages (Active Pages & Published Custom Pages Title/Subtitle match)
             $pagesList = collect();
 
             $staticSitePages = collect([
@@ -416,17 +431,19 @@ class SearchController extends Controller
             $pagesCount = $pages->count();
         }
 
-        $totalResults = $servicesCount + $blogsCount + $teamCount + $galleryCount + $pagesCount;
+        $totalResults = $servicesCount + $productsCount + $blogsCount + $teamCount + $galleryCount + $pagesCount;
 
         return view('search', compact(
             'query',
             'activeTab',
             'services',
+            'products',
             'blogs',
             'team',
             'gallery',
             'pages',
             'servicesCount',
+            'productsCount',
             'blogsCount',
             'teamCount',
             'galleryCount',
