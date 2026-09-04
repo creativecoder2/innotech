@@ -1,28 +1,34 @@
 $(function() {
 
-	// Get the form.
-	var form = $('#contact-form');
-
-	// Get the messages div.
-	var formMessages = $('.ajax-response');
-
-	// Set up an event listener for the contact form.
-	$(form).submit(function(e) {
-		// Stop the browser from submitting the form.
+	// Generic AJAX submission handler for all contact & appointment forms
+	$(document).on('submit', '#contact-form, #homeContactForm, .ajax-contact-form', function(e) {
+		// Stop the browser from refreshing / navigating away
 		e.preventDefault();
 
-		var submitBtn = $(form).find('button[type="submit"]');
-		var origBtnText = submitBtn.html();
-		submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Sending...');
-		$(formMessages).empty().removeClass('error success');
+		var form = $(this);
+		var submitBtn = form.find('button[type="submit"]');
+		var origBtnHtml = submitBtn.html();
 
-		// Serialize the form data.
-		var formData = $(form).serialize();
+		// Locate form-specific message container
+		var formMessages = form.find('.ajax-response');
+		if (!formMessages.length) {
+			formMessages = form.siblings('.ajax-response');
+		}
+		if (!formMessages.length) {
+			formMessages = $('.ajax-response');
+		}
 
-		// Submit the form using AJAX.
+		// Set button loading state
+		submitBtn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="width: 1rem; height: 1rem;"></span> Sending...');
+		formMessages.hide().empty().removeClass('error success');
+
+		// Serialize the form data
+		var formData = form.serialize();
+
+		// Submit the form using AJAX
 		$.ajax({
 			type: 'POST',
-			url: $(form).attr('action'),
+			url: form.attr('action'),
 			data: formData,
 			headers: {
 				'X-Requested-With': 'XMLHttpRequest',
@@ -30,39 +36,43 @@ $(function() {
 			}
 		})
 		.done(function(response) {
-			submitBtn.prop('disabled', false).html(origBtnText);
-			$(formMessages).removeClass('error').addClass('success');
+			submitBtn.prop('disabled', false).html(origBtnHtml);
+			formMessages.removeClass('error').addClass('success');
 
-			var msg = (response && response.message) ? response.message : 'Thank you! Your message has been sent successfully.';
-			$(formMessages).html(`
-				<div style="background: #ECFDF5; border: 1.5px solid #10B981; border-radius: 8px; padding: 12px 16px; margin-top: 15px; color: #065F46; font-size: 14px; font-weight: 600;">
-					<i class="fa-solid fa-circle-check text-success me-2 fs-5"></i> ${msg}
+			var msg = (response && response.message) ? response.message : 'Thank you! Your message has been sent successfully. Our biomedical team will contact you shortly.';
+			formMessages.html(`
+				<div class="alert alert-success d-flex align-items-center p-3 rounded-3 shadow-sm border-0" style="background-color: #ECFDF5; border-left: 5px solid #10B981 !important; color: #065F46; margin: 15px 0;">
+					<i class="fa-solid fa-circle-check fs-4 me-3 text-success"></i>
+					<div>
+						<strong class="d-block mb-1" style="font-size: 14.5px; color: #065F46;">Message Sent Successfully!</strong>
+						<span style="font-size: 13.5px; opacity: 0.95;">${msg}</span>
+					</div>
 				</div>
-			`);
+			`).slideDown(300);
 
-			// Clear the form.
-			$('#contact-form input, #contact-form textarea').val('');
+			// Clear the form fields (preserve CSRF token)
+			form.find('input:not([name="_token"]):not([type="hidden"]), textarea').val('');
 		})
 		.fail(function(xhr) {
-			submitBtn.prop('disabled', false).html(origBtnText);
-			$(formMessages).removeClass('success').addClass('error');
+			submitBtn.prop('disabled', false).html(origBtnHtml);
+			formMessages.removeClass('success').addClass('error');
 
 			// Check for 2-hour suspension limit (HTTP 429)
 			if (xhr.status === 429 || (xhr.responseJSON && xhr.responseJSON.suspended)) {
 				var suspendedMsg = (xhr.responseJSON && xhr.responseJSON.message)
 					? xhr.responseJSON.message
-					: 'Maximum attempts exceeded. This email address has been suspended for 2 hours.';
+					: 'Security Alert: Maximum submission attempts exceeded. This email address has been suspended for 2 hours.';
 
-				$(formMessages).html(`
-					<div style="background: #FEF2F2; border: 1.5px solid #F87171; border-radius: 8px; padding: 14px 18px; margin-top: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-						<div style="font-weight: 700; color: #B91C1C; font-size: 13.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+				formMessages.html(`
+					<div class="alert alert-danger p-3 rounded-3 shadow-sm border-0" style="background-color: #FEF2F2; border-left: 5px solid #EF4444 !important; color: #7F1D1D; margin: 15px 0;">
+						<div style="font-weight: 700; color: #B91C1C; font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
 							<i class="fa-solid fa-clock-rotate-left" style="color: #DC2626;"></i> Temporary 2-Hour Suspension
 						</div>
 						<div style="color: #7F1D1D; font-size: 13px; line-height: 1.5; font-weight: 500;">
 							${suspendedMsg}
 						</div>
 					</div>
-				`);
+				`).slideDown(300);
 				return;
 			}
 
@@ -78,11 +88,14 @@ $(function() {
 				errMsg = xhr.responseJSON.message;
 			}
 
-			$(formMessages).html(`
-				<div style="background: #FEF2F2; border: 1.5px solid #F87171; border-radius: 8px; padding: 12px 16px; margin-top: 15px; color: #7F1D1D; font-size: 13px; font-weight: 500;">
-					<i class="fa-solid fa-circle-exclamation text-danger me-2"></i> ${errMsg}
+			formMessages.html(`
+				<div class="alert alert-danger d-flex align-items-center p-3 rounded-3 shadow-sm border-0" style="background-color: #FEF2F2; border-left: 5px solid #EF4444 !important; color: #7F1D1D; margin: 15px 0;">
+					<i class="fa-solid fa-circle-exclamation fs-4 me-3 text-danger"></i>
+					<div style="font-size: 13.5px; font-weight: 500; line-height: 1.5;">
+						${errMsg}
+					</div>
 				</div>
-			`);
+			`).slideDown(300);
 		});
 	});
 

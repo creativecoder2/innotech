@@ -113,8 +113,11 @@
                                     <textarea class="form-control py-3 px-3 rounded-2" name="message" rows="5" placeholder="How can our biomedical team assist your facility?" required style="border-color: #E2E8F0; font-size: 15px;"></textarea>
                                  </div>
                                  <div class="col-lg-12">
-                                    <button type="submit" class="tp-btn text-uppercase font-weight-bold" style="background-color: #239fda; border-radius: 6px; padding: 16px 36px;">SEND MESSAGE</button>
-                                    <p class="ajax-response mt-3 mb-0"></p>
+                                    <button type="submit" class="tp-btn-theme" style="background: linear-gradient(135deg, #0E63FF 0%, #0056e0 100%); color: #ffffff; border: none; border-radius: 8px; padding: 15px 34px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 14px rgba(14, 99, 255, 0.3); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; white-space: nowrap;">
+                                       <i class="fa-solid fa-paper-plane"></i>
+                                       <span>SEND MESSAGE</span>
+                                    </button>
+                                    <div class="ajax-response mt-3 mb-0" style="display: none;"></div>
                                  </div>
                               </div>
                            </form>

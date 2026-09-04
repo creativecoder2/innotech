@@ -782,47 +782,62 @@
                      <div class="visitor-info">
                         <h4 class="appoinment-title mb-25"><i class="fa-light fa-file-signature"></i>{{ \App\Models\Setting::get('appointment_title', 'GET IN TOUCH WITH US') }}</h4>
                         <div class="visitor-form">
-                           <form action="{{ route('contact.store') }}" method="POST">
-                              @csrf
-                              <div class="row">
-                                 <div class="col-lg-6">
-                                    <div class="visitor-form__input">
-                                       <input type="text" name="name" placeholder="Enter your full name" required>
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-6">
-                                    <div class="visitor-form__input">
-                                       <input type="email" name="email" placeholder="Enter your email" required>
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-6">
-                                    <div class="visitor-form__input">
-                                       <input type="text" name="phone" placeholder="Enter phone / mobile number">
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-6">
-                                    <div class="visitor-form__input">
-                                       <input type="text" name="subject" placeholder="Equipment inquiry / Organization">
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-12">
-                                    <div class="visitor-form__input">
-                                       <textarea placeholder="How can our biomedical team assist your facility?" name="message" required></textarea>
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="visit-btn mt-20">
-                                       <button type="submit" class="tp-btn">SEND MESSAGE</button>
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-8 col-md-8 col-12">
-                                    <div class="visit-serial mt-45">
-                                       <span>{{ \App\Models\Setting::get('appointment_subtitle', '24/7 Emergency Service') }} : <a href="tel:{{ preg_replace('/[^0-9+]/', '', \App\Models\Setting::get('appointment_phone', '+923316699992')) }}">{{ \App\Models\Setting::get('appointment_phone', '+92 331 6699992') }}<i class="fa-regular fa-arrow-right"></i></a></span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </form>
-                        </div>
+                            <form id="homeContactForm" class="ajax-contact-form" action="{{ route('contact.store') }}" method="POST">
+                               @csrf
+                               <div class="row">
+                                  <div class="col-lg-6">
+                                     <div class="visitor-form__input">
+                                        <input type="text" name="name" placeholder="Enter your full name" required>
+                                     </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                     <div class="visitor-form__input">
+                                        <input type="email" name="email" placeholder="Enter your email" required>
+                                     </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                     <div class="visitor-form__input">
+                                        <input type="text" name="phone" placeholder="Enter phone / mobile number">
+                                     </div>
+                                  </div>
+                                  <div class="col-lg-6">
+                                     <div class="visitor-form__input">
+                                        <input type="text" name="subject" placeholder="Equipment inquiry / Organization">
+                                     </div>
+                                  </div>
+                                  <div class="col-lg-12">
+                                     <div class="visitor-form__input">
+                                        <textarea placeholder="How can our biomedical team assist your facility?" name="message" required></textarea>
+                                     </div>
+                                  </div>
+
+                                  {{-- Dynamic AJAX Success/Error Message Container --}}
+                                  <div class="col-12">
+                                     <div class="ajax-response mt-10 mb-15" style="display: none;"></div>
+                                  </div>
+
+                                  <div class="col-12">
+                                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-15">
+                                        <div class="visit-btn">
+                                           <button type="submit" class="tp-btn-theme" style="background: linear-gradient(135deg, #0E63FF 0%, #0056e0 100%); color: #ffffff; border: none; border-radius: 8px; padding: 15px 34px; font-size: 14px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 14px rgba(14, 99, 255, 0.3); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; white-space: nowrap;">
+                                              <i class="fa-solid fa-paper-plane"></i>
+                                              <span>SEND MESSAGE</span>
+                                           </button>
+                                        </div>
+                                        <div class="visit-serial m-0">
+                                           <span style="font-size: 14.5px; font-weight: 600; color: #475569;">
+                                              <i class="fa-solid fa-phone-volume text-primary me-1"></i>
+                                              {{ \App\Models\Setting::get('appointment_subtitle', '24/7 Emergency Service') }} : 
+                                              <a href="tel:{{ preg_replace('/[^0-9+]/', '', \App\Models\Setting::get('appointment_phone', '+923316699992')) }}" style="color: #0E63FF; font-weight: 700; text-decoration: none;">
+                                                 {{ \App\Models\Setting::get('appointment_phone', '+92 331 6699992') }} <i class="fa-regular fa-arrow-right ms-1"></i>
+                                              </a>
+                                           </span>
+                                        </div>
+                                     </div>
+                                  </div>
+                               </div>
+                            </form>
+                         </div>
                      </div>
                   </div>
                </div>

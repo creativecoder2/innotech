@@ -82,6 +82,43 @@
       <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/meanmenu.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}?v={{ file_exists(public_path('assets/css/style.css')) ? filemtime(public_path('assets/css/style.css')) : time() }}">
+      <style>
+         .tp-btn-theme {
+            background: linear-gradient(135deg, #0E63FF 0%, #0056e0 100%);
+            color: #ffffff !important;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 34px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(14, 99, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            text-decoration: none;
+         }
+         .tp-btn-theme:hover {
+            background: linear-gradient(135deg, #0056e0 0%, #0E63FF 100%) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(14, 99, 255, 0.42) !important;
+         }
+         .tp-btn-theme:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(14, 99, 255, 0.3) !important;
+         }
+         .tp-btn-theme:disabled {
+            opacity: 0.75;
+            cursor: not-allowed;
+            transform: none !important;
+         }
+      </style>
       @stack('styles')
    </head>
    <body>
@@ -473,7 +510,7 @@
       <script src="{{ asset('assets/js/nice-select.js') }}"></script>
       <script src="{{ asset('assets/js/isotope-pkgd.js') }}"></script>
       <script src="{{ asset('assets/js/imagesloaded-pkgd.js') }}"></script>
-      <script src="{{ asset('assets/js/ajax-form.js') }}"></script>
+      <script src="{{ asset('assets/js/ajax-form.js') }}?v={{ file_exists(public_path('assets/js/ajax-form.js')) ? filemtime(public_path('assets/js/ajax-form.js')) : time() }}"></script>
       <script src="{{ asset('assets/js/aos.js') }}"></script>
       <script src="{{ asset('assets/js/meanmenu.js') }}"></script>
       <script src="{{ asset('assets/js/main.js') }}"></script>
