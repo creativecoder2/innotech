@@ -2,7 +2,14 @@
 
 use Illuminate\Http\Request;
 
+if (!function_exists('mb_split')) {
+    function mb_split(string $pattern, string $string, int $limit = -1): array|false {
+        return @preg_split('~' . $pattern . '~u', $string, $limit);
+    }
+}
+
 define('LARAVEL_START', microtime(true));
+
 
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
