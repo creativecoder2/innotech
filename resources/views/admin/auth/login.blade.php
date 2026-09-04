@@ -108,13 +108,13 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.login.submit') }}" method="POST">
+            <form id="loginForm" action="{{ route('admin.login.submit') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label font-weight-bold" style="font-size: 14px;">Email Address</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="fa-solid fa-envelope text-muted"></i></span>
-                        <input type="email" name="email" class="form-control" placeholder="admin@innotech.com" value="{{ old('email', 'admin@innotech.com') }}" required autofocus>
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email" value="{{ old('email', '') }}" required autofocus autocomplete="email">
                     </div>
                 </div>
 
@@ -122,32 +122,43 @@
                     <label class="form-label font-weight-bold" style="font-size: 14px;">Password</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="fa-solid fa-lock text-muted"></i></span>
-                        <input type="password" name="password" class="form-control" placeholder="••••••••" value="password123" required>
+                        <input type="password" name="password" class="form-control" placeholder="Enter your password" value="" required autocomplete="current-password">
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" id="remember" checked>
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label class="form-check-label small" for="remember">Remember me</label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-theme-login">
-                    Access Dashboard <i class="fa-solid fa-arrow-right ml-5"></i>
+                <button type="submit" id="loginSubmitBtn" class="btn-theme-login d-flex align-items-center justify-content-center">
+                    <span id="loginBtnText">Access Dashboard <i class="fa-solid fa-arrow-right ms-2"></i></span>
+                    <span id="loginBtnSpinner" class="d-none">
+                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Signing in...
+                    </span>
                 </button>
             </form>
 
-            <div class="demo-badge mt-4">
-                <strong><i class="fa-solid fa-info-circle mr-5"></i> Default Credentials:</strong><br>
-                <span>Email: <code>admin@innotech.com</code></span><br>
-                <span>Password: <code>password123</code></span>
-            </div>
-
-            <div class="text-center mt-3">
-                <a href="{{ url('/') }}" class="text-muted small text-decoration-none"><i class="fa-solid fa-arrow-left mr-5"></i> Back to Website</a>
+            <div class="text-center mt-4">
+                <a href="{{ url('/') }}" class="text-muted small text-decoration-none"><i class="fa-solid fa-arrow-left me-1"></i> Back to Website</a>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function() {
+            const btn = document.getElementById('loginSubmitBtn');
+            const btnText = document.getElementById('loginBtnText');
+            const btnSpinner = document.getElementById('loginBtnSpinner');
+
+            // Show spinner & disable button
+            btn.disabled = true;
+            btnText.classList.add('d-none');
+            btnSpinner.classList.remove('d-none');
+        });
+    </script>
 </body>
 </html>
