@@ -340,6 +340,85 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 6. Terms & Conditions Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file-contract me-2"></i> 6. Terms & Conditions Page Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Page Heading / Title</label>
+                                    <input type="text" name="terms_banner_title" class="form-control" value="{{ $settings['terms_banner_title']->value ?? 'Terms & Conditions' }}" placeholder="Terms & Conditions">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Breadcrumb Subtitle</label>
+                                    <input type="text" name="terms_banner_subtitle" class="form-control" value="{{ $settings['terms_banner_subtitle']->value ?? 'Innotech : Terms & Conditions' }}" placeholder="Innotech : Terms & Conditions">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['terms_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['terms_banner_image']->value) }}" alt="Terms Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="terms_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Recommended resolution: 1920x350px. (Leave blank to keep current).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7. Privacy Policy Page Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-shield-halved me-2"></i> 7. Privacy Policy Page Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Page Heading / Title</label>
+                                    <input type="text" name="privacy_banner_title" class="form-control" value="{{ $settings['privacy_banner_title']->value ?? 'Privacy Policy' }}" placeholder="Privacy Policy">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Breadcrumb Subtitle</label>
+                                    <input type="text" name="privacy_banner_subtitle" class="form-control" value="{{ $settings['privacy_banner_subtitle']->value ?? 'Innotech : Privacy Policy' }}" placeholder="Innotech : Privacy Policy">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Banner Background Image</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['privacy_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['privacy_banner_image']->value) }}" alt="Privacy Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="privacy_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Recommended resolution: 1920x350px. (Leave blank to keep current).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 8. Other Custom Pages Default Banner -->
+                        <div class="banner-setting-card">
+                            <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-file-lines me-2"></i> 8. Other Custom Policy / Info Pages Default Banner</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Default Banner Background Image for Custom Pages</label>
+                                    <div class="upload-preview-box">
+                                        @if(isset($settings['pages_banner_image']->value))
+                                            <div class="upload-thumb" style="min-width: 120px;">
+                                                <img src="{{ asset($settings['pages_banner_image']->value) }}" alt="Custom Pages Banner" style="height: 50px; width: 110px; object-fit: cover;" class="rounded">
+                                            </div>
+                                        @endif
+                                        <div class="flex-grow-1">
+                                            <input type="file" name="pages_banner_image" class="form-control form-control-sm mb-1" accept="image/*">
+                                            <small class="text-muted">Default banner applied to all other custom pages. (Recommended resolution: 1920x350px).</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Tab 3: Helpdesk & Contact -->

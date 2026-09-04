@@ -79,22 +79,40 @@
 
 @section('content')
 
+@php
+    $bannerImage = 'assets/img/banner/breadcrumb-01.jpg';
+    $bannerTitle = $page->title;
+    $bannerSubtitle = $page->subtitle;
+
+    if ($page->slug === 'terms-and-conditions' || $page->slug === 'terms') {
+        $bannerImage = \App\Models\Setting::get('terms_banner_image', \App\Models\Setting::get('pages_banner_image', 'assets/img/banner/breadcrumb-01.jpg'));
+        $bannerTitle = \App\Models\Setting::get('terms_banner_title', $page->title);
+        $bannerSubtitle = \App\Models\Setting::get('terms_banner_subtitle', $page->subtitle ?: 'Legal Agreement & Terms of Service');
+    } elseif ($page->slug === 'privacy-policy' || $page->slug === 'privacy') {
+        $bannerImage = \App\Models\Setting::get('privacy_banner_image', \App\Models\Setting::get('pages_banner_image', 'assets/img/banner/breadcrumb-01.jpg'));
+        $bannerTitle = \App\Models\Setting::get('privacy_banner_title', $page->title);
+        $bannerSubtitle = \App\Models\Setting::get('privacy_banner_subtitle', $page->subtitle ?: 'Data Protection & Privacy Policy');
+    } else {
+        $bannerImage = \App\Models\Setting::get('pages_banner_image', 'assets/img/banner/breadcrumb-01.jpg');
+    }
+@endphp
+
 <main>
     <!-- Breadcrumb Area -->
-    <section class="breadcrumb__area pt-100 pb-120 breadcrumb__overlay" data-background="{{ asset('assets/img/banner/breadcrumb-01.jpg') }}">
+    <section class="breadcrumb__area pt-100 pb-120 breadcrumb__overlay" data-background="{{ asset($bannerImage) }}">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-xl-7 col-lg-7 col-md-12 col-12">
                     <div class="tp-breadcrumb">
-                        <h2 class="tp-breadcrumb__title">{{ $page->title }}</h2>
-                        @if($page->subtitle)
-                            <p class="text-white opacity-75 mt-2 mb-0 fs-6">{{ $page->subtitle }}</p>
+                        <h2 class="tp-breadcrumb__title">{{ $bannerTitle }}</h2>
+                        @if($bannerSubtitle)
+                            <p class="text-white opacity-75 mt-2 mb-0 fs-6">{{ $bannerSubtitle }}</p>
                         @endif
                     </div>
                 </div>
                 <div class="col-xl-5 col-lg-5 col-md-12 col-12">
                     <div class="tp-breadcrumb__link serv-md d-flex justify-content-lg-end">
-                        <span><a href="{{ url('/') }}">Home</a> / <span>{{ $page->title }}</span></span>
+                        <span><a href="{{ url('/') }}">Home</a> / <span>{{ $bannerTitle }}</span></span>
                     </div>
                 </div>
             </div>
