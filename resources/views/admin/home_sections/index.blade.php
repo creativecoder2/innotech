@@ -652,10 +652,27 @@
                                 <!-- Multiple Upload Input -->
                                 <div class="mb-3 bg-light p-3 rounded-3 border">
                                     <label class="form-label small fw-bold text-dark mb-1">Upload New Slider Images (Multiple Allowed):</label>
-                                    <input type="file" name="banner_slider_images[]" class="form-control" multiple accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+                                    <input type="file" name="banner_slider_images[]" id="bannerSliderImagesInput" class="form-control" multiple accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
                                     <small class="text-muted d-block mt-1">
                                         <i class="fa-solid fa-circle-info text-primary me-1"></i> Tip: Hold <strong>Ctrl</strong> (or <strong>Cmd</strong> on Mac) to select multiple images from your computer at once.
                                     </small>
+
+                                    <!-- Live Selection Preview Container (Shows selected images before saving) -->
+                                    <div id="sliderImagesSelectedPreviewContainer" class="mt-3 p-3 bg-white rounded-3 border border-primary-subtle d-none">
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2 pb-2 border-bottom">
+                                            <span class="small fw-bold text-primary">
+                                                <i class="fa-solid fa-cloud-arrow-up me-1"></i> Selected For Upload (<span id="selectedImagesCount">0</span> images ready):
+                                            </span>
+                                            <button type="button" class="btn btn-xs btn-outline-danger py-0.5 px-2 rounded" id="clearSelectedSliderImagesBtn">
+                                                <i class="fa-solid fa-xmark me-1"></i> Clear Selection
+                                            </button>
+                                        </div>
+                                        <div class="row g-2" id="sliderImagesSelectedPreviewGrid"></div>
+                                        <div class="alert alert-info py-1.5 px-2.5 mt-2.5 mb-0 small rounded-2 d-flex align-items-center gap-2">
+                                            <i class="fa-solid fa-circle-check text-info"></i>
+                                            <span>Ye images upload hone ke liye select ho chuki hain. Inhe save karne ke liye nechy <strong>"Save All Changes"</strong> ya <strong>"Save Section"</strong> button click karein.</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- Current Slider Images Gallery Preview -->
@@ -2849,9 +2866,13 @@ $(document).ready(function() {
         $('#globalSaveBar').removeClass('d-none');
     });
 
-    // Instant Image Preview on File Selection
+    // Instant Image Preview on File Selection (Single file inputs)
     $(document).on('change', 'input[type="file"]', function() {
         const input = this;
+        // Skip multiple banner slider images input from generic single preview
+        if (input.name === 'banner_slider_images[]' || input.id === 'bannerSliderImagesInput') {
+            return;
+        }
         if (input.files && input.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -2863,6 +2884,104 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     });
+
+    // Instant Multi-Image Preview for Banner Slider Images
+    $('#bannerSliderImagesInput').on('change', function() {
+        const files = this.files;
+        const previewContainer = $('#sliderImagesSelectedPreviewContainer');
+        const previewGrid = $('#sliderImagesSelectedPreviewGrid');
+        const countSpan = $('#selectedImagesCount');
+
+        previewGrid.empty();
+
+        if (files && files.length > 0) {
+            countSpan.text(files.length);
+            previewContainer.removeClass('d-none');
+
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const sizeKb = Math.round(file.size / 1024);
+                    const cardHtml = `
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <div class="card h-100 border border-primary border-opacity-25 shadow-sm rounded-3 overflow-hidden bg-white">
+                                <span class="position-absolute top-0 start-0 m-1 badge bg-primary text-white" style="font-size: 10px; z-index: 2;">
+                                    New #${index + 1}
+                                </span>
+                                <div class="d-flex align-items-center justify-content-center bg-light p-1" style="height: 100px;">
+                                    <img src="${e.target.result}" alt="${file.name}" class="img-fluid rounded-2" style="max-height: 90px; max-width: 100%; object-fit: cover;">
+                                </div>
+                                <div class="card-footer bg-white p-1 text-center border-top">
+                                    <small class="text-dark text-truncate d-block fw-semibold" style="font-size: 11px;" title="${file.name}">${file.name}</small>
+                                    <span class="text-muted" style="font-size: 10px;">${sizeKb} KB</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    previewGrid.append(cardHtml);
+                };
+                reader.readAsDataURL(file);
+            });
+        } else {
+            previewContainer.addClass('d-none');
+        }
+    });
+
+    $('#clearSelectedSliderImagesBtn').on('click', function() {
+        $('#bannerSliderImagesInput').val('');
+        $('#sliderImagesSelectedPreviewContainer').addClass('d-none');
+        $('#sliderImagesSelectedPreviewGrid').empty();
+    });
+
+    // Helper to refresh Active Slider Images Gallery in real-time
+    function renderSliderImagesGallery(sliderImages) {
+        if (!Array.isArray(sliderImages)) return;
+        const container = $('#sliderImagesGalleryContainer');
+        const count = sliderImages.length;
+        $('#sliderImagesCountBadge').text(`${count} Slider ${count === 1 ? 'Image' : 'Images'} Active`);
+
+        if (count > 0) {
+            let cardsHtml = `
+                <label class="form-label small fw-bold text-dark mb-2">Active Slider Images (Slide Order):</label>
+                <div class="row g-3" id="activeSliderImagesRow">
+            `;
+            sliderImages.forEach((img, idx) => {
+                cardsHtml += `
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 slider-image-item">
+                        <div class="card h-100 border position-relative shadow-sm rounded-3 overflow-hidden">
+                            <span class="position-absolute top-0 start-0 m-1.5 badge bg-dark bg-opacity-75 text-white" style="font-size: 10px; z-index: 2;">
+                                #${idx + 1}
+                            </span>
+                            <div class="d-flex align-items-center justify-content-center bg-light p-1" style="height: 110px;">
+                                <img src="${img.url}" alt="Slider Image" class="img-fluid rounded-2" style="max-height: 100px; max-width: 100%; object-fit: cover;">
+                            </div>
+                            <div class="card-footer bg-white p-1.5 border-top text-center">
+                                <button type="button" 
+                                        class="btn btn-xs btn-outline-danger w-100 py-1 d-flex align-items-center justify-content-center gap-1 rounded-2"
+                                        onclick="deleteSliderImage('${img.path}', this)">
+                                    <i class="fa-solid fa-trash-can" style="font-size: 11px;"></i> <span style="font-size: 11px;">Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            cardsHtml += `</div>`;
+            container.html(cardsHtml);
+        } else {
+            container.html(`
+                <div class="p-3 bg-light rounded-3 text-center border border-dashed" id="noSliderImagesNotice">
+                    <i class="fa-solid fa-photo-film text-muted fs-3 mb-1"></i>
+                    <p class="text-muted small mb-0">Abhi koi multiple slider image upload nahi hui. Default single banner image use ho rahi hai.</p>
+                </div>
+            `);
+        }
+
+        // Clear input and pending preview
+        $('#bannerSliderImagesInput').val('');
+        $('#sliderImagesSelectedPreviewContainer').addClass('d-none');
+        $('#sliderImagesSelectedPreviewGrid').empty();
+    }
 
     // 3. Save Single Section Form via AJAX
     $('.section-form').on('submit', function(e) {
@@ -2899,6 +3018,10 @@ $(document).ready(function() {
                     $.each(response.uploaded_images, function(name, url) {
                         $(`input[name="${name}"]`).closest('.d-flex, .mb-3').find('img').attr('src', url);
                     });
+                }
+
+                if (response.slider_images) {
+                    renderSliderImagesGallery(response.slider_images);
                 }
 
                 Swal.fire({
@@ -2947,7 +3070,10 @@ $(document).ready(function() {
             });
             $(form).find('input[type="file"]').each(function() {
                 if (this.files && this.files.length > 0) {
-                    formData.append(this.name, this.files[0]);
+                    const inputName = this.name;
+                    for (let i = 0; i < this.files.length; i++) {
+                        formData.append(inputName, this.files[i]);
+                    }
                 }
             });
         });
@@ -2972,6 +3098,10 @@ $(document).ready(function() {
                     $.each(response.uploaded_images, function(name, url) {
                         $(`input[name="${name}"]`).closest('.d-flex, .mb-3').find('img').attr('src', url);
                     });
+                }
+
+                if (response.slider_images) {
+                    renderSliderImagesGallery(response.slider_images);
                 }
 
                 Swal.fire({
@@ -3212,6 +3342,10 @@ window.deleteSliderImage = function(imagePath, btnElement) {
                         const itemCol = btn.closest('.slider-image-item');
                         itemCol.fadeOut(300, function() {
                             $(this).remove();
+                            // Re-index remaining badges #1, #2, ...
+                            $('#activeSliderImagesRow .slider-image-item').each(function(idx) {
+                                $(this).find('.badge').text('#' + (idx + 1));
+                            });
                             // Update remaining count badge
                             const count = $('#activeSliderImagesRow .slider-image-item').length;
                             $('#sliderImagesCountBadge').text(count + ' Slider ' + (count === 1 ? 'Image' : 'Images') + ' Active');

@@ -87,16 +87,17 @@ class HomeSectionsController extends Controller
             // Handle multiple banner slider image uploads
             if ($request->hasFile('banner_slider_images')) {
                 $sliderFiles = $request->file('banner_slider_images');
-                if (is_array($sliderFiles)) {
-                    $existingSlider = json_decode(Setting::get('banner_slider_images', '[]'), true) ?: [];
-                    foreach ($sliderFiles as $sFile) {
-                        if ($sFile && $sFile->isValid()) {
-                            $path = UploadHelper::uploadImage($sFile, 'uploads/sections');
-                            $existingSlider[] = $path;
-                        }
-                    }
-                    Setting::set('banner_slider_images', json_encode(array_values($existingSlider)));
+                if (!is_array($sliderFiles)) {
+                    $sliderFiles = [$sliderFiles];
                 }
+                $existingSlider = json_decode(Setting::get('banner_slider_images', '[]'), true) ?: [];
+                foreach ($sliderFiles as $sFile) {
+                    if ($sFile && $sFile->isValid()) {
+                        $path = UploadHelper::uploadImage($sFile, 'uploads/sections');
+                        $existingSlider[] = $path;
+                    }
+                }
+                Setting::set('banner_slider_images', json_encode(array_values($existingSlider)));
             }
 
             $uploadedImages = [];
@@ -122,11 +123,19 @@ class HomeSectionsController extends Controller
                 }
             }
 
+            $currentSliderImages = json_decode(Setting::get('banner_slider_images', '[]'), true) ?: [];
+
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Section settings and images saved successfully!',
                     'uploaded_images' => $uploadedImages,
+                    'slider_images' => array_map(function($img) {
+                        return [
+                            'path' => $img,
+                            'url' => asset($img)
+                        ];
+                    }, $currentSliderImages),
                     'data' => $data
                 ]);
             }
