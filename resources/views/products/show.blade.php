@@ -42,14 +42,26 @@
 
          <div class="row g-5 align-items-start">
             
-            <!-- LEFT COLUMN: LARGE PRODUCT IMAGE CARD -->
+            <!-- LEFT COLUMN: LARGE PRODUCT IMAGE CARD (STICKY ON SCROLL & CLICK TO ZOOM) -->
             <div class="col-xl-5 col-lg-5 col-12">
-               <div class="product-detail-image-card bg-white rounded-4 d-flex align-items-center justify-content-center p-4" 
-                    style="border: 1.5px solid #e2e8f0; border-radius: 16px; min-height: 480px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-                  <img src="{{ asset($product->image ?: 'assets/img/shop/shop-01.jpg') }}" 
-                       alt="{{ $product->title }}" 
-                       class="img-fluid" 
-                       style="max-height: 440px; width: 100%; object-fit: contain;">
+               <div class="product-sticky-card">
+                  <div class="product-detail-image-card bg-white rounded-4 d-flex align-items-center justify-content-center p-4 position-relative" 
+                       id="productImageTrigger"
+                       role="button"
+                       tabindex="0"
+                       aria-label="Click to enlarge product image"
+                       title="Click to view full image"
+                       style="border: 1.5px solid #e2e8f0; border-radius: 16px; min-height: 480px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); cursor: zoom-in;">
+                     <img src="{{ asset($product->image ?: 'assets/img/shop/shop-01.jpg') }}" 
+                          alt="{{ $product->title }}" 
+                          class="img-fluid product-main-img" 
+                          style="max-height: 440px; width: 100%; object-fit: contain;">
+                     
+                     <!-- Interactive Zoom Badge -->
+                     <span class="product-zoom-hint position-absolute bottom-0 end-0 mb-3 me-3 d-inline-flex align-items-center gap-2 bg-white text-dark shadow-sm px-3 py-1 rounded-pill border" style="font-size: 12px; font-weight: 600; opacity: 0.9; transition: all 0.25s ease;">
+                        <i class="fa-solid fa-magnifying-glass-plus text-primary"></i> Click to enlarge
+                     </span>
+                  </div>
                </div>
             </div>
 
@@ -249,9 +261,181 @@
       </div>
    </div>
 
+   <!-- 5. FULL PRODUCT IMAGE LIGHTBOX MODAL (WITH CLOSE 'X' BUTTON) -->
+   <div id="productLightboxModal" class="product-lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="lightbox-backdrop" id="lightboxBackdrop" title="Click anywhere outside to close"></div>
+      <div class="lightbox-dialog">
+         <!-- Close 'X' Button -->
+         <button type="button" class="lightbox-close-btn" id="lightboxCloseBtn" aria-label="Close full view" title="Close (Esc)">
+            <i class="fa-solid fa-xmark"></i>
+         </button>
+
+         <!-- Enlarged Image Container -->
+         <div class="lightbox-img-wrap">
+            <img src="{{ asset($product->image ?: 'assets/img/shop/shop-01.jpg') }}" 
+                 alt="{{ $product->title }}" 
+                 class="lightbox-img" 
+                 id="lightboxImg">
+         </div>
+
+         <!-- Product Caption & Keyboard Hint -->
+         <div class="lightbox-footer text-center mt-3">
+            <h4 class="text-white mb-1 fw-bold fs-6">{{ $product->title }}</h4>
+            @if($product->sku)
+               <span class="badge bg-light text-dark fw-semibold px-2 py-1">Model: {{ $product->sku }}</span>
+            @endif
+            <p class="text-white-50 small mb-0 mt-2">
+               <i class="fa-solid fa-circle-info me-1"></i> Press <kbd class="bg-dark text-white px-2 py-0.5 border border-secondary rounded">ESC</kbd> or click outside to close
+            </p>
+         </div>
+      </div>
+   </div>
+
 </main>
 
 <style>
+   /* Sticky Left Column on Scroll */
+   .product-sticky-card {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 110px;
+      z-index: 20;
+      transition: top 0.2s ease;
+   }
+   @media (max-width: 991px) {
+      .product-sticky-card {
+         position: static !important;
+      }
+   }
+
+   /* Product Detail Main Card Hover & Zoom Hint */
+   .product-detail-image-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+   }
+   .product-detail-image-card:hover {
+      border-color: #0E63FF !important;
+      box-shadow: 0 10px 30px rgba(14, 99, 255, 0.12) !important;
+      transform: translateY(-2px);
+   }
+   .product-detail-image-card:hover .product-main-img {
+      transform: scale(1.02);
+      transition: transform 0.3s ease;
+   }
+   .product-detail-image-card:hover .product-zoom-hint {
+      background-color: #0E63FF !important;
+      color: #ffffff !important;
+      border-color: #0E63FF !important;
+      box-shadow: 0 4px 14px rgba(14, 99, 255, 0.35) !important;
+   }
+   .product-detail-image-card:hover .product-zoom-hint i {
+      color: #ffffff !important;
+   }
+
+   /* Lightbox Modal Overlay */
+   .product-lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease;
+      align-items: center;
+      justify-content: center;
+   }
+   .product-lightbox-modal.active {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+   }
+   .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: zoom-out;
+   }
+   .lightbox-dialog {
+      position: relative;
+      z-index: 2;
+      max-width: 92vw;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.94);
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+   }
+   .product-lightbox-modal.active .lightbox-dialog {
+      transform: scale(1);
+   }
+   .lightbox-close-btn {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 100001;
+   }
+   .lightbox-close-btn:hover {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #ffffff;
+      transform: rotate(90deg) scale(1.1);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5);
+   }
+   .lightbox-img-wrap {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 90vw;
+      max-height: 78vh;
+      overflow: hidden;
+   }
+   .lightbox-img {
+      max-width: 100%;
+      max-height: 74vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      user-select: none;
+   }
+   @media (max-width: 576px) {
+      .lightbox-close-btn {
+         top: 16px;
+         right: 16px;
+         width: 40px;
+         height: 40px;
+         font-size: 20px;
+      }
+      .lightbox-img-wrap {
+         padding: 10px;
+      }
+      .lightbox-img {
+         max-height: 68vh;
+      }
+   }
+
    .btn-request-demo:hover {
       background-color: #03734a !important;
       transform: translateY(-2px);
@@ -277,6 +461,51 @@
 @push('scripts')
 <script>
    document.addEventListener('DOMContentLoaded', function () {
+      // --- PRODUCT IMAGE FULLSCREEN LIGHTBOX ---
+      const imageTrigger = document.getElementById('productImageTrigger');
+      const lightboxModal = document.getElementById('productLightboxModal');
+      const closeBtn = document.getElementById('lightboxCloseBtn');
+      const backdrop = document.getElementById('lightboxBackdrop');
+
+      function openLightbox() {
+         if (!lightboxModal) return;
+         lightboxModal.classList.add('active');
+         lightboxModal.setAttribute('aria-hidden', 'false');
+         document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+         if (!lightboxModal) return;
+         lightboxModal.classList.remove('active');
+         lightboxModal.setAttribute('aria-hidden', 'true');
+         document.body.style.overflow = '';
+      }
+
+      if (imageTrigger) {
+         imageTrigger.addEventListener('click', openLightbox);
+         imageTrigger.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+               e.preventDefault();
+               openLightbox();
+            }
+         });
+      }
+
+      if (closeBtn) {
+         closeBtn.addEventListener('click', closeLightbox);
+      }
+
+      if (backdrop) {
+         backdrop.addEventListener('click', closeLightbox);
+      }
+
+      document.addEventListener('keydown', function (e) {
+         if (e.key === 'Escape' && lightboxModal && lightboxModal.classList.contains('active')) {
+            closeLightbox();
+         }
+      });
+
+      // --- REQUEST A DEMO AJAX SUBMISSION ---
       const demoForm = document.getElementById('demoRequestForm');
       if (demoForm) {
          demoForm.addEventListener('submit', function (e) {
