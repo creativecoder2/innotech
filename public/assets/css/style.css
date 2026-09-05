@@ -96,7 +96,7 @@ body {
   font-weight: 400;
   color: var(--tp-text-body);
   line-height: 26px;
-  overflow-X: hidden !important;
+  overflow-x: clip;
 }
 
 a {

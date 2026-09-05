@@ -40,10 +40,10 @@
             </div>
          @endif
 
-         <div class="row g-5 align-items-start">
+         <div class="row g-5 align-items-stretch product-detail-row">
             
             <!-- LEFT COLUMN: LARGE PRODUCT IMAGE CARD (STICKY ON SCROLL & CLICK TO ZOOM) -->
-            <div class="col-xl-5 col-lg-5 col-12">
+            <div class="col-xl-5 col-lg-5 col-12 product-sticky-col">
                <div class="product-sticky-card">
                   <div class="product-detail-image-card bg-white rounded-4 d-flex align-items-center justify-content-center p-4 position-relative" 
                        id="productImageTrigger"
@@ -294,13 +294,25 @@
 </main>
 
 <style>
+   /* Ensure body and html do not trap viewport sticky calculation */
+   html, body {
+      overflow-x: clip !important;
+   }
+
    /* Sticky Left Column on Scroll */
+   .product-detail-row {
+      align-items: stretch !important;
+   }
+   .product-sticky-col {
+      align-self: stretch !important;
+      position: relative !important;
+   }
    .product-sticky-card {
-      position: -webkit-sticky;
-      position: sticky;
-      top: 110px;
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      top: 115px !important;
       z-index: 20;
-      transition: top 0.2s ease;
+      align-self: flex-start;
    }
    @media (max-width: 991px) {
       .product-sticky-card {
