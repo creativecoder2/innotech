@@ -903,6 +903,14 @@
                             <input type="text" name="about_heading" class="form-control" value="{{ $settings['about_heading'] ?? 'Innovating Healthcare with Advance Technologies' }}">
                         </div>
                         <div class="col-md-4 mb-3">
+                            <label class="form-label fw-semibold">Button Text</label>
+                            <input type="text" name="about_btn_text" class="form-control" value="{{ $settings['about_btn_text'] ?? 'About us' }}">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-semibold">Button Link</label>
+                            <input type="text" name="about_btn_link" class="form-control" value="{{ $settings['about_btn_link'] ?? '/about' }}">
+                        </div>
+                        <div class="col-md-4 mb-3">
                             <label class="form-label fw-semibold">Mission Link Text</label>
                             <input type="text" name="about_link_text" class="form-control" value="{{ $settings['about_link_text'] ?? 'Read our Mission & Vision' }}">
                         </div>

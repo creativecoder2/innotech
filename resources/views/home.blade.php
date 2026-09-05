@@ -595,8 +595,7 @@
                            </ul>
                         </div>
                         <div class="tp-about__btn">
-                           <a class="tp-btn" href="{{ url('/about') }}">Our HIstory</a>
-                           <a class="tp-btn-second ml-25" href="{{ url('/about') }}">About us</a>
+                           <a class="tp-btn" href="{{ url(\App\Models\Setting::get('about_btn_link', '/about')) }}">{{ \App\Models\Setting::get('about_btn_text', 'About us') }}</a>
                         </div>                       
                      </div>
                   </div>
