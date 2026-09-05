@@ -61,6 +61,7 @@ class UserController extends Controller
             'email' => $validated['email'],
             'phone' => $validated['phone'] ? trim($validated['phone']) : null,
             'password' => Hash::make($validated['password']),
+            'plain_password' => $validated['password'],
             'is_active' => $request->has('is_active'),
         ]);
 
@@ -72,6 +73,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // Hierarchy protection: Secondary admins cannot edit Primary Super Admin (#1)
+        if ($user->id === 1 && Auth::id() !== 1) {
+            return back()->with('error', 'You do not have permission to modify the Primary Super Administrator account.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:100',
@@ -88,6 +94,7 @@ class UserController extends Controller
 
         if ($request->filled('password')) {
             $user->password = Hash::make($validated['password']);
+            $user->plain_password = $validated['password'];
         }
 
         // Logged-in admin cannot disable themselves
@@ -112,6 +119,16 @@ class UserController extends Controller
             return back()->with('error', 'You cannot disable your own active account while logged in.');
         }
 
+        // Security check: Primary Super Admin (#1) can never be disabled
+        if ($user->id === 1) {
+            return back()->with('error', 'The Primary Super Administrator account cannot be disabled.');
+        }
+
+        // Security check: Only Primary Admin can toggle status of other Super Admins
+        if (Auth::id() !== 1 && $user->role === 'Super Admin') {
+            return back()->with('error', 'You do not have permission to disable or enable other Super Administrators.');
+        }
+
         $user->is_active = !$user->is_active;
         $user->save();
 
@@ -127,6 +144,16 @@ class UserController extends Controller
         // Security check: logged-in user cannot delete themselves
         if (Auth::id() === $user->id) {
             return back()->with('error', 'You cannot delete your own account.');
+        }
+
+        // Security check: Primary Super Admin (#1) can never be deleted
+        if ($user->id === 1) {
+            return back()->with('error', 'The Primary Super Administrator account cannot be deleted.');
+        }
+
+        // Security check: Secondary admins cannot delete Super Admins
+        if (Auth::id() !== 1 && $user->role === 'Super Admin') {
+            return back()->with('error', 'Only the Primary Super Administrator can delete other Super Administrators.');
         }
 
         $name = $user->name;

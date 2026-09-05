@@ -122,7 +122,10 @@
                     <label class="form-label font-weight-bold" style="font-size: 14px;">Password</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="fa-solid fa-lock text-muted"></i></span>
-                        <input type="password" name="password" class="form-control" placeholder="Enter your password" value="" required autocomplete="current-password">
+                        <input type="password" id="loginPasswordInput" name="password" class="form-control border-end-0" placeholder="Enter your password" value="" required autocomplete="current-password">
+                        <button type="button" class="btn btn-outline-secondary border-start-0 bg-white text-muted" onclick="toggleLoginPassword(this)" title="Show / Hide Password">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -149,6 +152,20 @@
     </div>
 
     <script>
+        function toggleLoginPassword(btn) {
+            const input = document.getElementById('loginPasswordInput');
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
         document.getElementById('loginForm').addEventListener('submit', function() {
             const btn = document.getElementById('loginSubmitBtn');
             const btnText = document.getElementById('loginBtnText');

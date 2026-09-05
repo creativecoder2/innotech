@@ -162,56 +162,78 @@
                             </td>
                             <td class="text-end">
                                 <div class="d-inline-flex gap-1">
-                                    <!-- EDIT MODAL TRIGGER -->
-                                    <button type="button" 
-                                            class="btn btn-sm btn-light border px-2 py-1 text-primary shadow-sm" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#editUserModal{{ $user->id }}" 
-                                            title="Edit Administrator">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-
-                                    <!-- TOGGLE STATUS (DISABLE / ENABLE) -->
-                                    @if(Auth::id() === $user->id)
-                                        <button type="button" 
-                                                class="btn btn-sm btn-light border px-2 py-1 text-muted opacity-50 shadow-sm" 
-                                                disabled 
-                                                title="You cannot disable your own active account">
-                                            <i class="fa-solid fa-ban"></i>
-                                        </button>
+                                    <!-- HIERARCHY RESTRICTION: Non-primary admins CANNOT edit/delete/disable Primary Super Admin (#1) -->
+                                    @if($user->id === 1 && Auth::id() !== 1)
+                                        <span class="badge bg-secondary-subtle text-secondary border px-2.5 py-1.5" title="Primary Super Administrator cannot be modified by other admins">
+                                            <i class="fa-solid fa-shield-halved me-1 text-primary"></i> Root Admin
+                                        </span>
                                     @else
-                                        <form action="{{ route('admin.users.toggle_status', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to {{ $user->is_active ? 'disable' : 'enable' }} {{ $user->name }}?');">
-                                            @csrf
-                                            <button type="submit" 
-                                                    class="btn btn-sm btn-light border px-2 py-1 shadow-sm {{ $user->is_active ? 'text-warning' : 'text-success' }}" 
-                                                    title="{{ $user->is_active ? 'Disable Account' : 'Enable Account' }}">
-                                                <i class="fa-solid {{ $user->is_active ? 'fa-ban' : 'fa-circle-check' }}"></i>
+                                        <!-- EDIT MODAL TRIGGER -->
+                                        <button type="button" 
+                                                class="btn btn-sm btn-light border px-2 py-1 text-primary shadow-sm" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#editUserModal{{ $user->id }}" 
+                                                title="Edit Administrator">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+
+                                        <!-- TOGGLE STATUS (DISABLE / ENABLE) -->
+                                        @if(Auth::id() === $user->id)
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-light border px-2 py-1 text-muted opacity-50 shadow-sm" 
+                                                    disabled 
+                                                    title="You cannot disable your own active account">
+                                                <i class="fa-solid fa-ban"></i>
                                             </button>
-                                        </form>
-                                    @endif
+                                        @elseif($user->id === 1)
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-light border px-2 py-1 text-muted opacity-50 shadow-sm" 
+                                                    disabled 
+                                                    title="Primary Super Administrator cannot be disabled">
+                                                <i class="fa-solid fa-ban"></i>
+                                            </button>
+                                        @elseif(Auth::id() !== 1 && $user->role === 'Super Admin')
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-light border px-2 py-1 text-muted opacity-50 shadow-sm" 
+                                                    disabled 
+                                                    title="Only the Primary Super Administrator can toggle status of other Super Admins">
+                                                <i class="fa-solid fa-ban"></i>
+                                            </button>
+                                        @else
+                                            <form action="{{ route('admin.users.toggle_status', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to {{ $user->is_active ? 'disable' : 'enable' }} {{ $user->name }}?');">
+                                                @csrf
+                                                <button type="submit" 
+                                                        class="btn btn-sm btn-light border px-2 py-1 shadow-sm {{ $user->is_active ? 'text-warning' : 'text-success' }}" 
+                                                        title="{{ $user->is_active ? 'Disable Account' : 'Enable Account' }}">
+                                                    <i class="fa-solid {{ $user->is_active ? 'fa-ban' : 'fa-circle-check' }}"></i>
+                                                </button>
+                                            </form>
+                                        @endif
 
-                                    <!-- DELETE USER -->
-                                    @if(Auth::id() === $user->id)
-                                        <button type="button" 
-                                                class="btn btn-sm btn-light border px-2 py-1 text-muted opacity-50 shadow-sm" 
-                                                disabled 
-                                                title="You cannot delete your own account">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
-                                    @else
-                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to permanently delete administrator {{ $user->name }}? This action cannot be undone.');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-light border px-2 py-1 text-danger shadow-sm" title="Delete Administrator">
+                                        <!-- DELETE USER -->
+                                        @if(Auth::id() === $user->id || $user->id === 1 || (Auth::id() !== 1 && $user->role === 'Super Admin'))
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-light border px-2 py-1 text-muted opacity-50 shadow-sm" 
+                                                    disabled 
+                                                    title="{{ $user->id === 1 ? 'Primary Super Administrator cannot be deleted' : 'You cannot delete this account' }}">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </button>
-                                        </form>
+                                        @else
+                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to permanently delete administrator {{ $user->name }}? This action cannot be undone.');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-light border px-2 py-1 text-danger shadow-sm" title="Delete Administrator">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     @endif
                                 </div>
                             </td>
                         </tr>
 
                         <!-- EDIT USER MODAL -->
+                        @if(Auth::id() === 1 || $user->id !== 1)
                         <div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
@@ -252,18 +274,57 @@
                                                 <small class="text-muted">Admins can log in with either this phone number or their email.</small>
                                             </div>
 
+                                            <!-- CURRENT / OLD PASSWORD FIELD WITH EYE TOGGLE -->
+                                            <div class="mb-3">
+                                                <label class="form-label fw-semibold d-flex justify-content-between align-items-center">
+                                                    <span>Current Password</span>
+                                                    <small class="text-muted fw-normal"><i class="fa-solid fa-lock me-1"></i> Current Saved</small>
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-key text-muted"></i></span>
+                                                    <input type="password" 
+                                                           id="oldPassword{{ $user->id }}" 
+                                                           class="form-control border-start-0 border-end-0" 
+                                                           value="{{ $user->plain_password ?: 'password123' }}" 
+                                                           readonly 
+                                                           style="background-color: #f8fafc;">
+                                                    <button type="button" 
+                                                            class="btn btn-light border border-start-0 text-secondary" 
+                                                            onclick="togglePasswordVisibility('oldPassword{{ $user->id }}', this)" 
+                                                            title="Click to view / hide password">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- NEW PASSWORD FIELD WITH EYE TOGGLE -->
                                             <div class="mb-3">
                                                 <label class="form-label fw-semibold">New Password <span class="text-muted fw-normal">(Leave blank to keep current)</span></label>
-                                                <input type="password" name="password" class="form-control" placeholder="Enter new password (min. 6 chars)" minlength="6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                                                    <input type="password" 
+                                                           id="newPassword{{ $user->id }}" 
+                                                           name="password" 
+                                                           class="form-control border-start-0 border-end-0" 
+                                                           placeholder="Enter new password (min. 6 chars)" 
+                                                           minlength="6" 
+                                                           autocomplete="new-password">
+                                                    <button type="button" 
+                                                            class="btn btn-light border border-start-0 text-secondary" 
+                                                            onclick="togglePasswordVisibility('newPassword{{ $user->id }}', this)" 
+                                                            title="Click to view / hide password">
+                                                        <i class="fa-solid fa-eye"></i>
+                                                    </button>
+                                                </div>
                                             </div>
 
                                             <div class="p-3 bg-light rounded-3 border">
                                                 <div class="form-check form-switch mb-0">
-                                                    @if(Auth::id() === $user->id)
+                                                    @if(Auth::id() === $user->id || $user->id === 1)
                                                         <input class="form-check-input" type="checkbox" name="is_active" id="editIsActive{{ $user->id }}" checked disabled>
                                                         <input type="hidden" name="is_active" value="1">
                                                         <label class="form-check-label fw-semibold text-muted" for="editIsActive{{ $user->id }}">
-                                                            Account Active <span class="badge bg-primary-subtle text-primary ms-1">Cannot disable your own active session</span>
+                                                            Account Active <span class="badge bg-primary-subtle text-primary ms-1">Protected session</span>
                                                         </label>
                                                     @else
                                                         <input class="form-check-input" type="checkbox" name="is_active" id="editIsActive{{ $user->id }}" value="1" {{ old('is_active', $user->is_active) ? 'checked' : '' }}>
@@ -285,6 +346,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
 
                     @empty
                         <tr>
@@ -345,9 +407,26 @@
                             <small class="text-muted">Optional. Admin can use either this phone or email to log in.</small>
                         </div>
 
+                        <!-- CREATE PASSWORD FIELD WITH EYE TOGGLE -->
                         <div class="mb-3">
                             <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
-                            <input type="password" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                                <input type="password" 
+                                       id="createPasswordInput" 
+                                       name="password" 
+                                       class="form-control border-start-0 border-end-0" 
+                                       placeholder="At least 6 characters" 
+                                       minlength="6" 
+                                       required 
+                                       autocomplete="new-password">
+                                <button type="button" 
+                                        class="btn btn-light border border-start-0 text-secondary" 
+                                        onclick="togglePasswordVisibility('createPasswordInput', this)" 
+                                        title="Click to view / hide password">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="p-3 bg-light rounded-3 border">
@@ -370,5 +449,28 @@
             </div>
         </div>
     </div>
+
+@push('scripts')
+<script>
+    function togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            if (icon) {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        } else {
+            input.type = 'password';
+            if (icon) {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    }
+</script>
+@endpush
 
 @endsection
