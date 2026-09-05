@@ -7,8 +7,15 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <a href="{{ route('admin.inquiries.index') }}" class="btn btn-outline-secondary">
-            <i class="fa-solid fa-arrow-left mr-5"></i> Back to Inquiries
+            <i class="fa-solid fa-arrow-left me-1"></i> Back to Inquiries
         </a>
+        <form action="{{ route('admin.inquiries.destroy', $inquiry->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this inquiry?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-outline-danger">
+                <i class="fa-solid fa-trash me-1"></i> Delete Inquiry
+            </button>
+        </form>
     </div>
 
     <div class="row">

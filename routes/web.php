@@ -167,6 +167,8 @@ Route::middleware(['auth', \App\Http\Middleware\TrackAdminActivity::class])->pre
 
     // Inquiries / Leads Management
     Route::get('inquiries/unread-count', [AdminInquiryController::class, 'unreadCount'])->name('inquiries.unread_count');
+    Route::post('inquiries/bulk-delete', [AdminInquiryController::class, 'bulkDelete'])->name('inquiries.bulk_delete');
+    Route::post('inquiries/delete-all', [AdminInquiryController::class, 'deleteAll'])->name('inquiries.delete_all');
     Route::get('inquiries', [AdminInquiryController::class, 'index'])->name('inquiries.index');
     Route::get('inquiries/{inquiry}', [AdminInquiryController::class, 'show'])->name('inquiries.show');
     Route::post('inquiries/{inquiry}/status', [AdminInquiryController::class, 'updateStatus'])->name('inquiries.status');
