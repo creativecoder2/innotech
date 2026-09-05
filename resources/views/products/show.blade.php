@@ -152,7 +152,8 @@
 
          </div>
 
-         <!-- 3. RELATED PRODUCTS SECTION (MATCHING USER SCREENSHOT EXACTLY) -->
+         <!-- 3. RELATED PRODUCTS SECTION -->
+         @if(isset($relatedProducts) && $relatedProducts->count() > 0)
          <div class="related-products-area mt-80 pt-40 border-top" style="border-color: #f1f5f9;">
             <div class="d-flex align-items-center justify-content-between mb-35">
                <h3 class="fw-bold mb-0" style="font-size: 20px; color: #1e293b;">Related Products</h3>
@@ -199,6 +200,7 @@
                @endforeach
             </div>
          </div>
+         @endif
 
       </div>
    </section>

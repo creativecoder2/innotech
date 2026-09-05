@@ -88,28 +88,44 @@ class ProductController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        // Fetch up to 4 related products (prefer same company, fill with featured products)
-        $relatedProducts = Product::with('company')
-            ->where('is_active', true)
-            ->where('id', '!=', $product->id)
-            ->when($product->company_id, function ($q) use ($product) {
-                $q->where('company_id', $product->company_id);
-            })
-            ->orderBy('order', 'asc')
-            ->take(4)
-            ->get();
-
-        if ($relatedProducts->count() < 4) {
-            $needed = 4 - $relatedProducts->count();
-            $existingIds = $relatedProducts->pluck('id')->push($product->id)->toArray();
-            $moreProducts = Product::with('company')
+        // 1. Fetch related products strictly from the same company / brand
+        $relatedProducts = collect();
+        if ($product->company_id) {
+            $relatedProducts = Product::with('company')
                 ->where('is_active', true)
-                ->whereNotIn('id', $existingIds)
+                ->where('company_id', $product->company_id)
+                ->where('id', '!=', $product->id)
                 ->orderBy('order', 'asc')
-                ->take($needed)
+                ->take(4)
                 ->get();
+        }
 
-            $relatedProducts = $relatedProducts->concat($moreProducts);
+        // 2. If no other products from same company, search strictly for same equipment type by specific title keywords
+        if ($relatedProducts->isEmpty()) {
+            $cleanTitle = preg_replace('/[^a-zA-Z0-9\s]/', ' ', strtolower($product->title));
+            $words = array_filter(explode(' ', $cleanTitle));
+            $stopWords = [
+                'with', 'unit', 'high', 'plus', 'model', 'from', 'best', 'dual', 'series', 
+                'system', 'digital', 'device', 'standard', 'medical', 'hospital', 'auto', 
+                'door', 'glass', 'tft', 'inch', '400w', 'easy', 'care'
+            ];
+            $keywords = array_values(array_filter($words, function ($w) use ($stopWords) {
+                return strlen($w) >= 4 && !in_array($w, $stopWords);
+            }));
+
+            if (!empty($keywords)) {
+                $relatedProducts = Product::with('company')
+                    ->where('is_active', true)
+                    ->where('id', '!=', $product->id)
+                    ->where(function ($q) use ($keywords) {
+                        foreach ($keywords as $kw) {
+                            $q->orWhere('title', 'like', "%{$kw}%");
+                        }
+                    })
+                    ->orderBy('order', 'asc')
+                    ->take(4)
+                    ->get();
+            }
         }
 
         return view('products.show', compact('product', 'relatedProducts'));
