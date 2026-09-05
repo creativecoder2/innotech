@@ -61,12 +61,14 @@ class TrackAdminActivity
         try {
             $path = trim($request->path(), '/');
 
-            // Exclude noise/polling/read-heavy endpoints
+            // Exclude noise/polling/read-heavy endpoints completely
             if (
-                $request->is('admin/notifications/unread-count') ||
+                $request->is('admin/notifications*') ||
                 $request->is('admin/live-chat/unread*') ||
-                $request->is('admin/analytics/realtime') ||
-                $request->is('assets/*')
+                $request->is('admin/live-chat/polling*') ||
+                $request->is('admin/analytics/realtime*') ||
+                $request->is('assets/*') ||
+                $request->is('uploads/*')
             ) {
                 return;
             }
@@ -74,9 +76,13 @@ class TrackAdminActivity
             $method = strtoupper($request->method());
             $isMutating = in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE']);
 
-            // Only log mutating actions OR distinct section GET page views (ignore background AJAX partials)
-            if (!$isMutating && ($request->ajax() || $request->wantsJson())) {
-                return;
+            // For GET requests:
+            // Only log when admin navigates to an actual full page in the browser.
+            // Ignore any AJAX, XMLHTTPRequest, or JSON background checks.
+            if (!$isMutating) {
+                if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                    return;
+                }
             }
 
             $user = Auth::user();

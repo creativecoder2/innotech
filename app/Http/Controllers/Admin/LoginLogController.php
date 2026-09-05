@@ -62,6 +62,9 @@ class LoginLogController extends Controller
         $rootAdminId = User::orderBy('id', 'asc')->value('id') ?: 1;
 
         // 4. Admin Operational Actions & Error Audit Trail
+        // Auto-purge any background notification polling entries
+        AdminActionLog::where('url', 'like', '%notifications%')->delete();
+
         $actionQuery = AdminActionLog::with('user');
 
         if ($request->filled('action_user_id')) {
