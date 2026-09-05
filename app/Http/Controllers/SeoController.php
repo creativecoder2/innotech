@@ -49,12 +49,14 @@ class SeoController extends Controller
             'priority' => '0.9'
         ];
 
-        $urls[] = [
-            'loc' => url('/specialists'),
-            'lastmod' => now()->subDays(5)->toAtomString(),
-            'changefreq' => 'weekly',
-            'priority' => '0.7'
-        ];
+        if (\App\Models\Setting::get('section_team_enabled', '1') == '1') {
+            $urls[] = [
+                'loc' => url('/specialists'),
+                'lastmod' => now()->subDays(5)->toAtomString(),
+                'changefreq' => 'weekly',
+                'priority' => '0.7'
+            ];
+        }
 
         $urls[] = [
             'loc' => url('/gallery'),
@@ -115,14 +117,16 @@ class SeoController extends Controller
         }
 
         // 4. Active Specialists
-        $team = TeamMember::where('is_active', true)->orderBy('updated_at', 'desc')->get();
-        foreach ($team as $m) {
-            $urls[] = [
-                'loc' => route('team.detail', $m->slug),
-                'lastmod' => ($m->updated_at ?? now())->toAtomString(),
-                'changefreq' => 'monthly',
-                'priority' => '0.70'
-            ];
+        if (\App\Models\Setting::get('section_team_enabled', '1') == '1') {
+            $team = TeamMember::where('is_active', true)->orderBy('updated_at', 'desc')->get();
+            foreach ($team as $m) {
+                $urls[] = [
+                    'loc' => route('specialist.detail', $m->slug ?: $m->id),
+                    'lastmod' => ($m->updated_at ?? now())->toAtomString(),
+                    'changefreq' => 'monthly',
+                    'priority' => '0.70'
+                ];
+            }
         }
 
         // 5. Published Custom Pages (Privacy, Terms, Certifications, etc.)

@@ -1480,8 +1480,8 @@
                 <div class="admin-card-body">
                     <div class="section-ctrl-bar">
                         <div>
-                            <strong class="d-block">Section Visibility on Home Page</strong>
-                            <small class="text-muted">Show or hide the Team Specialists carousel.</small>
+                            <strong class="d-block">Specialists Section Visibility Across Website</strong>
+                            <small class="text-muted">Turn ON or OFF the Specialists section across Home Page, About Page, Footer links, and direct URLs.</small>
                         </div>
                         <div class="form-check form-switch m-0">
                             <input type="hidden" name="section_team_enabled" value="0">

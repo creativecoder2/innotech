@@ -416,7 +416,9 @@
                            <ul>
                               <li><a href="{{ url('/contact') }}">Contact us</a></li>
                               <li><a href="{{ url('/about') }}">About us</a></li>
-                              <li><a href="{{ url('/specialists') }}">Our Specialists</a></li>
+                              @if(\App\Models\Setting::get('section_team_enabled', '1') == '1')
+                                 <li><a href="{{ url('/specialists') }}">Our Specialists</a></li>
+                              @endif
                               @php
                                  $usefulPages = \App\Models\Page::footerUseful()->get();
                               @endphp

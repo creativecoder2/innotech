@@ -450,6 +450,7 @@
          <!-- nav-tabs-area-end -->
 
          <!-- 6. SPECIALISTS TEAM SLIDER SECTION -->
+         @if(\App\Models\Setting::get('section_team_enabled', '1') == '1')
          <section class="team-area grey-bg pt-120 pb-100" data-background="{{ asset('assets/img/shape/shape-bg-01.png') }}">
             <div class="container wow fadeInUp" data-wow-delay=".3s">
                <div class="row align-items-center mb-50">
@@ -520,6 +521,7 @@
                </div>
             </div>
          </section>
+         @endif
          <!-- team-area-end -->
 
       </main>
@@ -530,26 +532,28 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-   var aboutTeamSwiper = new Swiper('.about-team-active', {
-      loop: true,
-      slidesPerView: 4,
-      spaceBetween: 24,
-      autoplay: {
-         delay: 4000,
-         disableOnInteraction: false,
-      },
-      navigation: {
-         nextEl: '.team-n',
-         prevEl: '.team-p',
-      },
-      breakpoints: {
-         '1200': { slidesPerView: 4 },
-         '992': { slidesPerView: 3 },
-         '768': { slidesPerView: 2 },
-         '576': { slidesPerView: 1 },
-         '0': { slidesPerView: 1 },
-      },
-   });
+   if ($('.about-team-active').length) {
+      var aboutTeamSwiper = new Swiper('.about-team-active', {
+         loop: true,
+         slidesPerView: 4,
+         spaceBetween: 24,
+         autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+         },
+         navigation: {
+            nextEl: '.team-n',
+            prevEl: '.team-p',
+         },
+         breakpoints: {
+            '1200': { slidesPerView: 4 },
+            '992': { slidesPerView: 3 },
+            '768': { slidesPerView: 2 },
+            '576': { slidesPerView: 1 },
+            '0': { slidesPerView: 1 },
+         },
+      });
+   }
 });
 </script>
 @endpush

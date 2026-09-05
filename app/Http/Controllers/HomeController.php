@@ -244,12 +244,18 @@ class HomeController extends Controller
 
     public function team()
     {
+        if (\App\Models\Setting::get('section_team_enabled', '1') != '1') {
+            abort(404);
+        }
         $teamMembers = TeamMember::where('is_active', true)->orderBy('order', 'asc')->get();
         return view('team', compact('teamMembers'));
     }
 
     public function teamDetail($slug)
     {
+        if (\App\Models\Setting::get('section_team_enabled', '1') != '1') {
+            abort(404);
+        }
         $member = TeamMember::where('slug', $slug)->orWhere('id', $slug)->firstOrFail();
         $otherTeamMembers = TeamMember::where('id', '!=', $member->id)->where('is_active', true)->orderBy('order', 'asc')->take(4)->get();
         return view('team_detail', compact('member', 'otherTeamMembers'));
