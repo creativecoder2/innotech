@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label small fw-semibold text-dark mb-1">Initial Query / Message <span class="text-danger">*</span></label>
+                    <label class="form-label small fw-semibold text-dark mb-1">Send inquiry <span class="text-danger">*</span></label>
                     <textarea name="message" id="chat_message" class="form-control form-control-sm" rows="3" placeholder="Send inquiry" required></textarea>
                 </div>
 
