@@ -52,6 +52,24 @@ class AuthController extends Controller
         }
 
         if (!$passwordMatches) {
+            // Record failed login attempt
+            $ip = $request->ip();
+            $userAgent = $request->userAgent() ?: '';
+            \App\Models\AdminLoginLog::create([
+                'user_id' => $user->id,
+                'email_or_phone' => $loginInput,
+                'ip_address' => $ip,
+                'location' => \App\Helpers\GeoIpHelper::getLocation($ip),
+                'device_type' => \App\Helpers\GeoIpHelper::getDeviceType($userAgent),
+                'os' => \App\Helpers\GeoIpHelper::getOs($userAgent),
+                'browser' => \App\Helpers\GeoIpHelper::getBrowser($userAgent),
+                'user_agent' => $userAgent,
+                'login_method' => filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Phone',
+                'status' => 'failed',
+                'is_active_session' => false,
+                'last_activity_at' => now(),
+            ]);
+
             return back()->withErrors([
                 'login' => 'The provided credentials do not match our records.',
             ])->withInput();
@@ -67,11 +85,42 @@ class AuthController extends Controller
         Auth::login($user, $request->filled('remember'));
         $request->session()->regenerate();
 
+        // Record successful login log & active device session
+        $sessionId = $request->session()->getId();
+        $ip = $request->ip();
+        $userAgent = $request->userAgent() ?: '';
+        \App\Models\AdminLoginLog::create([
+            'user_id' => $user->id,
+            'session_id' => $sessionId,
+            'email_or_phone' => $loginInput,
+            'ip_address' => $ip,
+            'location' => \App\Helpers\GeoIpHelper::getLocation($ip),
+            'device_type' => \App\Helpers\GeoIpHelper::getDeviceType($userAgent),
+            'os' => \App\Helpers\GeoIpHelper::getOs($userAgent),
+            'browser' => \App\Helpers\GeoIpHelper::getBrowser($userAgent),
+            'user_agent' => $userAgent,
+            'login_method' => filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Phone',
+            'status' => 'success',
+            'is_active_session' => true,
+            'last_activity_at' => now(),
+        ]);
+
         return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome back to Innotech Admin Portal, ' . $user->name . '!');
     }
 
     public function logout(Request $request)
     {
+        $sessionId = $request->session()->getId();
+        if ($sessionId) {
+            \App\Models\AdminLoginLog::where('session_id', $sessionId)
+                ->where('is_active_session', true)
+                ->update([
+                    'is_active_session' => false,
+                    'logged_out_at' => now(),
+                    'status' => 'logged_out',
+                ]);
+        }
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

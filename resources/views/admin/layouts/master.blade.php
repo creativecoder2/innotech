@@ -503,6 +503,11 @@
                 @php $adminsCount = \App\Models\User::count(); @endphp
                 <span class="badge-highlight">{{ $adminsCount }} Users</span>
             </a>
+            <a href="{{ route('admin.logs.index') }}" class="nav-item-link {{ request()->routeIs('admin.logs.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-clock-rotate-left"></i> Login Logs & Sessions
+                @php $onlineCount = \App\Models\AdminLoginLog::online()->count(); @endphp
+                <span class="badge-highlight" style="background: {{ $onlineCount > 0 ? '#10b981' : '#64748b' }};">{{ $onlineCount }} Online</span>
+            </a>
 
             <div class="menu-header">Session</div>
             <form action="{{ route('admin.logout') }}" method="POST">

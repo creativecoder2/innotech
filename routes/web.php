@@ -27,6 +27,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\LoginLogController as AdminLoginLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +95,7 @@ Route::match(['get', 'post'], '/admin/logout', [AdminAuthController::class, 'log
 | Admin Protected Panel Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', \App\Http\Middleware\TrackAdminActivity::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [AdminDashboardController::class, 'index']);
 
@@ -203,6 +204,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Administrators & Roles Management CRUD
     Route::resource('users', AdminUserController::class)->except(['create', 'show', 'edit']);
     Route::post('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle_status');
+
+    // Login Logs & Active Sessions Tracking
+    Route::get('logs', [AdminLoginLogController::class, 'index'])->name('logs.index');
+    Route::post('logs/{id}/revoke', [AdminLoginLogController::class, 'revokeSession'])->name('logs.revoke_session');
+    Route::post('logs/clear-old', [AdminLoginLogController::class, 'clearOldLogs'])->name('logs.clear_old');
 });
 
 // Uploads static fallback handler (ensures uploaded images are served reliably in cPanel/Apache/XAMPP)
