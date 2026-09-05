@@ -398,11 +398,16 @@
             </table>
         </div>
 
-        @if($logs->hasPages())
-            <div class="p-3 border-top">
-                {{ $logs->links() }}
+        <div class="p-3 border-top d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 bg-light bg-opacity-50">
+            <div class="small text-muted">
+                Showing <span class="fw-bold text-dark">{{ $logs->firstItem() ?? 0 }}</span> to <span class="fw-bold text-dark">{{ $logs->lastItem() ?? 0 }}</span> of <span class="fw-bold text-dark">{{ $logs->total() }}</span> total audit logs
             </div>
-        @endif
+            @if($logs->hasPages())
+                <div class="pagination-container m-0">
+                    {{ $logs->links() }}
+                </div>
+            @endif
+        </div>
     </div>
 
     <!-- STYLING FOR PULSING DOT AND PILL -->
