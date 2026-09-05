@@ -31,12 +31,27 @@ class AuthController extends Controller
             ])->withInput();
         }
 
-        // Find user by email or phone
-        $user = \App\Models\User::where('email', $loginInput)
+        // Find user by email or phone (case-insensitive email matching)
+        $user = \App\Models\User::whereRaw('LOWER(email) = ?', [strtolower($loginInput)])
             ->orWhere('phone', $loginInput)
             ->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user) {
+            return back()->withErrors([
+                'login' => 'The provided credentials do not match our records.',
+            ])->withInput();
+        }
+
+        $passwordMatches = Hash::check($request->password, $user->password);
+
+        // Self-healing fallback: If user was saved with double-hash, fix and heal automatically
+        if (!$passwordMatches && !empty($user->plain_password) && $request->password === $user->plain_password) {
+            $passwordMatches = true;
+            $user->password = Hash::make($request->password);
+            $user->save();
+        }
+
+        if (!$passwordMatches) {
             return back()->withErrors([
                 'login' => 'The provided credentials do not match our records.',
             ])->withInput();
