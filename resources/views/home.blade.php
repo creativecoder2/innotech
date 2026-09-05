@@ -1621,8 +1621,7 @@
 <style>
 /* Hero Banner Right Swiper Slider Styles */
 .banner__shape {
-    overflow: hidden;
-    border-radius: 0px 0px 362px 362px;
+    overflow: visible !important;
 }
 .banner-hero-slider-wrapper {
     overflow: hidden;
@@ -1699,7 +1698,40 @@
     box-shadow: 0 6px 25px rgba(14, 99, 255, 0.45);
 }
 .banner__video-btn {
-    z-index: 20;
+    position: absolute;
+    bottom: 55px;
+    right: 65px;
+    z-index: 25;
+}
+@media only screen and (min-width: 1400px) and (max-width: 1600px) {
+    .banner__video-btn {
+        bottom: 50px;
+        right: 55px;
+    }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+    .banner__video-btn {
+        bottom: 40px;
+        right: 45px;
+    }
+    .banner__video-icon {
+        height: 100px;
+        width: 100px;
+        line-height: 90px;
+        font-size: 18px;
+    }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .banner__video-btn {
+        bottom: 30px;
+        right: 35px;
+    }
+    .banner__video-icon {
+        height: 90px;
+        width: 90px;
+        line-height: 80px;
+        font-size: 16px;
+    }
 }
 </style>
 @endpush
