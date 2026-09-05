@@ -410,6 +410,254 @@
         </div>
     </div>
 
+    <!-- 3. ADMIN OPERATIONAL ACTIONS & ERROR AUDIT TRAIL -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5">
+        <div class="card-header bg-white py-3.5 px-4 border-bottom d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+            <div>
+                <h5 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-list-check text-primary"></i> Admin Operational Actions & Error Audit Trail
+                </h5>
+                <p class="text-muted small mb-0">Tracks all admin navigation paths, record updates, settings modifications, and captures execution success/errors.</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill font-weight-semibold">
+                    <i class="fa-solid fa-bolt me-1"></i> Today: {{ $totalActionsToday }} Actions
+                </span>
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1.5 rounded-pill font-weight-semibold">
+                    <i class="fa-solid fa-pen-to-square me-1"></i> {{ $totalUpdatesToday }} Updates
+                </span>
+                @if($totalErrorsToday > 0)
+                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1.5 rounded-pill font-weight-semibold">
+                    <i class="fa-solid fa-triangle-exclamation me-1"></i> {{ $totalErrorsToday }} Errors / Failures
+                </span>
+                @else
+                <span class="badge bg-light text-muted border px-3 py-1.5 rounded-pill font-weight-semibold">
+                    <i class="fa-solid fa-check me-1"></i> 0 Errors Today
+                </span>
+                @endif
+            </div>
+        </div>
+
+        <!-- Action Logs Filter Bar -->
+        <div class="p-3 bg-light bg-opacity-50 border-bottom">
+            <form action="{{ route('admin.logs.index') }}" method="GET" class="row g-2.5 align-items-center">
+                {{-- Preserve primary logs filters --}}
+                @if(request('user_id')) <input type="hidden" name="user_id" value="{{ request('user_id') }}"> @endif
+                @if(request('status')) <input type="hidden" name="status" value="{{ request('status') }}"> @endif
+                @if(request('search')) <input type="hidden" name="search" value="{{ request('search') }}"> @endif
+                @if(request('page')) <input type="hidden" name="page" value="{{ request('page') }}"> @endif
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                        <input type="text" name="action_search" class="form-control border-start-0" placeholder="Search action, URL, module..." value="{{ request('action_search') }}">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <select name="action_user_id" class="form-select form-select-sm">
+                        <option value="">All Administrators</option>
+                        @foreach($users as $u)
+                            <option value="{{ $u->id }}" {{ request('action_user_id') == $u->id ? 'selected' : '' }}>{{ $u->name }} ({{ $u->role }})</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <select name="action_module" class="form-select form-select-sm">
+                        <option value="">All Modules</option>
+                        @foreach($actionModules as $mod)
+                            <option value="{{ $mod }}" {{ request('action_module') == $mod ? 'selected' : '' }}>{{ $mod }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <select name="action_status" class="form-select form-select-sm">
+                        <option value="">All Statuses</option>
+                        <option value="success" {{ request('action_status') === 'success' ? 'selected' : '' }}>Success (200 / 302)</option>
+                        <option value="failed" {{ request('action_status') === 'failed' ? 'selected' : '' }}>Failed / Validation Error</option>
+                        <option value="error" {{ request('action_status') === 'error' ? 'selected' : '' }}>System Error (500)</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-sm btn-primary flex-grow-1 shadow-sm">
+                        <i class="fa-solid fa-filter me-1"></i> Filter
+                    </button>
+                    @if(request('action_search') || request('action_user_id') || request('action_module') || request('action_status'))
+                        <a href="{{ route('admin.logs.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filters">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
+
+        <!-- Action Logs Table -->
+        <div class="table-responsive">
+            <table class="table table-custom align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th width="50">#</th>
+                        <th>Administrator</th>
+                        <th>Module & Action</th>
+                        <th>Method & Route URL</th>
+                        <th>Status & Errors</th>
+                        <th>Payload Details</th>
+                        <th>Location & IP</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($actionLogs as $act)
+                        <tr class="{{ in_array($act->status, ['failed', 'error']) ? 'bg-danger-subtle bg-opacity-10' : '' }}">
+                            <td class="text-muted small fw-medium font-monospace">{{ $act->id }}</td>
+                            
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm flex-shrink-0" 
+                                         style="width: 32px; height: 32px; font-size: 12px; background: linear-gradient(135deg, #1e293b, #3b82f6);">
+                                        {{ strtoupper(substr($act->admin_name ?: ($act->user->name ?? 'A'), 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark" style="font-size: 13px;">
+                                            {{ $act->admin_name ?: ($act->user->name ?? 'Admin') }}
+                                        </div>
+                                        <span class="badge bg-secondary-subtle text-secondary px-1.5 py-0.5" style="font-size: 9.5px;">
+                                            {{ $act->admin_role ?: 'Administrator' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex flex-column align-items-start">
+                                    <span class="badge bg-light text-dark border px-2 py-1 mb-1 fw-semibold" style="font-size: 11px;">
+                                        {{ $act->module ?: 'General' }}
+                                    </span>
+                                    <span class="fw-medium text-dark" style="font-size: 12.5px;">
+                                        {{ $act->action }}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center gap-1.5">
+                                    @if($act->method === 'POST')
+                                        <span class="badge bg-primary text-white" style="font-size: 10px;">POST</span>
+                                    @elseif($act->method === 'PUT' || $act->method === 'PATCH')
+                                        <span class="badge bg-warning text-dark" style="font-size: 10px;">{{ $act->method }}</span>
+                                    @elseif($act->method === 'DELETE')
+                                        <span class="badge bg-danger text-white" style="font-size: 10px;">DELETE</span>
+                                    @else
+                                        <span class="badge bg-light text-muted border" style="font-size: 10px;">GET</span>
+                                    @endif
+                                    <code class="small text-dark font-monospace text-truncate" style="max-width: 220px; font-size: 11.5px;" title="{{ $act->url }}">
+                                        {{ $act->url }}
+                                    </code>
+                                </div>
+                            </td>
+
+                            <td>
+                                @if($act->status === 'success')
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 font-weight-semibold">
+                                        <i class="fa-solid fa-check me-1"></i> Success ({{ $act->status_code }})
+                                    </span>
+                                @else
+                                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 font-weight-semibold">
+                                        <i class="fa-solid fa-triangle-exclamation me-1"></i> {{ ucfirst($act->status) }} ({{ $act->status_code }})
+                                    </span>
+                                    @if($act->error_message)
+                                        <div class="text-danger small mt-1 font-monospace" style="max-width: 240px; word-break: break-word; font-size: 11px;">
+                                            <i class="fa-solid fa-circle-exclamation me-1"></i> {{ Str::limit($act->error_message, 120) }}
+                                        </div>
+                                    @endif
+                                @endif
+                            </td>
+
+                            <td>
+                                @if(!empty($act->request_data) && is_array($act->request_data))
+                                    <button type="button" 
+                                            class="btn btn-xs btn-outline-secondary px-2 py-1 rounded-pill" 
+                                            style="font-size: 11px;" 
+                                            onclick='openActionPayloadModal({{ json_encode($act->action) }}, {{ json_encode($act->request_data) }})'>
+                                        <i class="fa-solid fa-code me-1 text-primary"></i> View ({{ count($act->request_data) }} params)
+                                    </button>
+                                @else
+                                    <span class="text-muted small">—</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                <div class="text-dark fw-medium small" style="font-size: 12px;">
+                                    <i class="fa-solid fa-location-dot text-danger me-1"></i> {{ $act->location ?: 'Unknown' }}
+                                </div>
+                                <small class="text-muted font-monospace" style="font-size: 11px;">{{ $act->ip_address }}</small>
+                            </td>
+
+                            <td>
+                                <div class="text-dark fw-medium small">
+                                    {{ $act->created_at ? $act->created_at->format('M d, Y h:i A') : 'N/A' }}
+                                </div>
+                                <small class="text-muted">{{ $act->created_at ? $act->created_at->diffForHumans() : '' }}</small>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-clipboard-check fs-1 text-muted opacity-50 mb-2"></i>
+                                <p class="mb-0 fw-semibold">No admin operational action logs recorded yet.</p>
+                                <small class="text-muted">Actions and updates performed by administrators will appear here in real-time.</small>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Summary Footer -->
+        <div class="p-3 border-top d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 bg-light bg-opacity-50">
+            <div class="small text-muted">
+                Showing <span class="fw-bold text-dark">{{ $actionLogs->firstItem() ?? 0 }}</span> to <span class="fw-bold text-dark">{{ $actionLogs->lastItem() ?? 0 }}</span> of <span class="fw-bold text-dark">{{ $actionLogs->total() }}</span> operational action logs
+            </div>
+            @if($actionLogs->hasPages())
+                <div class="pagination-container m-0">
+                    {{ $actionLogs->links() }}
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- MODAL FOR VIEWING PAYLOAD DATA -->
+    <div class="modal fade" id="actionPayloadModal" tabindex="-1" aria-labelledby="actionPayloadModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-header bg-dark text-white py-3 px-4">
+                    <h6 class="modal-title fw-bold d-flex align-items-center gap-2 mb-0" id="actionPayloadModalTitle">
+                        <i class="fa-solid fa-code text-primary"></i> Action Payload Details
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <div class="small text-muted mb-2 fw-semibold">Submitted Parameters & Form Data (Sanitized):</div>
+                    <pre class="bg-dark text-success p-3 rounded-3 mb-0 font-monospace" style="max-height: 420px; overflow: auto; font-size: 12.5px;"><code id="actionPayloadModalContent"></code></pre>
+                </div>
+                <div class="modal-footer bg-white py-2.5 px-4 border-top">
+                    <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openActionPayloadModal(actionTitle, payloadObj) {
+            document.getElementById('actionPayloadModalTitle').innerHTML = '<i class="fa-solid fa-code text-primary"></i> ' + actionTitle;
+            document.getElementById('actionPayloadModalContent').textContent = JSON.stringify(payloadObj, null, 2);
+            new bootstrap.Modal(document.getElementById('actionPayloadModal')).show();
+        }
+    </script>
+
     <!-- STYLING FOR PULSING DOT AND PILL -->
     <style>
         .online-indicator-pill {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminLoginLog;
+use App\Models\AdminActionLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,42 @@ class LoginLogController extends Controller
         $currentSessionId = $request->session()->getId();
         $rootAdminId = User::orderBy('id', 'asc')->value('id') ?: 1;
 
+        // 4. Admin Operational Actions & Error Audit Trail
+        $actionQuery = AdminActionLog::with('user');
+
+        if ($request->filled('action_user_id')) {
+            $actionQuery->where('user_id', $request->action_user_id);
+        }
+
+        if ($request->filled('action_module')) {
+            $actionQuery->where('module', $request->action_module);
+        }
+
+        if ($request->filled('action_status')) {
+            $actionQuery->where('status', $request->action_status);
+        }
+
+        if ($request->filled('action_search')) {
+            $actionSearch = trim($request->action_search);
+            $actionQuery->where(function ($q) use ($actionSearch) {
+                $q->where('action', 'like', "%{$actionSearch}%")
+                  ->orWhere('module', 'like', "%{$actionSearch}%")
+                  ->orWhere('url', 'like', "%{$actionSearch}%")
+                  ->orWhere('admin_name', 'like', "%{$actionSearch}%")
+                  ->orWhere('error_message', 'like', "%{$actionSearch}%")
+                  ->orWhere('ip_address', 'like', "%{$actionSearch}%");
+            });
+        }
+
+        $actionLogs = $actionQuery->orderBy('id', 'desc')->paginate(15, ['*'], 'action_page')->withQueryString();
+
+        // Action Metrics
+        $totalActionsToday = AdminActionLog::whereDate('created_at', today())->count();
+        $totalUpdatesToday = AdminActionLog::whereDate('created_at', today())->whereIn('method', ['POST', 'PUT', 'PATCH', 'DELETE'])->count();
+        $totalErrorsToday = AdminActionLog::whereDate('created_at', today())->whereIn('status', ['failed', 'error'])->count();
+
+        $actionModules = AdminActionLog::distinct()->pluck('module')->filter()->values();
+
         return view('admin.logs.index', compact(
             'totalActiveSessions',
             'onlineNowCount',
@@ -69,7 +106,12 @@ class LoginLogController extends Controller
             'logs',
             'users',
             'currentSessionId',
-            'rootAdminId'
+            'rootAdminId',
+            'actionLogs',
+            'totalActionsToday',
+            'totalUpdatesToday',
+            'totalErrorsToday',
+            'actionModules'
         ));
     }
 
