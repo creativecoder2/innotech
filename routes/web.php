@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\NotificationController as AdminNotificationContro
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -198,6 +199,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('live-chat/{id}/toggle-status', [AdminLiveChatController::class, 'toggleStatus'])->name('live_chat.toggle_status');
     Route::delete('live-chat/{id}', [AdminLiveChatController::class, 'destroy'])->name('live_chat.destroy');
     Route::post('live-chat/settings', [AdminLiveChatController::class, 'saveSettings'])->name('live_chat.settings');
+
+    // Administrators & Roles Management CRUD
+    Route::resource('users', AdminUserController::class)->except(['create', 'show', 'edit']);
+    Route::post('users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle_status');
 });
 
 // Uploads static fallback handler (ensures uploaded images are served reliably in cPanel/Apache/XAMPP)

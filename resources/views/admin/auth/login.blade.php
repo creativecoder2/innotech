@@ -111,10 +111,10 @@
             <form id="loginForm" action="{{ route('admin.login.submit') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label class="form-label font-weight-bold" style="font-size: 14px;">Email Address</label>
+                    <label class="form-label font-weight-bold" style="font-size: 14px;">Email or Phone Number</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-white"><i class="fa-solid fa-envelope text-muted"></i></span>
-                        <input type="email" name="email" class="form-control" placeholder="Enter your email" value="{{ old('email', '') }}" required autofocus autocomplete="email">
+                        <span class="input-group-text bg-white"><i class="fa-solid fa-user-shield text-muted"></i></span>
+                        <input type="text" name="login" class="form-control" placeholder="Enter email or phone number" value="{{ old('login', old('email', '')) }}" required autofocus autocomplete="username">
                     </div>
                 </div>
 

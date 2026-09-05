@@ -24,6 +24,12 @@
                             <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required>
                         </div>
 
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Phone Number <span class="text-muted font-weight-normal">(Optional)</span></label>
+                            <input type="text" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}" placeholder="e.g. +92 331 6699992 or 03316699992">
+                            <small class="text-muted">You can use this phone number or your email to sign in.</small>
+                        </div>
+
                         <hr class="my-4">
 
                         <h6 class="font-weight-bold mb-3" style="color: #002244;">Change Password (Optional)</h6>
@@ -53,12 +59,12 @@
                     <h5>Security & Session Details</h5>
                 </div>
                 <div class="admin-card-body">
-                    <p class="text-muted">Ensure your account credentials are kept secure. You can update your login email and password anytime from this panel.</p>
+                    <p class="text-muted">Ensure your account credentials are kept secure. You can update your login email, phone number, and password anytime from this panel.</p>
                     
                     <div class="p-3 bg-light rounded mb-3">
-                        <strong>Role:</strong> Super Administrator<br>
-                        <strong>Account Status:</strong> <span class="badge bg-success">Active</span><br>
-                        <strong>Last Password Update:</strong> {{ $user->updated_at ? $user->updated_at->format('M d, Y h:i A') : 'Default' }}
+                        <strong>Role:</strong> <span class="badge bg-dark text-white ms-1">{{ $user->role ?: 'Super Administrator' }}</span><br>
+                        <strong>Account Status:</strong> <span class="badge bg-success ms-1">{{ $user->is_active ? 'Active' : 'Disabled' }}</span><br>
+                        <strong>Last Profile Update:</strong> {{ $user->updated_at ? $user->updated_at->format('M d, Y h:i A') : 'Default' }}
                     </div>
                 </div>
             </div>

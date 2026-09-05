@@ -497,6 +497,13 @@
                 <i class="fa-solid fa-user-shield"></i> Admin Profile
             </a>
 
+            <div class="menu-header">Access & Roles</div>
+            <a href="{{ route('admin.users.index') }}" class="nav-item-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-users-gear"></i> Super Admins / Users
+                @php $adminsCount = \App\Models\User::count(); @endphp
+                <span class="badge-highlight">{{ $adminsCount }} Users</span>
+            </a>
+
             <div class="menu-header">Session</div>
             <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf

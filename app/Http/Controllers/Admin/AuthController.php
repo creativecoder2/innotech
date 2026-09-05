@@ -19,19 +19,40 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
+        $loginInput = trim($request->input('login') ?: $request->input('email', ''));
+
+        $request->validate([
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome back to Innotech Admin Portal!');
+        if (empty($loginInput)) {
+            return back()->withErrors([
+                'login' => 'Please enter your email address or phone number.',
+            ])->withInput();
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        // Find user by email or phone
+        $user = \App\Models\User::where('email', $loginInput)
+            ->orWhere('phone', $loginInput)
+            ->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'login' => 'The provided credentials do not match our records.',
+            ])->withInput();
+        }
+
+        // Check if admin account is disabled
+        if (!$user->is_active) {
+            return back()->withErrors([
+                'login' => 'This account has been disabled. Please contact the Super Administrator.',
+            ])->withInput();
+        }
+
+        Auth::login($user, $request->filled('remember'));
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome back to Innotech Admin Portal, ' . $user->name . '!');
     }
 
     public function logout(Request $request)
@@ -54,11 +75,13 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'nullable|string|max:30|unique:users,phone,' . $user->id,
             'password' => 'nullable|min:6|confirmed',
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->filled('phone') ? trim($request->phone) : null;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
