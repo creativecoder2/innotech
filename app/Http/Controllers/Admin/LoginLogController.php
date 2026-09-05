@@ -58,6 +58,7 @@ class LoginLogController extends Controller
         $logs = $query->orderBy('id', 'desc')->paginate(20)->withQueryString();
         $users = User::orderBy('name')->get();
         $currentSessionId = $request->session()->getId();
+        $rootAdminId = User::orderBy('id', 'asc')->value('id') ?: 1;
 
         return view('admin.logs.index', compact(
             'totalActiveSessions',
@@ -67,7 +68,8 @@ class LoginLogController extends Controller
             'activeSessions',
             'logs',
             'users',
-            'currentSessionId'
+            'currentSessionId',
+            'rootAdminId'
         ));
     }
 
@@ -76,16 +78,29 @@ class LoginLogController extends Controller
      */
     public function revokeSession(Request $request, $id)
     {
-        $log = AdminLoginLog::findOrFail($id);
+        $log = AdminLoginLog::with('user')->findOrFail($id);
 
-        // Cannot revoke your own current session from this button
+        // 1. Cannot revoke your own current session from this button
         if ($log->session_id === $request->session()->getId()) {
             return back()->with('error', 'You cannot revoke your own current session. Use the Sign Out button instead.');
         }
 
-        // Only Primary Super Admin or Super Admin can revoke sessions
+        // 2. Main Super Admin session CANNOT be revoked by ANYONE
+        $rootAdminId = User::orderBy('id', 'asc')->value('id') ?: 1;
+        $isRootAdminSession = ($log->user_id === 1) || ($log->user_id === $rootAdminId);
+
+        if ($isRootAdminSession) {
+            return back()->with('error', 'Security Violation: The Primary Super Administrator session is protected and cannot be revoked by anyone.');
+        }
+
+        // 3. Only the Primary Super Admin (ID 1) or authorized Super Admin can revoke sessions
         if (Auth::id() !== 1 && Auth::user()->role !== 'Super Admin') {
-            return back()->with('error', 'Only Super Administrators can revoke active sessions.');
+            return back()->with('error', 'Permission Denied: Only Super Administrators can revoke active sessions.');
+        }
+
+        // 4. Secondary admins cannot revoke another Super Admin's session
+        if (Auth::id() !== 1 && $log->user && $log->user->role === 'Super Admin') {
+            return back()->with('error', 'Permission Denied: You cannot revoke another Super Administrator\'s session.');
         }
 
         $log->update([

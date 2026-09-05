@@ -125,6 +125,8 @@
                         @php
                             $isOnline = $session->is_online;
                             $isCurrent = $session->session_id === $currentSessionId;
+                            $isRootAdmin = ($session->user_id === 1) || ($session->user_id === ($rootAdminId ?? 1));
+                            $canRevoke = !$isCurrent && !$isRootAdmin && (Auth::id() === 1 || Auth::id() === ($rootAdminId ?? 1) || (Auth::user()->role === 'Super Admin' && optional($session->user)->role !== 'Super Admin'));
                         @endphp
                         <tr class="{{ $isCurrent ? 'bg-primary-subtle bg-opacity-10' : '' }}">
                             <td>
@@ -139,6 +141,11 @@
                                     <div>
                                         <div class="fw-bold text-dark d-flex align-items-center gap-1.5">
                                             {{ $session->user->name ?? 'Unknown User' }}
+                                            @if($isRootAdmin)
+                                                <span class="badge bg-warning text-dark border border-warning" style="font-size: 10px;">
+                                                    <i class="fa-solid fa-crown me-0.5"></i> Main Super Admin
+                                                </span>
+                                            @endif
                                             @if($isCurrent)
                                                 <span class="badge bg-primary text-white" style="font-size: 10px;">This Device</span>
                                             @endif
@@ -208,13 +215,19 @@
                             <td class="text-end">
                                 @if($isCurrent)
                                     <span class="badge bg-light text-muted border px-2 py-1 small">Current Session</span>
-                                @else
+                                @elseif($isRootAdmin)
+                                    <span class="badge bg-warning-subtle text-dark border border-warning px-2.5 py-1 small fw-semibold" title="Protected: Main Super Admin session cannot be revoked by anyone">
+                                        <i class="fa-solid fa-shield-halved text-warning me-1"></i> Protected
+                                    </span>
+                                @elseif($canRevoke)
                                     <form action="{{ route('admin.logs.revoke_session', $session->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to remotely terminate this session for {{ $session->user->name ?? 'User' }}? They will be logged out immediately.');">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-outline-danger px-2.5 py-1 d-inline-flex align-items-center gap-1 shadow-sm" title="Revoke and force logout this device">
                                             <i class="fa-solid fa-power-off"></i> Revoke
                                         </button>
                                     </form>
+                                @else
+                                    <span class="badge bg-light text-muted border px-2 py-1 small">Restricted</span>
                                 @endif
                             </td>
                         </tr>
