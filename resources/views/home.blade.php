@@ -380,14 +380,42 @@
                </div>
             </div>
             <div class="banner__shape d-none d-lg-block">
-               <img src="{{ asset(\App\Models\Setting::get('banner_image', 'assets/img/banner/banner-01.png')) }}" alt="banner-img">
                 @php
+                    $sliderImages = json_decode(\App\Models\Setting::get('banner_slider_images', '[]'), true) ?: [];
+                    if (empty($sliderImages)) {
+                        $defaultBanner = \App\Models\Setting::get('banner_image', 'assets/img/banner/banner-01.png');
+                        $sliderImages = [$defaultBanner];
+                    }
                     $videoType = \App\Models\Setting::get('banner_video_type', 'url');
                     $videoUrl = \App\Models\Setting::get('banner_video_url', 'https://www.youtube.com/watch?v=d8w5SICzzxc');
                     $videoFile = \App\Models\Setting::get('banner_video_file');
                     $isLocalVideo = ($videoType === 'upload' && !empty($videoFile));
                     $finalVideoSrc = $isLocalVideo ? asset($videoFile) : $videoUrl;
                 @endphp
+
+                <!-- Hero Banner Swiper Slider with Curved Mask -->
+                <div class="banner-hero-slider-wrapper position-relative w-100 h-100">
+                    <div class="swiper-container banner-hero-swiper h-100">
+                        <div class="swiper-wrapper">
+                            @foreach($sliderImages as $sImg)
+                                <div class="swiper-slide">
+                                    <img src="{{ asset($sImg) }}" alt="Hero Banner Slide" class="banner-slide-img">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    @if(count($sliderImages) > 1)
+                        <!-- Left & Right Hover Navigation Arrows -->
+                        <button type="button" class="banner-slider-arrow banner-slider-prev" aria-label="Previous Slide">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="banner-slider-arrow banner-slider-next" aria-label="Next Slide">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    @endif
+                </div>
+
                 <div class="banner__video-btn">
                     @if($isLocalVideo)
                         <a class="banner__video-icon" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#localVideoModal"><i class="fa-solid fa-play"></i></a>
@@ -1565,7 +1593,114 @@
       }
    });
 
+   // Initialize Hero Banner Autoplay Swiper Slider
+   if (document.querySelector('.banner-hero-swiper')) {
+      const slideCount = document.querySelectorAll('.banner-hero-swiper .swiper-slide').length;
+      new Swiper('.banner-hero-swiper', {
+         loop: slideCount > 1,
+         effect: 'fade',
+         fadeEffect: {
+            crossFade: true
+         },
+         speed: 1000,
+         autoplay: slideCount > 1 ? {
+            delay: 4500,
+            disableOnInteraction: false,
+         } : false,
+         navigation: {
+            nextEl: '.banner-slider-next',
+            prevEl: '.banner-slider-prev',
+         },
+      });
+   }
+
 })();
 </script>
 @endpush
 
+@push('styles')
+<style>
+/* Hero Banner Right Swiper Slider Styles */
+.banner__shape {
+    overflow: hidden;
+    border-radius: 0px 0px 362px 362px;
+}
+.banner-hero-slider-wrapper {
+    overflow: hidden;
+    border-radius: 0px 0px 362px 362px;
+    width: 100%;
+    height: 100%;
+}
+.banner-hero-swiper {
+    width: 100%;
+    height: 100%;
+}
+.banner-hero-swiper .swiper-slide {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.banner-slide-img {
+    border-radius: 0px 0px 362px 362px;
+    width: 100%;
+    height: 930px;
+    object-fit: cover;
+    display: block;
+}
+@media only screen and (min-width: 1400px) and (max-width: 1600px) {
+    .banner-slide-img { height: 700px; }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+    .banner-slide-img { height: 630px; }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .banner-slide-img { height: 600px; }
+}
+
+/* Hover Navigation Arrows */
+.banner-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 15;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 34, 68, 0.75);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.banner-slider-prev {
+    left: 25px;
+}
+.banner-slider-next {
+    right: 25px;
+}
+.banner__shape:hover .banner-slider-arrow {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.banner-slider-arrow:hover {
+    background: #0E63FF;
+    border-color: #0E63FF;
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 25px rgba(14, 99, 255, 0.45);
+}
+.banner__video-btn {
+    z-index: 20;
+}
+</style>
+@endpush

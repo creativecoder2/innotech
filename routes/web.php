@@ -110,6 +110,7 @@ Route::middleware(['auth', \App\Http\Middleware\TrackAdminActivity::class])->pre
     Route::get('home-sections', [AdminHomeSectionsController::class, 'index'])->name('home_sections.index');
     Route::post('home-sections/save', [AdminHomeSectionsController::class, 'saveSection'])->name('home_sections.save');
     Route::post('home-sections/toggle', [AdminHomeSectionsController::class, 'toggleSection'])->name('home_sections.toggle');
+    Route::post('home-sections/banner-slider-image/delete', [AdminHomeSectionsController::class, 'deleteBannerSliderImage'])->name('home_sections.delete_banner_slider_image');
 
     // Navigation Menu Management
     Route::post('nav-menus', [AdminNavMenuController::class, 'store'])->name('nav_menus.store');

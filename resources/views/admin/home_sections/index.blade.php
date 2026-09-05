@@ -632,13 +632,75 @@
                             </div>
                         </div>
 
+                        @php
+                            $sliderImages = json_decode($settings['banner_slider_images'] ?? '[]', true) ?: [];
+                        @endphp
+                        <div class="col-12 mb-4">
+                            <div class="p-3.5 border rounded-3 bg-white shadow-sm" style="border-left: 4px solid #0E63FF !important;">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
+                                    <label class="form-label fw-bold text-dark mb-0 fs-6">
+                                        <i class="fa-solid fa-images text-primary me-1.5"></i> Banner Hero Slider Images (Multiple Images Autoplay)
+                                    </label>
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill font-weight-semibold" id="sliderImagesCountBadge">
+                                        {{ count($sliderImages) }} Slider {{ count($sliderImages) === 1 ? 'Image' : 'Images' }} Active
+                                    </span>
+                                </div>
+                                <p class="text-muted small mb-3">
+                                    Yahan multiple images ek sath select karke upload kar sakte hain. Website ke hero section mein right-side par ye images auto-play slider ke sath chalengi aur mouse le jaane par Left/Right navigation arrows aayenge.
+                                </p>
+
+                                <!-- Multiple Upload Input -->
+                                <div class="mb-3 bg-light p-3 rounded-3 border">
+                                    <label class="form-label small fw-bold text-dark mb-1">Upload New Slider Images (Multiple Allowed):</label>
+                                    <input type="file" name="banner_slider_images[]" class="form-control" multiple accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+                                    <small class="text-muted d-block mt-1">
+                                        <i class="fa-solid fa-circle-info text-primary me-1"></i> Tip: Hold <strong>Ctrl</strong> (or <strong>Cmd</strong> on Mac) to select multiple images from your computer at once.
+                                    </small>
+                                </div>
+
+                                <!-- Current Slider Images Gallery Preview -->
+                                <div id="sliderImagesGalleryContainer">
+                                    @if(count($sliderImages) > 0)
+                                        <label class="form-label small fw-bold text-dark mb-2">Active Slider Images (Slide Order):</label>
+                                        <div class="row g-3" id="activeSliderImagesRow">
+                                            @foreach($sliderImages as $idx => $sImg)
+                                                <div class="col-6 col-sm-4 col-md-3 col-lg-2 slider-image-item">
+                                                    <div class="card h-100 border position-relative shadow-sm rounded-3 overflow-hidden">
+                                                        <span class="position-absolute top-0 start-0 m-1.5 badge bg-dark bg-opacity-75 text-white" style="font-size: 10px; z-index: 2;">
+                                                            #{{ $idx + 1 }}
+                                                        </span>
+                                                        <div class="d-flex align-items-center justify-content-center bg-light p-1" style="height: 110px;">
+                                                            <img src="{{ asset($sImg) }}" alt="Slider Image" class="img-fluid rounded-2" style="max-height: 100px; max-width: 100%; object-fit: cover;">
+                                                        </div>
+                                                        <div class="card-footer bg-white p-1.5 border-top text-center">
+                                                            <button type="button" 
+                                                                    class="btn btn-xs btn-outline-danger w-100 py-1 d-flex align-items-center justify-content-center gap-1 rounded-2"
+                                                                    onclick="deleteSliderImage('{{ $sImg }}', this)">
+                                                                <i class="fa-solid fa-trash-can" style="font-size: 11px;"></i> <span style="font-size: 11px;">Delete</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="p-3 bg-light rounded-3 text-center border border-dashed" id="noSliderImagesNotice">
+                                            <i class="fa-solid fa-photo-film text-muted fs-3 mb-1"></i>
+                                            <p class="text-muted small mb-0">Abhi koi multiple slider image upload nahi hui. Default single banner image use ho rahi hai.</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Single Default Fallback Image -->
                         <div class="col-12 mb-3">
-                            <label class="form-label fw-bold"><i class="fa-solid fa-image text-primary me-1"></i> Banner Right Doctor / Hero Image</label>
-                            <div class="d-flex align-items-center gap-3 p-3 border rounded-3 bg-light">
-                                <img src="{{ asset($settings['banner_image'] ?? 'assets/img/banner/banner-01.png') }}" alt="Current Banner" class="border bg-white p-2 rounded-2" style="max-height: 80px; max-width: 120px; object-fit: contain;">
+                            <label class="form-label fw-semibold text-muted small"><i class="fa-solid fa-image me-1"></i> Default / Single Fallback Banner Image</label>
+                            <div class="d-flex align-items-center gap-3 p-2.5 border rounded-3 bg-light">
+                                <img src="{{ asset($settings['banner_image'] ?? 'assets/img/banner/banner-01.png') }}" alt="Current Banner" class="border bg-white p-2 rounded-2" style="max-height: 60px; max-width: 100px; object-fit: contain;">
                                 <div class="flex-grow-1">
-                                    <input type="file" name="banner_image" class="form-control" accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
-                                    <small class="text-muted">Upload high-res PNG image with transparent background (e.g. 500x600px).</small>
+                                    <input type="file" name="banner_image" class="form-control form-control-sm" accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+                                    <small class="text-muted" style="font-size: 11px;">Fallback image used if no multiple slider images are active.</small>
                                 </div>
                             </div>
                         </div>
@@ -3113,5 +3175,69 @@ $(document).ready(function() {
         }
     });
 });
+
+// 11. Delete Banner Hero Slider Image Handler
+window.deleteSliderImage = function(imagePath, btnElement) {
+    Swal.fire({
+        title: 'Delete Slider Image?',
+        text: "Yeh image home page hero slider se permanently remove ho jayegi.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '<i class="fa-solid fa-trash-can me-1"></i> Yes, Delete it',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const btn = $(btnElement);
+            btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i>');
+
+            $.ajax({
+                url: "{{ route('admin.home_sections.delete_banner_slider_image') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    image_path: imagePath
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const itemCol = btn.closest('.slider-image-item');
+                        itemCol.fadeOut(300, function() {
+                            $(this).remove();
+                            // Update remaining count badge
+                            const count = $('#activeSliderImagesRow .slider-image-item').length;
+                            $('#sliderImagesCountBadge').text(count + ' Slider ' + (count === 1 ? 'Image' : 'Images') + ' Active');
+                            if (count === 0) {
+                                $('#sliderImagesGalleryContainer').html(`
+                                    <div class="p-3 bg-light rounded-3 text-center border border-dashed" id="noSliderImagesNotice">
+                                        <i class="fa-solid fa-photo-film text-muted fs-3 mb-1"></i>
+                                        <p class="text-muted small mb-0">Abhi koi multiple slider image upload nahi hui. Default single banner image use ho rahi hai.</p>
+                                    </div>
+                                `);
+                            }
+                        });
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted',
+                            text: 'Slider image deleted successfully!',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                    } else {
+                        btn.prop('disabled', false).html('<i class="fa-solid fa-trash-can"></i> Delete');
+                        Swal.fire('Error', response.message || 'Could not delete image', 'error');
+                    }
+                },
+                error: function() {
+                    btn.prop('disabled', false).html('<i class="fa-solid fa-trash-can"></i> Delete');
+                    Swal.fire('Error', 'Server error while deleting image.', 'error');
+                }
+            });
+        }
+    });
+};
 </script>
 @endpush

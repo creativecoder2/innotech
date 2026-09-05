@@ -75,7 +75,8 @@ class HomeSectionsController extends Controller
                 'sidebar_logo',
                 'sidebar_gallery_img_1',
                 'sidebar_gallery_img_2',
-                'sidebar_gallery_img_3'
+                'sidebar_gallery_img_3',
+                'banner_slider_images'
             ];
             
             // Remove file keys from standard data array so unselected file inputs do NOT overwrite existing image/video paths
@@ -83,9 +84,27 @@ class HomeSectionsController extends Controller
                 unset($data[$fKey]);
             }
 
+            // Handle multiple banner slider image uploads
+            if ($request->hasFile('banner_slider_images')) {
+                $sliderFiles = $request->file('banner_slider_images');
+                if (is_array($sliderFiles)) {
+                    $existingSlider = json_decode(Setting::get('banner_slider_images', '[]'), true) ?: [];
+                    foreach ($sliderFiles as $sFile) {
+                        if ($sFile && $sFile->isValid()) {
+                            $path = UploadHelper::uploadImage($sFile, 'uploads/sections');
+                            $existingSlider[] = $path;
+                        }
+                    }
+                    Setting::set('banner_slider_images', json_encode(array_values($existingSlider)));
+                }
+            }
+
             $uploadedImages = [];
             // Handle file uploads with universal format support
             foreach ($request->allFiles() as $key => $file) {
+                if ($key === 'banner_slider_images') {
+                    continue;
+                }
                 if ($file && $file->isValid()) {
                     if ($key === 'banner_video_file') {
                         $path = UploadHelper::uploadFile($file, 'uploads/videos');
@@ -463,5 +482,38 @@ class HomeSectionsController extends Controller
             'new_status' => (bool)$item->{$field},
             'message' => 'Status updated successfully!'
         ]);
+    }
+
+    /**
+     * Delete a single image from the banner hero slider
+     */
+    public function deleteBannerSliderImage(Request $request)
+    {
+        $imagePath = $request->input('image_path');
+        if (!empty($imagePath)) {
+            $sliderImages = json_decode(Setting::get('banner_slider_images', '[]'), true) ?: [];
+            $sliderImages = array_values(array_filter($sliderImages, function ($img) use ($imagePath) {
+                return $img !== $imagePath;
+            }));
+            Setting::set('banner_slider_images', json_encode($sliderImages));
+
+            // Delete physical file if inside uploads directory
+            $fullPath = public_path($imagePath);
+            if (file_exists($fullPath) && str_contains($imagePath, 'uploads/')) {
+                @unlink($fullPath);
+            }
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Banner slider image deleted successfully!',
+                    'remaining_images' => $sliderImages,
+                ]);
+            }
+
+            return back()->with('success', 'Banner slider image deleted successfully!');
+        }
+
+        return back()->with('error', 'Image path is missing.');
     }
 }
