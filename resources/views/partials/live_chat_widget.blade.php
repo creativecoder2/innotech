@@ -88,7 +88,7 @@
                 @csrf
                 <div class="mb-2">
                     <label class="form-label small fw-semibold text-dark mb-1">Your Full Name <span class="text-danger">*</span></label>
-                    <input type="text" name="name" id="chat_name" class="form-control form-control-sm" placeholder="e.g. Dr. Salman Khan" required>
+                    <input type="text" name="name" id="chat_name" class="form-control form-control-sm" placeholder="Your Full Name" required>
                 </div>
 
                 <div class="mb-2">
@@ -98,12 +98,12 @@
 
                 <div class="mb-2">
                     <label class="form-label small fw-semibold text-dark mb-1">Email Address <span class="text-muted fw-normal">(Optional)</span></label>
-                    <input type="email" name="email" id="chat_email" class="form-control form-control-sm" placeholder="e.g. doctor@hospital.com">
+                    <input type="email" name="email" id="chat_email" class="form-control form-control-sm" placeholder="info@innotechmed.com">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label small fw-semibold text-dark mb-1">Initial Query / Message <span class="text-danger">*</span></label>
-                    <textarea name="message" id="chat_message" class="form-control form-control-sm" rows="3" placeholder="Describe equipment or service inquiry..." required></textarea>
+                    <textarea name="message" id="chat_message" class="form-control form-control-sm" rows="3" placeholder="Send inquiry" required></textarea>
                 </div>
 
                 <div id="chatStartError" class="alert alert-danger py-2 px-3 small mb-2 d-none" style="font-size: 12px; border-radius: 6px;"></div>
