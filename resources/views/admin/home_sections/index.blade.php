@@ -1254,9 +1254,10 @@
                 <table class="table table-custom">
                     <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Category / Tag</th>
+                            <th>Cover</th>
+                            <th>Title & Details</th>
+                            <th>Category</th>
+                            <th>Total Photos</th>
                             <th>Order</th>
                             <th>Status</th>
                             <th class="text-end">Actions</th>
@@ -1266,10 +1267,25 @@
                         @forelse($galleryItems as $item)
                             <tr>
                                 <td>
-                                    <img src="{{ asset($item->image) }}" alt="" style="width: 60px; height: 45px; object-fit: cover; border-radius: 6px;">
+                                    <div class="position-relative d-inline-block">
+                                        <img src="{{ asset($item->image) }}" alt="" style="width: 65px; height: 48px; object-fit: cover; border-radius: 6px;" class="border shadow-xs">
+                                    </div>
                                 </td>
-                                <td class="fw-bold">{{ $item->title }}</td>
-                                <td><span class="badge bg-light text-primary">{{ $item->category ?: 'General' }}</span></td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ $item->title }}</div>
+                                    @if($item->description)
+                                        <small class="text-muted d-block text-truncate" style="max-width: 250px;">{{ Str::limit($item->description, 60) }}</small>
+                                    @endif
+                                    <a href="{{ route('gallery.detail', $item->id) }}" target="_blank" class="small text-primary text-decoration-none d-inline-flex align-items-center gap-1 mt-0.5">
+                                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i> View Album Page
+                                    </a>
+                                </td>
+                                <td><span class="badge bg-light text-primary border">{{ $item->category ?: 'General' }}</span></td>
+                                <td>
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2.5 py-1.5 rounded-pill font-weight-semibold">
+                                        <i class="fa-solid fa-images me-1"></i> {{ $item->photos_count }} {{ $item->photos_count === 1 ? 'Photo' : 'Photos' }}
+                                    </span>
+                                </td>
                                 <td>{{ $item->order }}</td>
                                 <td>
                                     <button type="button" class="btn btn-sm py-1 px-3 rounded-pill fw-semibold item-ajax-toggle {{ $item->is_active ? 'btn-success text-white' : 'btn-light text-muted border' }}" data-type="gallery" data-id="{{ $item->id }}">
@@ -1277,17 +1293,17 @@
                                     </button>
                                 </td>
                                 <td class="text-end">
-                                    <button type="button" class="btn btn-sm btn-light text-primary me-1" data-bs-toggle="modal" data-bs-target="#editGalleryModal{{ $item->id }}"><i class="fa-solid fa-pen"></i></button>
-                                    <form action="{{ route('admin.home_sections.gallery.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this gallery item?')">
+                                    <button type="button" class="btn btn-sm btn-light text-primary me-1" data-bs-toggle="modal" data-bs-target="#editGalleryModal{{ $item->id }}" title="Edit Album"><i class="fa-solid fa-pen"></i></button>
+                                    <form action="{{ route('admin.home_sections.gallery.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this gallery album and all its photos?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-sm btn-light text-danger" title="Delete Album"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">No gallery items added yet.</td>
+                                <td colspan="7" class="text-center text-muted py-4">No gallery items added yet.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -2005,39 +2021,79 @@
 
 <!-- Add Gallery Modal -->
 <div class="modal fade" id="addGalleryModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow">
             <form action="{{ route('admin.home_sections.gallery.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-plus text-primary me-2"></i> Add Gallery Item</h5>
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-plus text-primary me-2"></i> Add Gallery Item / Album</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" required placeholder="e.g. COVID ANALYSIS">
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label class="form-label fw-semibold">Album / Project Title <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control" required placeholder="e.g. COVID ANALYSIS or NEUROLOGICAL LAB">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label fw-semibold">Category / Tag</label>
+                            <input type="text" name="category" class="form-control" placeholder="e.g. Radiologist, Forensic, ICU">
+                        </div>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label">Category / Tag</label>
-                        <input type="text" name="category" class="form-control" placeholder="e.g. Radiologist">
+                        <label class="form-label fw-semibold">Description / Overview <small class="text-muted">(Optional)</small></label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Brief details about this biomedical facility, project, or event..."></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Upload Image</label>
-                        <input type="file" name="image" class="form-control" required accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Main / Cover Image <span class="text-danger">*</span></label>
+                            <input type="file" name="image" class="form-control" required accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+                            <small class="text-muted">Card ke bahir display hone wali main thumbnail image.</small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Sort Order</label>
+                            <input type="number" name="order" class="form-control" value="0">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sort Order</label>
-                        <input type="number" name="order" class="form-control" value="0">
+
+                    <!-- Multiple Inner Images Upload Box -->
+                    <div class="mb-3 p-3.5 bg-light rounded-3 border">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <label class="form-label fw-bold text-dark mb-0">
+                                <i class="fa-solid fa-images text-primary me-1"></i> Inner Multiple Images (Album Slider)
+                            </label>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-weight-semibold">Multiple Allowed</span>
+                        </div>
+                        <p class="text-muted small mb-2">
+                            Card click hone par jo full-screen slideshow open hoga, usme ye sari images show hongi.
+                        </p>
+                        <input type="file" name="gallery_images[]" class="form-control" multiple accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+                        <small class="text-muted d-block mt-1">
+                            <i class="fa-solid fa-circle-info text-primary me-1"></i> Tip: Hold <strong>Ctrl</strong> (or <strong>Cmd</strong> on Mac) to select multiple images from your computer at once.
+                        </small>
                     </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" name="is_active" value="1" checked id="galleryActive">
-                        <label class="form-check-label" for="galleryActive">Active Status</label>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Client / Hospital Name <small class="text-muted">(Optional)</small></label>
+                            <input type="text" name="client" class="form-control" placeholder="e.g. Al-Shifa Hospital">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Date / Year <small class="text-muted">(Optional)</small></label>
+                            <input type="text" name="date" class="form-control" placeholder="e.g. August 2026">
+                        </div>
+                    </div>
+
+                    <div class="form-check form-switch p-3 border rounded bg-light d-flex justify-content-between align-items-center">
+                        <label class="form-check-label fw-semibold mb-0" for="galleryActive">Active Status</label>
+                        <input class="form-check-input m-0" type="checkbox" name="is_active" value="1" checked id="galleryActive" style="cursor: pointer; width: 2.5rem; height: 1.3rem;">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-theme">Add Item</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check me-1"></i> Add Gallery Item</button>
                 </div>
             </form>
         </div>
@@ -2435,46 +2491,128 @@
 <!-- Edit Gallery Modals -->
 @foreach($galleryItems as $editGal)
 <div class="modal fade" id="editGalleryModal{{ $editGal->id }}" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow">
             <form action="{{ route('admin.home_sections.gallery.update', $editGal->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-header bg-light">
-                    <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-pen-to-square text-primary me-2"></i> Edit Gallery Item</h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <h5 class="modal-title fw-bold text-dark mb-0">
+                            <i class="fa-solid fa-pen-to-square text-primary me-1.5"></i> Edit Gallery Album: {{ $editGal->title }}
+                        </h5>
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-weight-semibold">
+                            {{ $editGal->photos_count }} {{ $editGal->photos_count === 1 ? 'Photo' : 'Photos' }} Total
+                        </span>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Title</label>
-                        <input type="text" name="title" class="form-control" value="{{ $editGal->title }}" required>
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label class="form-label fw-semibold">Album / Project Title <span class="text-danger">*</span></label>
+                            <input type="text" name="title" class="form-control" value="{{ $editGal->title }}" required>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label fw-semibold">Category / Tag</label>
+                            <input type="text" name="category" class="form-control" value="{{ $editGal->category }}">
+                        </div>
                     </div>
+
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Category / Tag</label>
-                        <input type="text" name="category" class="form-control" value="{{ $editGal->category }}">
+                        <label class="form-label fw-semibold">Description / Overview <small class="text-muted">(Optional)</small></label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Brief details about this biomedical facility, project, or event...">{{ $editGal->description }}</textarea>
                     </div>
+
+                    <!-- Main Cover Image -->
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Current Image</label>
-                        <div class="d-flex align-items-center gap-3 p-2 border rounded bg-light mb-2">
-                            <img src="{{ asset($editGal->image) }}" alt="" style="max-height: 60px; max-width: 100px; object-fit: cover; border-radius: 4px;">
+                        <label class="form-label fw-semibold">Main / Cover Image <small class="text-muted">(Card Thumbnail)</small></label>
+                        <div class="d-flex align-items-center gap-3 p-2.5 border rounded-3 bg-light">
+                            <img src="{{ asset($editGal->image) }}" alt="" style="height: 65px; width: 95px; object-fit: cover; border-radius: 6px;" class="border shadow-xs">
                             <div class="flex-grow-1">
                                 <input type="file" name="image" class="form-control" accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
-                                <small class="text-muted">Upload new photo to replace</small>
+                                <small class="text-muted d-block mt-0.5">Cover image ko replace karne ke liye nayi file select karein.</small>
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Sort Order</label>
-                        <input type="number" name="order" class="form-control" value="{{ $editGal->order }}">
+
+                    <!-- Existing Inner Photos Gallery -->
+                    <div class="mb-3 p-3 bg-light rounded-3 border">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2 pb-2 border-bottom">
+                            <label class="form-label fw-bold text-dark mb-0">
+                                <i class="fa-solid fa-images text-primary me-1"></i> Active Inner Album Photos ({{ count($editGal->inner_images) }})
+                            </label>
+                            <span class="text-muted small">Full slide preview mein ye images aayengi</span>
+                        </div>
+
+                        @if(count($editGal->inner_images) > 0)
+                            <div class="row g-2 mb-2">
+                                @foreach($editGal->inner_images as $idx => $innerImg)
+                                    <div class="col-6 col-sm-4 col-md-3 inner-img-card-{{ $editGal->id }}-{{ $idx }}">
+                                        <div class="card h-100 border shadow-xs rounded-2 overflow-hidden bg-white position-relative">
+                                            <span class="position-absolute top-0 start-0 m-1 badge bg-dark bg-opacity-75 text-white" style="font-size: 10px; z-index: 2;">
+                                                Slide #{{ $idx + 2 }}
+                                            </span>
+                                            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 85px;">
+                                                <img src="{{ asset($innerImg) }}" alt="" class="img-fluid rounded-1" style="max-height: 80px; max-width: 100%; object-fit: cover;">
+                                            </div>
+                                            <div class="card-footer bg-white p-1 text-center border-top">
+                                                <button type="button" class="btn btn-xs btn-outline-danger w-100 py-1 delete-inner-photo-btn"
+                                                    data-url="{{ route('admin.home_sections.gallery.delete_image', $editGal->id) }}"
+                                                    data-path="{{ $innerImg }}"
+                                                    data-target=".inner-img-card-{{ $editGal->id }}-{{ $idx }}">
+                                                    <i class="fa-solid fa-trash me-1"></i> Delete
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="alert alert-light border py-2 px-3 small text-muted mb-2 rounded-2">
+                                <i class="fa-solid fa-info-circle text-primary me-1"></i> Filhal is album mein sirf main cover image hai. Neeche se mazeed images upload karein.
+                            </div>
+                        @endif
+
+                        <!-- Upload More Photos to Album -->
+                        <div class="mt-2 pt-2 border-top">
+                            <label class="form-label small fw-bold text-dark mb-1">
+                                <i class="fa-solid fa-cloud-arrow-up text-primary me-1"></i> Add More Photos to this Album:
+                            </label>
+                            <input type="file" name="gallery_images[]" class="form-control form-control-sm" multiple accept="image/*,.jfif,.png,.jpg,.jpeg,.webp,.svg,.gif,.avif,.bmp">
+                            <small class="text-muted d-block mt-0.5" style="font-size: 11px;">
+                                Multiple images select karke "Update Album" click karein. Ye naye photos purani images ke sath add ho jayengi.
+                            </small>
+                        </div>
                     </div>
-                    <div class="form-check form-switch p-3 border rounded bg-light d-flex justify-content-between align-items-center">
-                        <label class="form-check-label fw-semibold mb-0" for="galActive{{ $editGal->id }}">Active Status</label>
-                        <input class="form-check-input m-0" type="checkbox" name="is_active" value="1" {{ $editGal->is_active ? 'checked' : '' }} id="galActive{{ $editGal->id }}" style="cursor: pointer; width: 2.5rem; height: 1.3rem;">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Client / Hospital Name <small class="text-muted">(Optional)</small></label>
+                            <input type="text" name="client" class="form-control" value="{{ $editGal->client }}" placeholder="e.g. Al-Shifa Hospital">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Date / Year <small class="text-muted">(Optional)</small></label>
+                            <input type="text" name="date" class="form-control" value="{{ $editGal->date }}" placeholder="e.g. August 2026">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">Sort Order</label>
+                            <input type="number" name="order" class="form-control" value="{{ $editGal->order }}">
+                        </div>
+                        <div class="col-md-6 mb-3 d-flex align-items-end">
+                            <div class="form-check form-switch p-2.5 border rounded-3 bg-light w-100 d-flex justify-content-between align-items-center">
+                                <label class="form-check-label fw-semibold mb-0" for="galActive{{ $editGal->id }}">Active Status</label>
+                                <input class="form-check-input m-0" type="checkbox" name="is_active" value="1" {{ $editGal->is_active ? 'checked' : '' }} id="galActive{{ $editGal->id }}" style="cursor: pointer; width: 2.5rem; height: 1.3rem;">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check me-1"></i> Update Item</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check me-1"></i> Update Album</button>
                 </div>
             </form>
         </div>
@@ -3379,6 +3517,60 @@ window.deleteSliderImage = function(imagePath, btnElement) {
                 }
             });
         }
+    });
+    // 12. Delete Inner Photo from Gallery Album
+    $(document).on('click', '.delete-inner-photo-btn', function(e) {
+        e.preventDefault();
+        const btn = $(this);
+        const url = btn.data('url');
+        const imagePath = btn.data('path');
+        const targetCard = $(btn.data('target'));
+
+        Swal.fire({
+            title: 'Delete this photo?',
+            text: "Yeh photo is gallery album se remove ho jayegi.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: '<i class="fa-solid fa-trash me-1"></i> Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i>');
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        image_path: imagePath
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            targetCard.fadeOut(300, function() {
+                                $(this).remove();
+                            });
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Removed',
+                                text: response.message || 'Image removed from album!',
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        } else {
+                            btn.prop('disabled', false).html('<i class="fa-solid fa-trash me-1"></i> Delete');
+                            Swal.fire('Error', response.message || 'Could not delete image', 'error');
+                        }
+                    },
+                    error: function() {
+                        btn.prop('disabled', false).html('<i class="fa-solid fa-trash me-1"></i> Delete');
+                        Swal.fire('Error', 'Server error while deleting image.', 'error');
+                    }
+                });
+            }
+        });
     });
 };
 </script>

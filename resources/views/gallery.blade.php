@@ -330,6 +330,45 @@
       box-shadow: 0px 16px 32px rgba(189, 196, 205, 0.14);
       border: 1px solid var(--tp-border-primary, #ECEEF3);
    }
+
+   /* Album Photos Count Badge & Link */
+   .gallery-album-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(14, 99, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #ffffff !important;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 50px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.18);
+      z-index: 4;
+      pointer-events: none;
+      transition: all 0.3s ease;
+   }
+   .tp-gallery-grid-item:hover .gallery-album-badge {
+      background: #0E63FF;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14, 99, 255, 0.4);
+   }
+   .gallery-album-link-btn {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #0E63FF !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.25s ease;
+      text-decoration: none !important;
+   }
+   .gallery-album-link-btn:hover {
+      color: #0a4ecc !important;
+      transform: translateX(3px);
+   }
 </style>
 @endpush
 
@@ -387,18 +426,41 @@
             @forelse($galleryItems as $g)
                @php
                   $catSlug = Str::slug($g->category ?: 'general');
+                  $albumImages = $g->all_images;
+                  $detailUrl = route('gallery.detail', $g->id);
                @endphp
                <div class="col-xl-4 col-lg-4 col-md-6 col-12 gallery-filter-item mb-30 wow fadeInUp" data-wow-delay=".3s" data-category="{{ $catSlug }}">
-                  <div class="tp-gallery-grid-item">
+                  <div class="tp-gallery-grid-item gallery-album-item" data-album-id="gal-page-{{ $g->id }}">
                      <div class="tp-gallery__img p-relative">
                         <img src="{{ asset($g->image) }}" alt="{{ $g->title }}">
+                        @if(count($albumImages) > 1)
+                           <span class="gallery-album-badge">
+                              <i class="fa-solid fa-images me-1"></i> {{ count($albumImages) }} Photos
+                           </span>
+                        @endif
                         <div class="tp-gallery__info">
-                           <a class="popup-image" href="{{ asset($g->image) }}" title="{{ $g->title }} - {{ $g->category ?: 'Innotech Medical' }}"><i class="fa-solid fa-plus"></i></a>
+                           <!-- First image triggers slideshow of this album -->
+                           <a class="album-popup-btn" href="{{ asset($albumImages[0]) }}" title="{{ $g->title }} (1 of {{ count($albumImages) }})"><i class="fa-solid fa-plus"></i></a>
+                           <!-- Hidden inner slides -->
+                           @if(count($albumImages) > 1)
+                              <div class="d-none">
+                                 @foreach($albumImages as $idx => $sImg)
+                                    @if($idx > 0)
+                                       <a class="album-popup-btn" href="{{ asset($sImg) }}" title="{{ $g->title }} ({{ $idx + 1 }} of {{ count($albumImages) }})"></a>
+                                    @endif
+                                 @endforeach
+                              </div>
+                           @endif
                         </div>
                      </div>
                      <div class="tp-gallery__content">
-                        <h4 class="tp-gallery__title"><a class="popup-image" href="{{ asset($g->image) }}" title="{{ $g->title }} - {{ $g->category ?: 'Innotech Medical' }}">{{ $g->title }}</a></h4>
-                        <span><i class="fa-solid fa-tag"></i><a href="javascript:void(0)">{{ $g->category ?: 'General' }}</a></span>
+                        <h4 class="tp-gallery__title"><a href="{{ $detailUrl }}" title="View {{ $g->title }} Album">{{ $g->title }}</a></h4>
+                        <div class="d-flex align-items-center justify-content-between pt-1">
+                           <span><i class="fa-solid fa-tag"></i><a href="javascript:void(0)">{{ $g->category ?: 'General' }}</a></span>
+                           <a href="{{ $detailUrl }}" class="gallery-album-link-btn" title="View Album Page">
+                              View Album <i class="fa-solid fa-arrow-right-long ms-1"></i>
+                           </a>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -528,41 +590,42 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-   // Initialize Magnific Popup with full Gallery Next / Prev Navigation & Crisp Vector SVGs
+   // Initialize Magnific Popup per Album item
    function initGalleryPopup() {
-      $('#galleryGridList').magnificPopup({
-         delegate: '.gallery-filter-item:visible .popup-image',
-         type: 'image',
-         gallery: {
-            enabled: true,
-            navigateByImgClick: true,
-            preload: [0, 2],
-            tPrev: 'Previous',
-            tNext: 'Next',
-            tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
-         },
-         closeMarkup: '<button title="%title%" type="button" class="mfp-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>',
-         image: {
-            titleSrc: function(item) {
-               return item.el.attr('title') || '';
-            }
-         },
-         mainClass: 'mfp-fade mfp-with-zoom',
-         removalDelay: 300,
-         callbacks: {
-            buildControls: function() {
-               // Inject crisp theme SVG vector arrows
-               this.contentContainer.find('.mfp-arrow-left').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>');
-               this.contentContainer.find('.mfp-arrow-right').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
+      $('.gallery-album-item').each(function() {
+         $(this).magnificPopup({
+            delegate: '.album-popup-btn',
+            type: 'image',
+            gallery: {
+               enabled: true,
+               navigateByImgClick: true,
+               preload: [0, 2],
+               tPrev: 'Previous (Left Arrow)',
+               tNext: 'Next (Right Arrow)',
+               tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
             },
-            change: function() {
-               var self = this;
-               setTimeout(function() {
-                  self.contentContainer.find('.mfp-arrow-left').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>');
-                  self.contentContainer.find('.mfp-arrow-right').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
-               }, 10);
+            closeMarkup: '<button title="%title%" type="button" class="mfp-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>',
+            image: {
+               titleSrc: function(item) {
+                  return item.el.attr('title') || '';
+               }
+            },
+            mainClass: 'mfp-fade mfp-with-zoom',
+            removalDelay: 300,
+            callbacks: {
+               buildControls: function() {
+                  this.contentContainer.find('.mfp-arrow-left').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>');
+                  this.contentContainer.find('.mfp-arrow-right').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
+               },
+               change: function() {
+                  var self = this;
+                  setTimeout(function() {
+                     self.contentContainer.find('.mfp-arrow-left').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>');
+                     self.contentContainer.find('.mfp-arrow-right').html('<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
+                  }, 10);
+               }
             }
-         }
+         });
       });
    }
 

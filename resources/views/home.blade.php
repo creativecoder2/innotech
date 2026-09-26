@@ -679,17 +679,40 @@
                      <div class="swiper-wrapper">
                         @if(isset($galleryItems) && $galleryItems->count() > 0)
                            @foreach($galleryItems as $g)
+                              @php
+                                 $albumImages = $g->all_images;
+                                 $detailUrl = route('gallery.detail', $g->id);
+                              @endphp
                               <div class="swiper-slide">
-                                 <div class="tp-gallery__item p-relative mb-70">
+                                 <div class="tp-gallery__item p-relative mb-70 home-gallery-album-item" data-album-id="gal-home-{{ $g->id }}">
                                     <div class="tp-gallery__img p-relative">
                                        <img src="{{ asset($g->image) }}" alt="{{ $g->title }}">
+                                       @if(count($albumImages) > 1)
+                                          <span class="gallery-album-badge">
+                                             <i class="fa-solid fa-images me-1"></i> {{ count($albumImages) }} Photos
+                                          </span>
+                                       @endif
                                        <div class="tp-gallery__info">
-                                          <a class="popup-image" href="{{ asset($g->image) }}"><i class="fa-solid fa-plus"></i></a>
+                                          <a class="home-album-popup-btn" href="{{ asset($albumImages[0]) }}" title="{{ $g->title }} (1 of {{ count($albumImages) }})"><i class="fa-solid fa-plus"></i></a>
+                                          @if(count($albumImages) > 1)
+                                             <div class="d-none">
+                                                @foreach($albumImages as $idx => $sImg)
+                                                   @if($idx > 0)
+                                                      <a class="home-album-popup-btn" href="{{ asset($sImg) }}" title="{{ $g->title }} ({{ $idx + 1 }} of {{ count($albumImages) }})"></a>
+                                                   @endif
+                                                @endforeach
+                                             </div>
+                                          @endif
                                        </div>
                                     </div>
                                     <div class="tp-gallery__content">
-                                       <h4 class="tp-gallery__title"><a href="{{ $g->link ? url($g->link) : '#' }}">{{ $g->title }}</a></h4>
-                                       <span><i class="fa-solid fa-tag"></i><a href="#">{{ $g->category ?: 'General' }}</a></span>
+                                       <h4 class="tp-gallery__title"><a href="{{ $detailUrl }}">{{ $g->title }}</a></h4>
+                                       <div class="d-flex align-items-center justify-content-between pt-1">
+                                          <span><i class="fa-solid fa-tag"></i><a href="{{ route('gallery') }}">{{ $g->category ?: 'General' }}</a></span>
+                                          <a href="{{ $detailUrl }}" class="small text-primary fw-bold text-decoration-none">
+                                             View Album <i class="fa-solid fa-arrow-right ms-1"></i>
+                                          </a>
+                                       </div>
                                     </div>
                                  </div>
                               </div>
@@ -1733,5 +1756,58 @@
         font-size: 16px;
     }
 }
+
+/* Home Gallery Album Badge */
+.gallery-album-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(14, 99, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff !important;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 50px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.18);
+    z-index: 4;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+.tp-gallery__item:hover .gallery-album-badge {
+    background: #0E63FF;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(14, 99, 255, 0.4);
+}
 </style>
+@endpush
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+   $('.home-gallery-album-item').each(function() {
+      $(this).magnificPopup({
+         delegate: '.home-album-popup-btn',
+         type: 'image',
+         gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+            preload: [0, 2],
+            tPrev: 'Previous (Left Arrow)',
+            tNext: 'Next (Right Arrow)',
+            tCounter: '<span class="mfp-counter">%curr% of %total%</span>'
+         },
+         image: {
+            titleSrc: function(item) {
+               return item.el.attr('title') || '';
+            }
+         },
+         mainClass: 'mfp-fade mfp-with-zoom',
+         removalDelay: 300
+      });
+   });
+});
+</script>
 @endpush

@@ -180,6 +180,9 @@ class HomeSectionsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'client' => 'nullable|string|max:255',
+            'date' => 'nullable|string|max:255',
         ]);
 
         $imagePath = 'assets/img/gallery/gal-thum-01.jpg';
@@ -187,17 +190,34 @@ class HomeSectionsController extends Controller
             $imagePath = UploadHelper::uploadImage($request->file('image'), 'uploads/gallery');
         }
 
+        $innerImages = [];
+        if ($request->hasFile('gallery_images')) {
+            $files = $request->file('gallery_images');
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+            foreach ($files as $file) {
+                if ($file && $file->isValid()) {
+                    $innerImages[] = UploadHelper::uploadImage($file, 'uploads/gallery');
+                }
+            }
+        }
+
         GalleryItem::create([
             'title' => $request->title,
             'category' => $request->category,
+            'description' => $request->description,
+            'client' => $request->client,
+            'date' => $request->date,
             'image' => $imagePath,
+            'images' => $innerImages,
             'link' => $request->link,
             'order' => (int)$request->order,
             'is_active' => $request->has('is_active'),
         ]);
 
         return redirect()->route('admin.home_sections.index', ['tab' => 'gallery'])
-            ->with('success', 'Gallery item added successfully!');
+            ->with('success', 'Gallery item and photos added successfully!');
     }
 
     public function updateGallery(Request $request, $id)
@@ -207,26 +227,99 @@ class HomeSectionsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'client' => 'nullable|string|max:255',
+            'date' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('image')) {
             $item->image = UploadHelper::uploadImage($request->file('image'), 'uploads/gallery');
         }
 
+        $currentInner = is_array($item->images) ? $item->images : [];
+        if ($request->hasFile('gallery_images')) {
+            $files = $request->file('gallery_images');
+            if (!is_array($files)) {
+                $files = [$files];
+            }
+            foreach ($files as $file) {
+                if ($file && $file->isValid()) {
+                    $currentInner[] = UploadHelper::uploadImage($file, 'uploads/gallery');
+                }
+            }
+        }
+
         $item->title = $request->title;
         $item->category = $request->category;
+        $item->description = $request->description;
+        $item->client = $request->client;
+        $item->date = $request->date;
+        $item->images = array_values($currentInner);
         $item->link = $request->link;
         $item->order = (int)$request->order;
         $item->is_active = $request->has('is_active');
         $item->save();
 
         return redirect()->route('admin.home_sections.index', ['tab' => 'gallery'])
-            ->with('success', 'Gallery item updated successfully!');
+            ->with('success', 'Gallery item and photos updated successfully!');
+    }
+
+    public function deleteGalleryInnerImage(Request $request, $id)
+    {
+        $item = GalleryItem::findOrFail($id);
+        $imagePath = $request->input('image_path');
+
+        if (!empty($imagePath)) {
+            $currentImages = is_array($item->images) ? $item->images : [];
+            $filtered = array_values(array_filter($currentImages, function ($img) use ($imagePath) {
+                return $img !== $imagePath;
+            }));
+            $item->images = $filtered;
+            $item->save();
+
+            // Unlink if stored in uploads
+            $fullPath = public_path($imagePath);
+            if (file_exists($fullPath) && str_contains($imagePath, 'uploads/')) {
+                @unlink($fullPath);
+            }
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Image removed from gallery album!',
+                    'remaining_images' => $filtered,
+                    'photos_count' => $item->photos_count
+                ]);
+            }
+
+            return back()->with('success', 'Image removed from gallery album!');
+        }
+
+        return back()->with('error', 'Image path is missing.');
     }
 
     public function deleteGallery($id)
     {
         $item = GalleryItem::findOrFail($id);
+
+        if ($item->image && str_contains($item->image, 'uploads/')) {
+            $fullCover = public_path($item->image);
+            if (file_exists($fullCover)) {
+                @unlink($fullCover);
+            }
+        }
+
+        if (is_array($item->images)) {
+            foreach ($item->images as $img) {
+                if ($img && str_contains($img, 'uploads/')) {
+                    $f = public_path($img);
+                    if (file_exists($f)) {
+                        @unlink($f);
+                    }
+                }
+            }
+        }
+
         $item->delete();
 
         return redirect()->route('admin.home_sections.index', ['tab' => 'gallery'])

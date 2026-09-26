@@ -242,6 +242,26 @@ class HomeController extends Controller
         return view('gallery', compact('galleryItems', 'categories'));
     }
 
+    public function galleryDetail($id)
+    {
+        $item = GalleryItem::where('is_active', true)->where('id', $id)->firstOrFail();
+        $relatedItems = GalleryItem::where('is_active', true)
+            ->where('id', '!=', $item->id)
+            ->where(function($q) use ($item) {
+                if (!empty($item->category)) {
+                    $q->where('category', $item->category);
+                }
+            })
+            ->take(3)
+            ->get();
+
+        if ($relatedItems->isEmpty()) {
+            $relatedItems = GalleryItem::where('is_active', true)->where('id', '!=', $item->id)->take(3)->get();
+        }
+
+        return view('gallery_detail', compact('item', 'relatedItems'));
+    }
+
     public function team()
     {
         if (\App\Models\Setting::get('section_team_enabled', '1') != '1') {

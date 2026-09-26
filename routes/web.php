@@ -45,6 +45,7 @@ Route::post('/api/analytics/leave', [AnalyticsController::class, 'leave'])->name
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/gallery/{id}', [HomeController::class, 'galleryDetail'])->name('gallery.detail');
 Route::get('/specialists', [HomeController::class, 'team'])->name('specialists');
 Route::get('/specialists/{slug}', [HomeController::class, 'teamDetail'])->name('specialist.detail');
 Route::get('/team', [HomeController::class, 'team'])->name('team');
@@ -122,6 +123,7 @@ Route::middleware(['auth', \App\Http\Middleware\TrackAdminActivity::class])->pre
     Route::post('home-sections/gallery', [AdminHomeSectionsController::class, 'storeGallery'])->name('home_sections.gallery.store');
     Route::put('home-sections/gallery/{id}', [AdminHomeSectionsController::class, 'updateGallery'])->name('home_sections.gallery.update');
     Route::delete('home-sections/gallery/{id}', [AdminHomeSectionsController::class, 'deleteGallery'])->name('home_sections.gallery.destroy');
+    Route::post('home-sections/gallery/{id}/delete-image', [AdminHomeSectionsController::class, 'deleteGalleryInnerImage'])->name('home_sections.gallery.delete_image');
 
     // Team CRUD (via Home Manager)
     Route::post('home-sections/team', [AdminHomeSectionsController::class, 'storeTeam'])->name('home_sections.team.store');
