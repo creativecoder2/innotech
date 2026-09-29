@@ -230,20 +230,116 @@ Route::get('/uploads/{path}', function ($path) {
     abort(404);
 })->where('path', '.*');
 
-// Browser cache clear utility (executes optimize:clear without needing cPanel terminal)
+// Browser optimization & cache utility (executes all 4 artisan commands on browser hit)
+Route::get('/optimize', function () {
+    $commands = [
+        'optimize:clear' => 'Clearing compiled services, cache, views, and routes...',
+        'config:cache'   => 'Caching configuration files for high-speed boot...',
+        'route:cache'    => 'Compiling and caching route registrations...',
+        'view:cache'     => 'Pre-compiling all Blade templates into fast PHP bytecode...',
+    ];
+
+    $results = [];
+    $allSuccessful = true;
+
+    foreach ($commands as $cmd => $desc) {
+        try {
+            $exitCode = \Illuminate\Support\Facades\Artisan::call($cmd);
+            $rawOutput = trim(\Illuminate\Support\Facades\Artisan::output());
+            $results[$cmd] = [
+                'status'  => $exitCode === 0 ? 'success' : 'warning',
+                'desc'    => $desc,
+                'output'  => $rawOutput ?: 'Completed successfully.',
+            ];
+            if ($exitCode !== 0) {
+                $allSuccessful = false;
+            }
+        } catch (\Throwable $e) {
+            $allSuccessful = false;
+            $results[$cmd] = [
+                'status'  => 'error',
+                'desc'    => $desc,
+                'output'  => 'Exception: ' . $e->getMessage(),
+            ];
+        }
+    }
+
+    $overallColor = $allSuccessful ? '#10B981' : '#F59E0B';
+    $badgeBg = $allSuccessful ? '#ECFDF5' : '#FFFBEB';
+    $badgeText = $allSuccessful ? '#065F46' : '#92400E';
+    $title = $allSuccessful ? 'All Optimization Commands Executed Successfully!' : 'Optimization Completed with Warnings';
+
+    $html = '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innotech - Artisan Optimization Engine</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background: #0F172A; color: #E2E8F0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 25px; }
+        .card { width: 100%; max-width: 760px; background: #1E293B; border: 1px solid #334155; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); overflow: hidden; }
+        .card-header { padding: 30px; border-bottom: 1px solid #334155; text-align: center; background: radial-gradient(circle at top, #1e3a5f 0%, #1e293b 80%); }
+        .card-header .icon { font-size: 46px; margin-bottom: 10px; }
+        .card-header h1 { font-size: 22px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
+        .card-header p { font-size: 14px; color: #94A3B8; }
+        .card-body { padding: 25px 30px; }
+        .command-item { background: #0F172A; border: 1px solid #334155; border-radius: 10px; padding: 16px; margin-bottom: 14px; transition: all 0.2s ease; }
+        .command-item:hover { border-color: #475569; }
+        .command-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .command-name { font-family: "Courier New", Courier, monospace; font-size: 14px; font-weight: 700; color: #38BDF8; }
+        .badge { padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-success { background: #064E3B; color: #34D399; border: 1px solid #059669; }
+        .badge-warning { background: #78350F; color: #FBBF24; border: 1px solid #D97706; }
+        .badge-error { background: #7F1D1D; color: #F87171; border: 1px solid #DC2626; }
+        .command-desc { font-size: 12px; color: #94A3B8; margin-bottom: 10px; }
+        .command-output { background: #020617; border: 1px solid #1E293B; border-radius: 6px; padding: 10px 14px; font-family: "Courier New", Courier, monospace; font-size: 12px; color: #CBD5E1; white-space: pre-wrap; word-break: break-all; max-height: 120px; overflow-y: auto; }
+        .card-footer { padding: 20px 30px; background: #0F172A; border-top: 1px solid #334155; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .btn { padding: 10px 22px; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease; border: none; cursor: pointer; }
+        .btn-primary { background: #0284C7; color: #FFFFFF; }
+        .btn-primary:hover { background: #0369A1; }
+        .btn-outline { background: #1E293B; color: #E2E8F0; border: 1px solid #475569; }
+        .btn-outline:hover { background: #334155; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <div class="icon">' . ($allSuccessful ? '⚡' : '⚠️') . '</div>
+            <h1>' . $title . '</h1>
+            <p>Executed commands: <code>optimize:clear</code> &bull; <code>config:cache</code> &bull; <code>route:cache</code> &bull; <code>view:cache</code></p>
+        </div>
+        <div class="card-body">';
+
+    foreach ($results as $cmd => $info) {
+        $badgeClass = 'badge-' . $info['status'];
+        $badgeLabel = strtoupper($info['status']);
+        $html .= '<div class="command-item">
+            <div class="command-title-row">
+                <span class="command-name">php artisan ' . htmlspecialchars($cmd) . '</span>
+                <span class="badge ' . $badgeClass . '">' . $badgeLabel . '</span>
+            </div>
+            <div class="command-desc">' . htmlspecialchars($info['desc']) . '</div>
+            <div class="command-output">' . htmlspecialchars($info['output']) . '</div>
+        </div>';
+    }
+
+    $html .= '</div>
+        <div class="card-footer">
+            <a href="' . url('/optimize') . '" class="btn btn-primary">🔄 Re-run All Commands</a>
+            <a href="' . url('/') . '" class="btn btn-outline" target="_blank">🌐 Open Website</a>
+            <a href="' . url('/admin') . '" class="btn btn-outline" target="_blank">🛡️ Admin Panel</a>
+        </div>
+    </div>
+</body>
+</html>';
+
+    return response($html, 200)->header('Content-Type', 'text/html');
+});
+
+// Alias route: /clear-cache redirects or runs /optimize
 Route::get('/clear-cache', function () {
-    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-    $output = \Illuminate\Support\Facades\Artisan::output();
-    return '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 30px; border: 1.5px solid #86EFAC; background: #F0FDF4; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">'
-        . '<div style="font-size: 40px; margin-bottom: 10px;">✅</div>'
-        . '<h2 style="color: #166534; margin: 0 0 10px;">System Cache Cleared Successfully!</h2>'
-        . '<p style="color: #15803D; font-size: 14px; margin: 0 0 20px;">Configuration, routes, views, and compiled caches have been refreshed.</p>'
-        . '<pre style="background: #ffffff; border: 1px solid #CBD5E1; padding: 12px; border-radius: 6px; text-align: left; font-size: 12px; color: #334155; max-height: 180px; overflow-y: auto;">' . htmlspecialchars($output) . '</pre>'
-        . '<div style="margin-top: 20px; display: flex; justify-content: center; gap: 10px;">'
-        . '<a href="' . url('/') . '" style="padding: 10px 20px; background: #0E63FF; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Go to Website</a>'
-        . '<a href="' . url('/admin') . '" style="padding: 10px 20px; background: #334155; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 13px;">Go to Admin Panel</a>'
-        . '</div>'
-        . '</div>';
+    return redirect('/optimize');
 });
 
 

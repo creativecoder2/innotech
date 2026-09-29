@@ -184,13 +184,21 @@ class ChatController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
-        // Mark incoming admin messages as read
-        ChatMessage::where('conversation_id', $conversation->id)
-            ->whereIn('sender_type', ['admin', 'bot'])
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
+        // Mark incoming admin messages as read ONLY if unread messages exist
+        $hasUnreadIncoming = $messages->contains(function ($m) {
+            return in_array($m->sender_type, ['admin', 'bot']) && !$m->is_read;
+        });
 
-        $conversation->update(['unread_user' => 0]);
+        if ($hasUnreadIncoming) {
+            ChatMessage::where('conversation_id', $conversation->id)
+                ->whereIn('sender_type', ['admin', 'bot'])
+                ->where('is_read', false)
+                ->update(['is_read' => true]);
+        }
+
+        if ($conversation->unread_user > 0) {
+            $conversation->update(['unread_user' => 0]);
+        }
 
         return response()->json([
             'status' => 'success',

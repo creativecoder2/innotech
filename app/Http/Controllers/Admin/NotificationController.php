@@ -96,20 +96,20 @@ class NotificationController extends Controller
             }
         }
 
-        // Badge counts
-        $unreadInquiriesCount = Inquiry::where('status', 'unread')->count();
-        $pendingCommentsCount = class_exists(BlogComment::class) ? BlogComment::where('status', 'pending')->count() : 0;
-        $unreadChatCount = class_exists(ChatConversation::class) ? (int) ChatConversation::sum('unread_admin') : 0;
+        // Badge counts (Cached for 15 seconds to prevent hammering MySQL)
+        $badges = \Illuminate\Support\Facades\Cache::remember('admin_badge_counts', 15, function () {
+            return [
+                'inquiries' => Inquiry::where('status', 'unread')->count(),
+                'comments' => class_exists(BlogComment::class) ? BlogComment::where('status', 'pending')->count() : 0,
+                'chats' => class_exists(ChatConversation::class) ? (int) ChatConversation::sum('unread_admin') : 0,
+            ];
+        });
 
         return response()->json([
             'success' => true,
             'server_time' => now()->timestamp,
             'events' => $events,
-            'badges' => [
-                'inquiries' => $unreadInquiriesCount,
-                'comments' => $pendingCommentsCount,
-                'chats' => $unreadChatCount,
-            ]
+            'badges' => $badges,
         ]);
     }
 }

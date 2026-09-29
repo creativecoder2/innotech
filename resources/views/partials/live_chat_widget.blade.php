@@ -1076,65 +1076,77 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 4. Polling for incoming Admin replies
-    function startPolling() {
-        if (pollInterval) clearInterval(pollInterval);
-        pollInterval = setInterval(function() {
-            if (!sessionToken) return;
+    // 4. Polling for incoming Admin replies (Smart interval & tab visibility)
+    let isPollingActive = true;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            isPollingActive = false;
+        } else {
+            isPollingActive = true;
+            // Immediate check upon returning to tab
+            checkNewMessages();
+        }
+    });
 
-            fetch(`{{ url('chat/poll') }}?session_token=${encodeURIComponent(sessionToken)}&last_id=${lastMessageId}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        if (data.conversation_status === 'closed') {
-                            setWidgetChatClosedState(true);
-                        } else if (data.conversation_status === 'active') {
-                            setWidgetChatClosedState(false);
+    function checkNewMessages() {
+        if (!sessionToken || !isPollingActive) return;
+
+        fetch(`{{ url('chat/poll') }}?session_token=${encodeURIComponent(sessionToken)}&last_id=${lastMessageId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    if (data.conversation_status === 'closed') {
+                        setWidgetChatClosedState(true);
+                    } else if (data.conversation_status === 'active') {
+                        setWidgetChatClosedState(false);
+                    }
+
+                    if (data.messages && data.messages.length > 0) {
+                        let hasIncoming = false;
+                        let hasAdminReply = false;
+                        let latestAdminText = '';
+
+                        data.messages.forEach(msg => {
+                            if (msg.id === pendingDelayedMsgId) {
+                                return;
+                            }
+                            appendMessage(msg);
+                            if (msg.sender_type === 'admin') {
+                                hasAdminReply = true;
+                                latestAdminText = (msg.type === 'audio') ? '🎤 Voice message from support' : msg.message;
+                            }
+                            if (msg.sender_type === 'admin' || msg.sender_type === 'bot') {
+                                hasIncoming = true;
+                                if (!latestAdminText) {
+                                    latestAdminText = msg.message;
+                                }
+                            }
+                        });
+
+                        if (hasIncoming) {
+                            playChime();
                         }
 
-                        if (data.messages && data.messages.length > 0) {
-                            let hasIncoming = false;
-                            let hasAdminReply = false;
-                            let latestAdminText = '';
-
-                            data.messages.forEach(msg => {
-                                // If this message is currently being held for the 3-second delay, don't show it prematurely
-                                if (msg.id === pendingDelayedMsgId) {
-                                    return;
-                                }
-                                appendMessage(msg);
-                                if (msg.sender_type === 'admin') {
-                                    hasAdminReply = true;
-                                    latestAdminText = (msg.type === 'audio') ? '🎤 Voice message from support' : msg.message;
-                                }
-                                if (msg.sender_type === 'admin' || msg.sender_type === 'bot') {
-                                    hasIncoming = true;
-                                    if (!latestAdminText) {
-                                        latestAdminText = msg.message;
-                                    }
-                                }
-                            });
-
-                            if (hasIncoming) {
-                                playChime();
+                        if (hasAdminReply) {
+                            if (chatBox.classList.contains('d-none')) {
+                                toggleChat(true);
                             }
-
-                            // Auto-open chat popup on EVERY new Admin reply!
-                            if (hasAdminReply) {
-                                if (chatBox.classList.contains('d-none')) {
-                                    toggleChat(true);
-                                }
-                            } else if (hasIncoming) {
-                                if (chatBox.classList.contains('d-none')) {
-                                    chatUnreadDot.classList.remove('d-none');
-                                    showChatTooltip(latestAdminText);
-                                }
+                        } else if (hasIncoming) {
+                            if (chatBox.classList.contains('d-none')) {
+                                chatUnreadDot.classList.remove('d-none');
+                                showChatTooltip(latestAdminText);
                             }
                         }
                     }
-                })
-                .catch(() => {});
-        }, 3000);
+                }
+            })
+            .catch(() => {});
+    }
+
+    function startPolling() {
+        if (pollInterval) clearInterval(pollInterval);
+        // Poll every 12 seconds instead of 3 seconds to preserve server CPU
+        pollInterval = setInterval(checkNewMessages, 12000);
     }
 
     // 5. Tooltip Event Listeners & Intervals
@@ -1154,21 +1166,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Show initial teaser tooltip after 3 seconds if chat was never opened
+    // Show initial teaser tooltip after 4 seconds if chat was never opened
     setTimeout(function() {
         if (chatBox && chatBox.classList.contains('d-none')) {
             showChatTooltip();
         }
-    }, 3000);
-
-    // Periodically re-display tooltip every 6 seconds if chat is closed
-    setInterval(function() {
-        if (chatBox && chatBox.classList.contains('d-none')) {
-            showChatTooltip();
-        } else {
-            hideChatTooltip();
-        }
-    }, 6000);
+    }, 4000);
 
     // Start background polling if session exists
     if (sessionToken) {

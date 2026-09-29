@@ -831,8 +831,10 @@
         // Initialize permission UI on load
         updateNotifPermissionUI();
 
-        // 3. Realtime Polling Loop (Every 5 seconds)
-        setInterval(function() {
+        // 3. Realtime Polling Loop (Every 25 seconds & paused when tab is inactive)
+        function checkAdminNotifications() {
+            if (document.hidden) return;
+
             fetch('{{ route("admin.notifications.check") }}?last_check=' + lastNotificationCheck)
                 .then(res => res.json())
                 .then(data => {
@@ -876,7 +878,15 @@
                     }
                 })
                 .catch(() => {});
-        }, 5000);
+        }
+
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                checkAdminNotifications();
+            }
+        });
+
+        setInterval(checkAdminNotifications, 25000);
     </script>
     <script src="{{ asset('assets/js/fix-webm-duration.js') }}"></script>
     @stack('scripts')

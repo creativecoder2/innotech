@@ -998,6 +998,8 @@
 
     // Polling Feed for New Inquiries & Messages
     function pollFeed() {
+        if (document.hidden) return;
+
         fetch('{{ route("admin.live_chat.feed") }}')
             .then(res => res.json())
             .then(data => {
@@ -1025,7 +1027,13 @@
         if (currentConversationId) {
             loadMessages(currentConversationId);
         }
-        feedInterval = setInterval(pollFeed, 5000);
+        feedInterval = setInterval(pollFeed, 15000);
+
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                pollFeed();
+            }
+        });
     });
 
     // Search filter
