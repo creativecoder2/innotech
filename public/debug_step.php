@@ -1,12 +1,22 @@
 <?php
+@ini_set('zlib.output_compression', 0);
+@ini_set('implicit_flush', 1);
+while (ob_get_level()) ob_end_flush();
+ob_implicit_flush(true);
+
 header('Content-Type: text/plain; charset=utf-8');
+header('X-Accel-Buffering: no');
+
 echo "Step 0: PHP is alive (" . date('H:i:s') . ")\n";
+flush();
 
 $start = microtime(true);
 
 echo "Step 1: Loading Composer autoloader...\n";
+flush();
 require dirname(__DIR__) . '/vendor/autoload.php';
 echo "Step 1 OK in " . round((microtime(true) - $start) * 1000, 2) . " ms\n";
+flush();
 
 $t = microtime(true);
 echo "Step 2: Bootstrapping Laravel application...\n";
