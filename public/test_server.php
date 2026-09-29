@@ -13,16 +13,28 @@ if (!file_exists($envFile)) {
     $envFile = dirname(__DIR__) . '/.env.production';
 }
 
+echo "<hr><h3>Environment & Database Test:</h3>";
 if (file_exists($envFile)) {
-    $env = parse_ini_file($envFile);
+    echo "Using file: " . htmlspecialchars(basename($envFile)) . "<br>";
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $env = [];
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if (str_starts_with($line, '#')) continue;
+        if (str_contains($line, '=')) {
+            list($key, $val) = explode('=', $line, 2);
+            $val = trim($val, " \t\n\r\0\x0B\"'");
+            $env[trim($key)] = $val;
+        }
+    }
+
     $host = $env['DB_HOST'] ?? 'localhost';
     $port = $env['DB_PORT'] ?? '3306';
     $db   = $env['DB_DATABASE'] ?? '';
     $user = $env['DB_USERNAME'] ?? '';
     $pass = $env['DB_PASSWORD'] ?? '';
 
-    echo "<hr><h3>Database Connection Test:</h3>";
-    echo "Host: {$host}:{$port} | DB: {$db} | User: {$user}<br>";
+    echo "Host: {$host}:{$port} | DB: {$db} | User: {$user} | Pass length: " . strlen($pass) . "<br>";
 
     $start = microtime(true);
     try {
@@ -37,5 +49,5 @@ if (file_exists($envFile)) {
         echo "<b style='color:red'>MySQL Connection FAILED in {$duration} ms: " . htmlspecialchars($e->getMessage()) . "</b><br>";
     }
 } else {
-    echo "<br><i>No .env file found to test DB.</i><br>";
+    echo "<b style='color:red'>ERROR: Neither .env nor .env.production exists on server!</b><br>";
 }
