@@ -232,11 +232,18 @@ Route::get('/uploads/{path}', function ($path) {
 
 // Browser optimization & cache utility (executes all 4 artisan commands on browser hit)
 Route::get('/optimize', function () {
+    @set_time_limit(300);
+    @ini_set('max_execution_time', '300');
+    @ini_set('memory_limit', '512M');
+    if (function_exists('ignore_user_abort')) {
+        @ignore_user_abort(true);
+    }
+
     $commands = [
         'optimize:clear' => 'Clearing compiled services, cache, views, and routes...',
         'config:cache'   => 'Caching configuration files for high-speed boot...',
         'route:cache'    => 'Compiling and caching route registrations...',
-        'view:cache'     => 'Pre-compiling all Blade templates into fast PHP bytecode...',
+        'view:cache'     => 'Pre-compiling Blade templates into bytecode...',
     ];
 
     $results = [];
