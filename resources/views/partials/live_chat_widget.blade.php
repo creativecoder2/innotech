@@ -1,5 +1,6 @@
 @php
-    $chatEnabled = \App\Models\Setting::get('chat_enabled', '1') == '1';
+    // Completely disabled to eliminate all background polling and CPU spikes
+    $chatEnabled = false;
     $whatsappEnabled = \App\Models\Setting::get('whatsapp_enabled', '1') == '1';
     $waPhone = preg_replace('/[^0-9]/', '', \App\Models\Setting::get('whatsapp_phone', '923316699992'));
     $waMessage = urlencode(\App\Models\Setting::get('whatsapp_default_message', 'Hello Innotech Medical, I would like to inquire about your medical equipment and services.'));

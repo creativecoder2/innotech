@@ -685,17 +685,14 @@
       </script>
       <script src="{{ asset('assets/js/fix-webm-duration.js') }}"></script>
       
-      <!-- Visitor Analytics & Dwell Time Tracker -->
+      <!-- Visitor Analytics & Dwell Time Tracker (Temporarily disabled to eliminate all AJAX background requests) -->
+      {{--
       <script>
       (function() {
-         // Skip tracking on admin panels
          if (window.location.pathname.indexOf('/admin') === 0) return;
-
          let logId = null;
          const startTime = Date.now();
          let durationReported = false;
-
-         // 1. Ping initial page view
          const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
          
          fetch("{{ route('analytics.ping') }}", {
@@ -709,48 +706,10 @@
                page: window.location.pathname,
                title: document.title
             })
-         })
-         .then(res => res.json())
-         .then(data => {
-            if (data && data.log_id) {
-               logId = data.log_id;
-            }
-         })
-         .catch(() => {});
-
-         // 2. Report dwell time on exit
-         function reportLeave() {
-            if (durationReported || !logId) return;
-            durationReported = true;
-            const durationSec = Math.max(1, Math.round((Date.now() - startTime) / 1000));
-            
-            const payload = JSON.stringify({
-               log_id: logId,
-               duration: durationSec
-            });
-
-            if (navigator.sendBeacon) {
-               const blob = new Blob([payload], { type: 'application/json' });
-               navigator.sendBeacon("{{ route('analytics.leave') }}", blob);
-            } else {
-               fetch("{{ route('analytics.leave') }}", {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken || '' },
-                  body: payload,
-                  keepalive: true
-               }).catch(() => {});
-            }
-         }
-
-         window.addEventListener('pagehide', reportLeave);
-         window.addEventListener('beforeunload', reportLeave);
-         document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') {
-               reportLeave();
-            }
-         });
+         }).catch(() => {});
       })();
       </script>
+      --}}
 
       @stack('scripts')
 
