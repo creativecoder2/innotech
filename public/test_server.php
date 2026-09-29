@@ -3,9 +3,12 @@ header('Content-Type: text/html; charset=utf-8');
 echo "<h2>Server Diagnostics</h2>";
 echo "<b>Time:</b> " . date('Y-m-d H:i:s') . "<br>";
 echo "<b>PHP Version:</b> " . phpversion() . "<br>";
-echo "<b>mbstring:</b> " . (extension_loaded('mbstring') ? '<span style="color:green">ENABLED</span>' : '<span style="color:red">DISABLED</span>') . "<br>";
-echo "<b>opcache:</b> " . (extension_loaded('Zend OPcache') ? '<span style="color:green">ENABLED</span>' : '<span style="color:red">DISABLED</span>') . "<br>";
-echo "<b>pdo_mysql:</b> " . (extension_loaded('pdo_mysql') ? '<span style="color:green">ENABLED</span>' : '<span style="color:red">DISABLED</span>') . "<br>";
+echo "<b>PHP SAPI:</b> " . php_sapi_name() . "<br>";
+echo "<b>Loaded php.ini:</b> " . (php_ini_loaded_file() ?: 'None') . "<br>";
+echo "<b>mbstring:</b> " . (extension_loaded('mbstring') ? '<span style="color:green;font-weight:bold">ENABLED</span>' : '<span style="color:red;font-weight:bold">DISABLED</span>') . "<br>";
+echo "<b>opcache:</b> " . (extension_loaded('Zend OPcache') ? '<span style="color:green;font-weight:bold">ENABLED</span>' : '<span style="color:red;font-weight:bold">DISABLED</span>') . "<br>";
+echo "<b>pdo_mysql:</b> " . (extension_loaded('pdo_mysql') ? '<span style="color:green;font-weight:bold">ENABLED</span>' : '<span style="color:red;font-weight:bold">DISABLED</span>') . "<br>";
+echo "<b>Loaded Extensions (" . count(get_loaded_extensions()) . "):</b> " . implode(', ', get_loaded_extensions()) . "<br>";
 
 // Test Database Connection
 $envFile = dirname(__DIR__) . '/.env';
