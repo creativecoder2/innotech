@@ -1,6 +1,5 @@
 @php
-    // Completely disabled to eliminate all background polling and CPU spikes
-    $chatEnabled = false;
+    $chatEnabled = \App\Models\Setting::get('chat_enabled', '1') == '1';
     $whatsappEnabled = \App\Models\Setting::get('whatsapp_enabled', '1') == '1';
     $waPhone = preg_replace('/[^0-9]/', '', \App\Models\Setting::get('whatsapp_phone', '923316699992'));
     $waMessage = urlencode(\App\Models\Setting::get('whatsapp_default_message', 'Hello Innotech Medical, I would like to inquire about your medical equipment and services.'));
@@ -604,6 +603,7 @@ document.addEventListener('DOMContentLoaded', function() {
             chatOpenIcon.classList.remove('d-none');
             chatCloseIcon.classList.add('d-none');
             localStorage.setItem('innotech_chat_open', '0');
+            if (sessionToken) startPolling();
         }
     }
 
@@ -1146,8 +1146,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function startPolling() {
         if (pollInterval) clearInterval(pollInterval);
-        // Poll every 12 seconds instead of 3 seconds to preserve server CPU
-        pollInterval = setInterval(checkNewMessages, 12000);
+        if (!sessionToken) return;
+        // Adaptive polling: 10s when chat is actively open, 30s when minimized to protect server CPU
+        const interval = (chatBox && !chatBox.classList.contains('d-none')) ? 10000 : 30000;
+        pollInterval = setInterval(checkNewMessages, interval);
     }
 
     // 5. Tooltip Event Listeners & Intervals
